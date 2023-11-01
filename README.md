@@ -13,6 +13,10 @@ Verbeterde toegankelijkheid voor klanten: Klanten kunnen via de database snel in
 
 ## 2. Datastructuur en relaties:
 
+
+![image](https://github.com/SeppeV-2158896/databases-20232024/assets/125284904/80c7e28f-9ae4-49f9-a905-0cc3d632498f)
+
+
 De database bevat verschillende tabellen met onderlinge relaties om de vereiste gegevens op een georganiseerde manier te bewaren.
 
 - Games Tabel: Dit is het kernonderdeel van de database, waarin elk spel wordt geregistreerd. De tabel bevat informatie over de naam van het spel, de eigenaar, de huidige locatie en details zoals compatibele consoles, ontwikkelaars en genres. Omdat spellen meerdere consoles, ontwikkelaars en genres kunnen hebben en vice versa, worden veel-op-veel relaties met brugtabellen gebruikt om deze complexe relaties te beheren.
