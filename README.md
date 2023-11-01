@@ -1,11 +1,11 @@
 # Database ontwerp voor VGHF
-Het ontwerpen van een database voor het VGHF (Video Game Heritage Foundation) om de inventarisatie van alle spellen en hun locaties bij te houden, is een cruciale stap om ervoor te zorgen dat de collectie efficiënt en effectief beheerd kan worden. Hieronder bespreken we de verschillende aspecten en argumenten die bijdragen aan het ontwerp van deze database.
+Het ontwerpen van een database voor het VGHF (Video Game Heritage Foundation) om de inventarisatie van alle spellen en hun locaties bij te houden, is een belangrijke stap om ervoor te zorgen dat de collectie efficiënt en effectief beheerd kan worden. Hieronder bespreken we de verschillende aspecten en argumenten die bijdragen aan het ontwerp van deze database.
 
 ## 1. Doel van de database:
 
 De voornaamste focus van deze database is het bijhouden van de huidige locatie van alle spellen in de collectie van het VGHF. Dit stelt klanten in staat om gemakkelijk te achterhalen waar ze een specifiek spel kunnen bewonderen of uitlenen, en vrijwilligers kunnen snel toegang krijgen tot de locaties van de spellen die ze beheren. Dit dient meerdere doelen:
 
-Verbeterde toegankelijkheid voor klanten: Klanten kunnen via de database snel informatie vinden over de beschikbaarheid van specifieke spellen en hun locaties. Dit is vooral handig voor onderzoeksdoeleinden of om spellen voor een specifiek evenement te lenen.
+- Verbeterde toegankelijkheid voor klanten: Klanten kunnen via de database snel informatie vinden over de beschikbaarheid van specifieke spellen en hun locaties. Hierdoor kunnen klanten opzoeken waar ze bepaalde spellen kunnen bewonderen/uitlenen.
 
 - Vrijwilligersbeheer: Vrijwilligers die verantwoordelijk zijn voor specifieke spellen of locaties kunnen gemakkelijk toegang krijgen tot relevante informatie en hun taken effectief uitvoeren.
 
