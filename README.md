@@ -13,9 +13,7 @@ De voornaamste focus van deze database is het bijhouden van de huidige locatie v
 
 ## 2. Datastructuur en relaties:
 
-
-![image](https://github.com/SeppeV-2158896/databases-20232024/assets/125284904/80c7e28f-9ae4-49f9-a905-0cc3d632498f)
-
+![image](https://github.com/SeppeV-2158896/databases-20232024/assets/125284904/4eeac8a6-7867-412e-bb37-42b72f4bbb1d)
 
 De database bevat verschillende tabellen met onderlinge relaties om de vereiste gegevens op een georganiseerde manier te bewaren.
 
