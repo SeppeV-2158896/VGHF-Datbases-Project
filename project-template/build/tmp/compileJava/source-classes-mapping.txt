@@ -1,0 +1,10 @@
+be/kuleuven/dbproject/controller/BeheerAttachesController.java
+ be.kuleuven.dbproject.controller.BeheerAttachesController
+be/kuleuven/dbproject/controller/BeheerScherm2Controller.java
+ be.kuleuven.dbproject.controller.BeheerScherm2Controller
+be/kuleuven/dbproject/controller/ProjectMainController.java
+ be.kuleuven.dbproject.controller.ProjectMainController
+be/kuleuven/dbproject/ProjectMain.java
+ be.kuleuven.dbproject.ProjectMain
+be/kuleuven/dbproject/controller/BeheerScherm1Controller.java
+ be.kuleuven.dbproject.controller.BeheerScherm1Controller

@@ -15,6 +15,10 @@ javafx {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.23.Final'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.39.3.0'
+    implementation group: 'com.zsoltfabok', name: 'sqlite-dialect', version: '1.0'
 }
 
 test {
