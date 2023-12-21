@@ -1,5 +1,7 @@
 package be.vghf.vghfdatabase.domain;
 
+import be.vghf.vghfdatabase.Enums.ConsoleType;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -15,7 +17,8 @@ public class Console {
     private String consoleName;
 
     @Column
-    private String consoleType;
+    @Enumerated(EnumType.STRING)
+    private ConsoleType consoleType;
 
     @Column
     private String company;
@@ -48,11 +51,11 @@ public class Console {
         this.consoleName = consoleName;
     }
 
-    public String getConsoleType() {
+    public ConsoleType getConsoleType() {
         return consoleType;
     }
 
-    public void setConsoleType(String consoleType) {
+    public void setConsoleType(ConsoleType consoleType) {
         this.consoleType = consoleType;
     }
 
