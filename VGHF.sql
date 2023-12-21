@@ -14,7 +14,7 @@ CREATE TABLE "consoles" (
 	"consoleID"	INTEGER NOT NULL UNIQUE,
 	"consoleName"	TEXT NOT NULL,
 	"consoleType"	TEXT NOT NULL,
-	"company"	INTEGER NOT NULL,
+	"company"	TEXT NOT NULL,
 	"releasedYear"	datetime NOT NULL,
 	"discontinuationYear"	datetime,
 	"unitsSoldMillion"	REAL,
