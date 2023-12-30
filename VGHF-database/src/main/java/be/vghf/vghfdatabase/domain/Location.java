@@ -1,108 +1,57 @@
 package be.vghf.vghfdatabase.domain;
 
-import be.vghf.vghfdatabase.Enums.LocationType;
+import be.vghf.vghfdatabase.enums.LocationType;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
+@Table (name = "locations")
 public class Location {
-    @Column
+    @Column(name = "locationID")
     @Id
     @GeneratedValue
     private int locationID;
 
-    @Column
-    private int ownerID;
+    @ManyToOne
+    @JoinColumn(name = "ownerID", nullable = false)
+    private User owner;
 
-    @Column
+    @Column(name = "streetname")
     private String streetName;
 
-    @Column
+    @Column(name = "houseNumber")
     private int houseNumber;
 
-    @Column
+    @Column(name = "bus")
     private String bus;
 
-    @Column
-    private String PostalCode;
+    @Column(name = "postalCode")
+    private String postalCode;
 
-    @Column
+    @Column(name = "city")
     private String city;
 
-    @Column
+    @Column(name = "country")
     private String country;
 
     @Column
     @Enumerated(EnumType.STRING)
     private LocationType locationType;
 
-    public int getLocationID() {
-        return locationID;
-    }
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "bridge_locations_volunteers",
+            joinColumns = { @JoinColumn(name = "locationID") },
+            inverseJoinColumns = { @JoinColumn(name = "volunteerID") }
+    )
+    Set<User> volunteers = new HashSet<>();
 
-    public void setLocationID(int locationID) {
-        this.locationID = locationID;
-    }
+    @OneToMany(mappedBy = "currentLocation")
+    private Set<Game> currentGames = new HashSet<>();
 
-    public int getOwnerID() {
-        return ownerID;
-    }
+    @OneToMany(mappedBy = "homeBase")
+    private Set<Game> ownedGames = new HashSet<>();
 
-    public void setOwnerID(int ownerID) {
-        this.ownerID = ownerID;
-    }
 
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
-
-    public int getHouseNumber() {
-        return houseNumber;
-    }
-
-    public void setHouseNumber(int houseNumber) {
-        this.houseNumber = houseNumber;
-    }
-
-    public String getBus() {
-        return bus;
-    }
-
-    public void setBus(String bus) {
-        this.bus = bus;
-    }
-
-    public String getPostalCode() {
-        return PostalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        PostalCode = postalCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public LocationType getLocationType() {
-        return locationType;
-    }
-
-    public void setLocationType(LocationType locationType) {
-        this.locationType = locationType;
-    }
 }

@@ -2,50 +2,57 @@ package be.vghf.vghfdatabase.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table (name = "dev_companies")
 public class Dev_company {
-    @Column
+    @Column (name = "devID")
     @Id
     @GeneratedValue
     private int devID;
 
-    @Column
+    @Column (name = "companyName")
     private String companyName;
 
-    @Column
+    @Column (name = "website")
     private String website;
 
-    @Column
+    @Column (name = "supportEmail")
     private String supportEmail;
 
-    @Column
+    @Column (name = "establishedDate")
     private Date establishedDate;
 
-    @Column
+    @Column (name = "streetname")
     private String streetName;
 
-    @Column
+    @Column (name = "houseNumber")
     private int houseNumber;
 
-    @Column
+    @Column (name = "bus")
     private String bus;
 
-    @Column
+    @Column (name = "postalCode")
     private String postalCode;
 
-    @Column
+    @Column (name = "city")
     private String city;
 
-    @Column
+    @Column (name = "country")
     private String country;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "bridge_games_devcompanies",
+            joinColumns = { @JoinColumn(name = "devCompanyID") },
+            inverseJoinColumns = { @JoinColumn(name = "gameID") }
+    )
+    Set<Game> games = new HashSet<>();
 
     public int getDevID() {
         return devID;
-    }
-
-    public void setDevID(int devID) {
-        this.devID = devID;
     }
 
     public String getCompanyName() {

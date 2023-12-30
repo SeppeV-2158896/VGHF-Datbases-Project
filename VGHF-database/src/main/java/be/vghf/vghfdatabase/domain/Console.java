@@ -1,46 +1,55 @@
 package be.vghf.vghfdatabase.domain;
 
-import be.vghf.vghfdatabase.Enums.ConsoleType;
+import be.vghf.vghfdatabase.enums.ConsoleType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class Console {
+@Table (name = "consoles")
+public class Console implements Serializable {
 
-    @Column
+    @Column (name = "consoleID")
     @Id
     @GeneratedValue
-    private int columnID;
+    private int consoleID;
 
-    @Column
+    @Column (name = "consoleName")
     private String consoleName;
 
     @Column
     @Enumerated(EnumType.STRING)
     private ConsoleType consoleType;
 
-    @Column
-    private String company;
+    @ManyToOne
+    @JoinColumn(name = "company", nullable = false)
+    private Dev_company company;
 
-    @Column
+    @Column (name = "releasedYear")
     private Date releaseYear;
 
-    @Column
+    @Column (name = "discontinuationYear")
     private Date discontinuationYear;
 
-    @Column
+    @Column (name = "unitsSoldMillion")
     private double unitsSoldInMillions;
 
-    @Column
+    @Column (name = "remarks")
     private String remarks;
 
-    public int getColumnID() {
-        return columnID;
-    }
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "bridge_games_consoles",
+            joinColumns = { @JoinColumn(name = "consoleID") },
+            inverseJoinColumns = { @JoinColumn(name = "gameID") }
+    )
+    Set<Game> games = new HashSet<>();
 
-    public void setColumnID(int columnID) {
-        this.columnID = columnID;
+    public int getColumnID() {
+        return consoleID;
     }
 
     public String getConsoleName() {
@@ -59,11 +68,11 @@ public class Console {
         this.consoleType = consoleType;
     }
 
-    public String getCompany() {
+    public Dev_company getCompany() {
         return company;
     }
 
-    public void setCompany(String company) {
+    public void setCompany(Dev_company company) {
         this.company = company;
     }
 

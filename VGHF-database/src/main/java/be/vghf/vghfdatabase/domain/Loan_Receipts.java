@@ -1,58 +1,60 @@
 package be.vghf.vghfdatabase.domain;
 
-import be.vghf.vghfdatabase.Enums.LocationType;
-import be.vghf.vghfdatabase.Enums.State;
+import be.vghf.vghfdatabase.enums.State;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table (name = "loan_receipts")
 public class Loan_Receipts {
-    @Column
+    @Column(name = "referenceID")
     @Id
     @GeneratedValue
     private int referenceID;
 
-    @Column
-    private int gameID;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "bridge_games_loanreceipts",
+            joinColumns = {@JoinColumn(name = "loanID")},
+            inverseJoinColumns = {@JoinColumn(name = "gameID")}
+    )
+    Set<Game> games = new HashSet<>();
 
-    @Column
-    private int userID;
+    @ManyToOne
+    @JoinColumn(name = "customerID", nullable = false)
+    private User userID;
 
-    @Column
+    @Column(name = "loanedDate")
     private Date loanedDate;
 
-    @Column
-    private Date returnDate;
+    @Column (name = "loanTermInDays")
+    private int returnDate;
 
-    @Column
+    @Column (name = "fine")
     private double fine;
 
-    @Column
-    @Enumerated(EnumType.STRING)
     private State state;
 
     public int getReferenceID() {
         return referenceID;
     }
 
-    public void setReferenceID(int referenceID) {
-        this.referenceID = referenceID;
+    public Set<Game> getGames() {
+        return games;
     }
 
-    public int getGameID() {
-        return gameID;
+    public void setGames(Set<Game> games) {
+        this.games = games;
     }
 
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
-    }
-
-    public int getUserID() {
+    public User getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(User userID) {
         this.userID = userID;
     }
 
@@ -64,11 +66,11 @@ public class Loan_Receipts {
         this.loanedDate = loanedDate;
     }
 
-    public Date getReturnDate() {
+    public int getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(int returnDate) {
         this.returnDate = returnDate;
     }
 

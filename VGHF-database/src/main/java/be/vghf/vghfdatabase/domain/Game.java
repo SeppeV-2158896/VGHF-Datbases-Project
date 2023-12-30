@@ -4,59 +4,73 @@ import javafx.scene.chart.PieChart;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table (name = "games")
 public class Game {
-    @Column
+    @Column (name = "gameID")
     @Id
     @GeneratedValue
     private int gameID;
 
-    @Column
-    private int ownerID;
+    @OneToOne
+    @JoinColumn(name = "ownerID")
+    private User owner;
 
-    @Column
-    private int homeBaseID;
+    @ManyToOne
+    @JoinColumn(name = "homeBaseID", nullable = false)
+    private Location homeBase;
 
-    @Column
-    private int currentLocationID;
+    @ManyToOne
+    @JoinColumn(name = "currentLocationId", nullable = false)
+    private Location currentLocation;
 
-    @Column
+    @Column (name = "title")
     private String title;
 
-    @Column
+    @Column (name = "releaseDate")
     private Date releaseDate;
+
+    @Column (name = "genre")
+    private String genre;
+
+    @ManyToMany(mappedBy = "games")
+    private Set<Console> consoles = new HashSet<>();
+
+    @ManyToMany(mappedBy = "games")
+    private Set<Dev_company> devCompanies = new HashSet<>();
+
+    @ManyToMany(mappedBy = "games")
+    private Set<Loan_Receipts> loanReceipts = new HashSet<>();
 
     public int getGameID() {
         return gameID;
     }
 
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
+    public User getOwner() {
+        return owner;
     }
 
-    public int getOwnerID() {
-        return ownerID;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
-    public void setOwnerID(int ownerID) {
-        this.ownerID = ownerID;
+    public Location getHomeBase() {
+        return homeBase;
     }
 
-    public int getHomeBaseID() {
-        return homeBaseID;
+    public void setHomeBase(Location homeBase) {
+        this.homeBase = homeBase;
     }
 
-    public void setHomeBaseID(int homeBaseID) {
-        this.homeBaseID = homeBaseID;
+    public Location getCurrentLocation() {
+        return currentLocation;
     }
 
-    public int getCurrentLocationID() {
-        return currentLocationID;
-    }
-
-    public void setCurrentLocationID(int currentLocationID) {
-        this.currentLocationID = currentLocationID;
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
     }
 
     public String getTitle() {
@@ -73,5 +87,29 @@ public class Game {
 
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public Set<Console> getConsoles() {
+        return consoles;
+    }
+
+    public Set<Dev_company> getDevCompanies() {
+        return devCompanies;
+    }
+
+    public void setConsoles(Set<Console> consoles) {
+        this.consoles = consoles;
+    }
+
+    public void setDevCompanies(Set<Dev_company> devCompanies) {
+        this.devCompanies = devCompanies;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }

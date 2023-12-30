@@ -1,45 +1,54 @@
 package be.vghf.vghfdatabase.domain;
 
-import be.vghf.vghfdatabase.Enums.LocationType;
+import be.vghf.vghfdatabase.enums.UserType;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
+@Table (name = "users")
 public class User {
-    @Column
+    @Column (name = "userID")
     @Id
     @GeneratedValue
     private int userID;
 
-    @Column
+    @Column (name = "firstname")
     private String firstName;
 
-    @Column
+    @Column (name = "lastname")
     private String lastName;
 
-    @Column
+    @Column(name = "streetname")
     private String streetName;
 
-    @Column
+    @Column(name = "houseNumber")
     private int houseNumber;
 
-    @Column
+    @Column(name = "bus")
+    private String bus;
+
+    @Column(name = "postalCode")
     private String postalCode;
 
-    @Column
+    @Column(name = "city")
     private String city;
 
-    @Column
+    @Column(name = "country")
     private String country;
 
-    @Column
+    @Column (name = "telephone")
     private int telephone;
 
-    @Column
+    @Column (name = "email")
     private String email;
 
-    @Column
+    @Column (name = "password")
     private String password;
 
+    @ManyToMany(mappedBy = "volunteers")
+    private Set<Location> locations = new HashSet<>();
     @Column
     @Enumerated(EnumType.STRING)
     private UserType userType;
