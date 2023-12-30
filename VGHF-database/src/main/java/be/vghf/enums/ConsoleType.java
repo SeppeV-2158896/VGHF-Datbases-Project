@@ -1,3 +1,3 @@
-package be.vghf.vghfdatabase.enums;
+package be.vghf.enums;
 
 public enum ConsoleType {HANDHELD, HYBRID, STANDALONE}

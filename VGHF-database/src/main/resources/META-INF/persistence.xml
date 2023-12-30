@@ -2,22 +2,22 @@
 <persistence version="2.1"
              xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="be.vghf.vghfdatabase.domain">
+    <persistence-unit name="be.vghf.domain">
         <description>VGHF Hibernate Database Application</description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>be.vghf.vghfdatabase.domain.Console</class>
-        <class>be.vghf.vghfdatabase.domain.Dev_company</class>
-        <class>be.vghf.vghfdatabase.domain.Game</class>
-        <class>be.vghf.vghfdatabase.domain.Loan_Receipts</class>
-        <class>be.vghf.vghfdatabase.domain.Location</class>
-        <class>be.vghf.vghfdatabase.domain.User</class>
+        <class>be.vghf.domain.User</class>
+        <class>be.vghf.domain.Dev_company</class>
+        <class>be.vghf.domain.Console</class>
+        <class>be.vghf.domain.Location</class>
+        <class>be.vghf.domain.Game</class>
+        <class>be.vghf.domain.Loan_Receipts</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:vghf.db"/>
-            <property name="javax.persistence.jdbc.user" value=""/>
-            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:vghf.db" />
+            <property name="javax.persistence.jdbc.user" value="" />
+            <property name="javax.persistence.jdbc.password" value="" />
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect" />

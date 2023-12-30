@@ -1,6 +1,6 @@
-package be.vghf.vghfdatabase.domain;
+package be.vghf.domain;
 
-import be.vghf.vghfdatabase.enums.ConsoleType;
+import be.vghf.enums.ConsoleType;
 
 import javax.persistence.*;
 import java.io.Serializable;

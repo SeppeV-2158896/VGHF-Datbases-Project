@@ -1,6 +1,6 @@
-package be.vghf.vghfdatabase.domain;
+package be.vghf.domain;
 
-import be.vghf.vghfdatabase.enums.State;
+import be.vghf.enums.State;
 
 import javax.persistence.*;
 import java.util.Date;

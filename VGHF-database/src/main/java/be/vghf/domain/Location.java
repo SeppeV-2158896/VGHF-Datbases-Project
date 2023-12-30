@@ -1,6 +1,6 @@
-package be.vghf.vghfdatabase.domain;
+package be.vghf.domain;
 
-import be.vghf.vghfdatabase.enums.LocationType;
+import be.vghf.enums.LocationType;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;

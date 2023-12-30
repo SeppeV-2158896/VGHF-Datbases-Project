@@ -1,4 +1,4 @@
-package be.vghf.vghfdatabase.domain;
+package be.vghf.domain;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -1,6 +1,6 @@
-package be.vghf.vghfdatabase.domain;
+package be.vghf.domain;
 
-import be.vghf.vghfdatabase.enums.UserType;
+import be.vghf.enums.UserType;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -159,5 +159,25 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userID=" + userID +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", streetName='" + streetName + '\'' +
+                ", houseNumber=" + houseNumber +
+                ", bus='" + bus + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", telephone=" + telephone +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", locations=" + locations +
+                ", userType=" + userType +
+                '}';
     }
 }

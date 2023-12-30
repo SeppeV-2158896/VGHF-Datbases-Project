@@ -1,4 +1,4 @@
-package be.vghf.vghfdatabase.enums;
+package be.vghf.enums;
 
 public enum State {AWAY, RETURNED, OUT_STANDING_FINE}
 

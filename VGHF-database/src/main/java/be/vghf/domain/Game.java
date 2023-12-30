@@ -1,6 +1,4 @@
-package be.vghf.vghfdatabase.domain;
-
-import javafx.scene.chart.PieChart;
+package be.vghf.domain;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -3,7 +3,6 @@ plugins {
   id 'application'
   id 'org.javamodularity.moduleplugin' version '1.8.12'
   id 'org.openjfx.javafxplugin' version '0.0.13'
-  id 'org.beryx.jlink' version '2.25.0'
 }
 
 group 'be.vghf'
@@ -25,8 +24,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-  mainModule = 'be.vghf.vghfdatabase'
-  mainClass = 'be.vghf.vghfdatabase.HelloApplication'
+  mainModule = 'be.vghf'
+  mainClass = 'be.vghf.VGHFApplication'
 }
 
 javafx {
@@ -36,30 +35,17 @@ javafx {
 
 dependencies {
   implementation('org.controlsfx:controlsfx:11.1.2')
-  implementation('com.dlsc.formsfx:formsfx-core:11.6.0') {
-    exclude(group: 'org.openjfx')
-  }
+  implementation('com.dlsc.formsfx:formsfx-core:11.6.0')
   implementation('org.kordamp.ikonli:ikonli-javafx:12.3.1')
 
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
-  implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.23.Final'
-  implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.32.3.2'
+  implementation group: 'org.hibernate', name: 'hibernate-core', version: '6.2.12.Final'
+  implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.15.Final'
+  implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.41.2.2'
   implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
 }
 
 test {
   useJUnitPlatform()  }
-
-jlink {
-  imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
-  options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
-  launcher {
-    name = 'app'
-  }
-}
-
-jlinkZip {
-  group = 'distribution'
-}
