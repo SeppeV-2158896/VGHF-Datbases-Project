@@ -6,11 +6,9 @@ import javax.persistence.Persistence;
 
 public class Repository {
     public Repository(){
-        var factory = Persistence.createEntityManagerFactory("be.vghf.domain");
-        var entityManager = factory.createEntityManager();
         var repo = new UserRepositoryImpl();
 
-        for (User user : repo.getAllUsers(entityManager)){
+        for (User user : repo.getAllUsers(EntityManagerSingleton.getInstance())){
             System.out.println(user.toString());
         }
 

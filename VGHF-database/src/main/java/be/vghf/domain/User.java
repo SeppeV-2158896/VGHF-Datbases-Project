@@ -49,8 +49,8 @@ public class User {
 
     @ManyToMany(mappedBy = "volunteers")
     private Set<Location> locations = new HashSet<>();
-    @Column
-    @Enumerated(EnumType.STRING)
+    @Column (name = "userType")
+    @Enumerated(EnumType.ORDINAL)
     private UserType userType;
 
     public int getUserID() {

@@ -18,9 +18,9 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:vghf.db" />
             <property name="javax.persistence.jdbc.user" value="" />
             <property name="javax.persistence.jdbc.password" value="" />
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.database.action" value="none"/>
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect"/>
             <property name="hibernate.connection.autocommit" value="true"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.flushMode" value="ALWAYS" />

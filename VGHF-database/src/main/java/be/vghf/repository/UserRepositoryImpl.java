@@ -6,8 +6,6 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
-    private final EntityManager entityManager = EntityManagerSingleton.getInstance();
-
     public UserRepositoryImpl(){}
 
     @Override
