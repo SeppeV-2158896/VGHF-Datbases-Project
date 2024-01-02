@@ -2,17 +2,14 @@ package be.vghf.controllers;
 
 import be.vghf.domain.User;
 import be.vghf.enums.UserType;
-import be.vghf.repository.Repository;
+import be.vghf.repository.GenericRepository;
 import be.vghf.repository.UserRepository;
-import com.sun.javafx.scene.control.IntegerField;
-import com.sun.jdi.IntegerValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 
-public class RegisterController {
+public class RegisterController implements Controller{
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField streetNameField;
@@ -25,10 +22,11 @@ public class RegisterController {
     @FXML private TextField emailField;
     @FXML private TextField passwordField;
     @FXML private TextField confirmPasswordField;
+    private BaseController baseController;
 
     public void registerUser(ActionEvent actionEvent) {
         if (areFieldsEmpty()){
-            showErrorAlert("Error", "All fields with a * should be filled in!");
+            BaseController.showErrorAlert("Error", "All fields with a * should be filled in!");
         }
         var user = new User();
         user.setFirstName(firstNameField.getText());
@@ -49,12 +47,12 @@ public class RegisterController {
             user.setPassword(UserRepository.hashPassword(passwordField.getText()));
         }
         else {
-            showErrorAlert("Error", "Passwords don't match");
+            BaseController.showErrorAlert("Error", "Passwords don't match");
         }
 
         user.setUserType(UserType.CLIENT);
 
-        Repository.save(user);
+        GenericRepository.save(user);
     }
 
     private boolean areFieldsEmpty() {
@@ -70,11 +68,9 @@ public class RegisterController {
                 confirmPasswordField.getText().isEmpty();
     }
 
-    private void showErrorAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+    public void setBaseController (BaseController baseController){
+        this.baseController = baseController;
     }
+
+
 }

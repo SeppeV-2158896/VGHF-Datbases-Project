@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import com.sun.javafx.scene.control.IntegerField?>
-<StackPane alignment="CENTER" prefHeight="541.0" prefWidth="358.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="be.vghf.controllers.RegisterController">
+<StackPane alignment="CENTER" prefHeight="541.0" prefWidth="358.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
     <GridPane alignment="CENTER" hgap="10" vgap="10">    <Text text="Register Form" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.fillHeight="10" />
 
         <Label text="First Name*" GridPane.rowIndex="1" />

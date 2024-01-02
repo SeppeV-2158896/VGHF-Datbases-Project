@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 
     <VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="be.vghf.controllers.AccountController" >
+          xmlns:fx="http://javafx.com/fxml">
         <style>
             -fx-background-color: #f4f4f4;
             -fx-padding: 20;

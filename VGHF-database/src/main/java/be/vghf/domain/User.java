@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+//TODO: add username, check if username exists
+//TODO: check if constraints are ok -> email contain @
 @Entity
 @Table (name = "users")
 public class User {

@@ -5,16 +5,30 @@ import be.vghf.domain.User;
 import java.security.MessageDigest;
 import java.util.List;
 
-public class UserRepository {
+public class UserRepository implements Repository{
     public UserRepository(){}
 
-    public List<User> getAllUsers() {
+    public static List<User> getUserByName(String[] names) {
+        String firstname = names[0];
+        String lastname = names[1];
+
+        var criteriaBuilder = EntityManagerSingleton.getInstance().getCriteriaBuilder();
+        var query = criteriaBuilder.createQuery(User.class);
+        var root = query.from(User.class);
+
+        query.where(criteriaBuilder.equal(root.get("firstName"), firstname));
+        query.where(criteriaBuilder.equal(root.get("lastName"), lastname));
+
+        return GenericRepository.query(query);
+    }
+
+    public List<User> getAll() {
         var query = EntityManagerSingleton.getInstance().getCriteriaBuilder().createQuery(User.class);
         var root = query.from(User.class);
 
         query.select(root);
 
-        return Repository.query(query);
+        return GenericRepository.query(query);
     }
 
     public static String hashPassword(String input){

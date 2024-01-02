@@ -11,7 +11,8 @@ import java.io.IOException;
 public class VGHFApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        var setStage = BaseController.showView("/base-view.fxml");
+        var controller = new BaseController();
+        var setStage = controller.showView("/base-view.fxml", null);
         assert setStage != null;
         setStage.setMaximized(true);
     }
