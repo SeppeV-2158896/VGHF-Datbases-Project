@@ -1,13 +1,14 @@
 package be.vghf.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table (name = "dev_companies")
-public class Dev_company {
+public class Dev_company implements Serializable {
     @Column (name = "devID")
     @Id
     @GeneratedValue

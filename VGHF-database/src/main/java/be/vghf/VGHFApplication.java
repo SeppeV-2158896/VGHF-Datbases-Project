@@ -1,5 +1,6 @@
 package be.vghf;
 
+import be.vghf.controllers.BaseController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

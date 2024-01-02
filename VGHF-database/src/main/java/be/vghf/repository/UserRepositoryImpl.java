@@ -9,13 +9,13 @@ public class UserRepositoryImpl implements UserRepository {
     public UserRepositoryImpl(){}
 
     @Override
-    public List<User> getAllUsers(EntityManager entityManager) {
-        var query = entityManager.getCriteriaBuilder().createQuery(User.class);
+    public List<User> getAllUsers() {
+        var query = EntityManagerSingleton.getInstance().getCriteriaBuilder().createQuery(User.class);
         var root = query.from(User.class);
 
         query.select(root);
 
-        return entityManager.createQuery(query).getResultList();
+        return Repository.query(query);
     }
 
 }

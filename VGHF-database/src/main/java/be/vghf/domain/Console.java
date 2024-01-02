@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table (name = "consoles")
-public class Console implements Serializable {
+public class Console implements Serializable{
 
     @Column (name = "consoleID")
     @Id

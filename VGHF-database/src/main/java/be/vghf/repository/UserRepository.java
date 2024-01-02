@@ -6,5 +6,5 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 public interface UserRepository {
-    List<User> getAllUsers(EntityManager entityManager);
+    List<User> getAllUsers();
 }

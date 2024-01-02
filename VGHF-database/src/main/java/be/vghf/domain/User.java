@@ -1,11 +1,13 @@
 package be.vghf.domain;
 
 import be.vghf.enums.UserType;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@EqualsAndHashCode
 @Entity
 @Table (name = "users")
 public class User {
