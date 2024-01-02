@@ -10,7 +10,7 @@ import java.util.Set;
 public class Game {
     @Column (name = "gameID")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int gameID;
 
     @OneToOne
@@ -29,7 +29,7 @@ public class Game {
     private String title;
 
     @Column (name = "releaseDate")
-    private Date releaseDate;
+    private java.sql.Date releaseDate;
 
     @Column (name = "genre")
     private String genre;
@@ -79,11 +79,11 @@ public class Game {
         this.title = title;
     }
 
-    public Date getReleaseDate() {
+    public java.sql.Date getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(java.sql.Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 

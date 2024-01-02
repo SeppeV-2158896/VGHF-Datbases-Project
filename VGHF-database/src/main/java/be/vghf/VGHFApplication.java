@@ -11,15 +11,13 @@ import java.io.IOException;
 public class VGHFApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/base-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("VGHF Database Software");
-        stage.setScene(scene);
-        stage.show();
-        stage.setMaximized(true);
+        var setStage = BaseController.showView("/base-view.fxml");
+        assert setStage != null;
+        setStage.setMaximized(true);
     }
 
     public static void main(String[] args) {
+
         launch();
     }
 }

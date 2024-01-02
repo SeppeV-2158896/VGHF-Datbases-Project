@@ -12,7 +12,7 @@ import java.util.Set;
 public class Loan_Receipts {
     @Column(name = "referenceID")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int referenceID;
 
     @ManyToMany(cascade = {CascadeType.ALL})

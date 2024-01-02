@@ -1,16 +1,16 @@
 package be.vghf.controllers;
 
-import be.vghf.domain.User;
-import be.vghf.enums.UserType;
-import be.vghf.repository.Repository;
-import be.vghf.repository.UserRepositoryImpl;
+import be.vghf.repository.UserRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.io.FileInputStream;
+import java.io.IOException;
 
 public class BaseController {
 
@@ -32,13 +32,33 @@ public class BaseController {
         this.currentStatus = loginStatus.LOGGED_OUT;
     }
 
-    @FXML protected void handleAccountButtonPressed(ActionEvent event){
+    @FXML protected void handleAccountButtonPressed(ActionEvent event) throws IOException {
         testTekst.setText("Account knop geduwd");
         System.out.println("knop geduwd");
 
-        var repo = new UserRepositoryImpl();
+        var repo = new UserRepository();
         for (var user : repo.getAllUsers()){
             System.out.println(user.getFirstName() + " " + user.getLastName());
         }
+
+        showView("/loginOrRegister-view.fxml");
+    }
+
+    public static Stage showView(String path){
+        try {
+            Parent root = FXMLLoader.load(BaseController.class.getResource(path));
+
+            Stage stage = new Stage();
+            stage.setTitle("VGHF Database Software");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            return stage;
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
