@@ -4,10 +4,10 @@ import be.vghf.domain.Game;
 
 import java.util.List;
 
-public class GameRepository {
+public class GameRepository implements Repository{
     public GameRepository(){}
 
-    public List<Game> getAllGames(){
+    public List<Game> getAll(){
         var query = EntityManagerSingleton.getInstance().getCriteriaBuilder().createQuery(Game.class);
         var root = query.from(Game.class);
 

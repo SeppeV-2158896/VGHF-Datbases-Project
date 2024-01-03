@@ -5,10 +5,10 @@ import be.vghf.domain.Loan_Receipts;
 
 import java.util.List;
 
-public class Loan_ReceiptsRepository {
+public class Loan_ReceiptsRepository implements Repository{
     public Loan_ReceiptsRepository(){}
 
-    public List<Loan_Receipts> getAllLoanReceipts(){
+    public List<Loan_Receipts> getAll(){
         var query = EntityManagerSingleton.getInstance().getCriteriaBuilder().createQuery(Loan_Receipts.class);
         var root = query.from(Loan_Receipts.class);
 

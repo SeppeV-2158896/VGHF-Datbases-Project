@@ -5,10 +5,10 @@ import be.vghf.domain.Location;
 
 import java.util.List;
 
-public class LocationRepository {
+public class LocationRepository implements Repository{
     public LocationRepository(){}
 
-    public List<Location> getAllLocations(){
+    public List<Location> getAll(){
         var query = EntityManagerSingleton.getInstance().getCriteriaBuilder().createQuery(Location.class);
         var root = query.from(Location.class);
 
