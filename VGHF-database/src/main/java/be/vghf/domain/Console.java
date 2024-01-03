@@ -14,7 +14,7 @@ public class Console implements Serializable{
 
     @Column (name = "consoleID")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int consoleID;
 
     @Column (name = "consoleName")

@@ -10,7 +10,7 @@ import java.util.Set;
 public class Location {
     @Column(name = "locationID")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int locationID;
 
     @ManyToOne

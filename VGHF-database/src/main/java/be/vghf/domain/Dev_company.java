@@ -11,7 +11,7 @@ import java.util.Set;
 public class Dev_company implements Serializable {
     @Column (name = "devID")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int devID;
 
     @Column (name = "companyName")

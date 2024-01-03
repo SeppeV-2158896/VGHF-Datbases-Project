@@ -14,7 +14,7 @@ import java.util.Set;
 public class Game {
     @Column (name = "gameID")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int gameID;
 
     @OneToOne
