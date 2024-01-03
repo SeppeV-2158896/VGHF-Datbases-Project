@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-//TODO: add username, check if username exists
+//TODO: check if username exists
 //TODO: check if constraints are ok -> email contain @
 @Entity
 @Table (name = "users")
@@ -16,6 +16,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userID;
+
+    @Column (name = "username")
+    private String userName;
 
     @Column (name = "firstname")
     private String firstName;
@@ -58,6 +61,14 @@ public class User {
 
     public int getUserID() {
         return userID;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getFirstName() {
@@ -168,6 +179,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "userID=" + userID +
+                ", userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", streetName='" + streetName + '\'' +

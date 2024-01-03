@@ -80,6 +80,7 @@ CREATE TABLE "locations" (
 
 CREATE TABLE "users" (
 	"userID"	INTEGER NOT NULL UNIQUE,
+	"username" TEXT NOT NULL UNIQUE,
 	"firstname"	TEXT NOT NULL,
 	"lastname"	TEXT NOT NULL,
 	"streetname"	TEXT NOT NULL,
@@ -145,27 +146,27 @@ INSERT INTO dev_companies (companyName, website, supportEmail, establishedDate, 
   ("Capcom", "https://www.capcom.com/", "support@capcom.com", "1979-06-11", "Resident Evil Street", 606, "Lab Basement", "CAP606", "Osaka", "Japan"),
   ("Bethesda Game Studios", "https://bethesda.net/", "support@bethesda.com", "2001-06-28", "Elder Scrolls Lane", 707, "Skyrim Tower", "BGS707", "Rockville", "USA");
 
-INSERT INTO "users" ("firstname", "lastname", "streetname", "houseNumber", "bus", "postalCode", "city", "country", "telephone", "email", "password", "userType") VALUES
-  ("John", "Doe", "Main Street", 123, NULL, "12345", "Cityville", "Countryland", 123456789, "john.doe@email.com", "password123", "VOLUNTEER"),
-  ("Jane", "Smith", "Maple Avenue", 456, "Suite A", "67890", "Townsville", "Countryland", 987654321, "jane.smith@email.com", "pass456", "VOLUNTEER"),
-  ("Alice", "Johnson", "Oak Street", 789, NULL, "54321", "Villagetown", "Countryland", 456789012, "alice.johnson@email.com", "secure789", "VOLUNTEER"),
-  ("Bob", "Miller", "Pine Road", 101, "Apt 5", "13579", "Hamletville", "Countryland", 789012345, "bob.miller@email.com", "secret567", "VOLUNTEER"),
-  ("Eva", "Wilson", "Cedar Lane", 202, NULL, "24680", "Hillside", "Countryland", 234567890, "eva.wilson@email.com", "hidden890", "VOLUNTEER"),
-  ("Chris", "Brown", "Rose Lane", 303, "Suite B", "97531", "Gardentown", "Countryland", 345678901, "chris.brown@email.com", "roses123", "VOLUNTEER"),
-  ("Maria", "Garcia", "Sunset Boulevard", 404, NULL, "86420", "Beachville", "Countryland", 567890123, "maria.garcia@email.com", "sunset456", "VOLUNTEER"),
-  ("Michael", "Anderson", "Mountain View", 505, "Cabin C", "74123", "Peakville", "Countryland", 678901234, "michael.anderson@email.com", "mountain789", "VOLUNTEER"),
-  ("Emily", "Clark", "Ocean Drive", 606, NULL, "36987", "Wavetown", "Countryland", 789012345, "emily.clark@email.com", "ocean567", "VOLUNTEER"),
-  ("Daniel", "Moore", "Valley Street", 707, "Apartment D", "25874", "Meadowville", "Countryland", 890123456, "daniel.moore@email.com", "valley890", "VOLUNTEER"),
-  ("Sarah", "Wilson", "Lakefront Road", 808, NULL, "15963", "Shoreville", "Countryland", 901234567, "sarah.wilson@email.com", "lakefront123", "CUSTOMER"),
-  ("Ryan", "Taylor", "Park Lane", 909, "Unit E", "75319", "Greentown", "Countryland", 123456789, "ryan.taylor@email.com", "park456", "CUSTOMER"),
-  ("Olivia", "Baker", "Grove Street", 1010, NULL, "64237", "Woodville", "Countryland", 234567890, "olivia.baker@email.com", "grove789", "CUSTOMER"),
-  ("James", "Cooper", "Harbor View", 1111, "House F", "52846", "Portville", "Countryland", 345678901, "james.cooper@email.com", "harbor123", "CUSTOMER"),
-  ("Sophia", "Ward", "Highland Avenue", 1212, NULL, "91735", "Hilltown", "Countryland", 456789012, "sophia.ward@email.com", "highland456", "CUSTOMER"),
-  ("Liam", "Fisher", "River Road", 1313, "Suite G", "36928", "Rivertown", "Countryland", 567890123, "liam.fisher@email.com", "river789", "CUSTOMER"),
-  ("Ava", "Martin", "Meadow Lane", 1414, NULL, "86420", "Meadowtown", "Countryland", 678901234, "ava.martin@email.com", "meadow567", "CUSTOMER"),
-  ("Noah", "Bailey", "Hillside Drive", 1515, "Unit H", "97531", "Hillville", "Countryland", 789012345, "noah.bailey@email.com", "hillside890", "CUSTOMER"),
-  ("Emma", "Perez", "Skyline Avenue", 1616, NULL, "24680", "Skytown", "Countryland", 890123456, "emma.perez@email.com", "skyline123", "CUSTOMER"),
-  ("Jackson", "Miller", "Breeze Lane", 1717, "Apartment I", "75319", "Breezetown", "Countryland", 901234567, "jackson.miller@email.com", "breeze456", "CUSTOMER");
+INSERT INTO "users" ("username", "firstname", "lastname", "streetname", "houseNumber", "bus", "postalCode", "city", "country", "telephone", "email", "password", "userType") VALUES
+  ("JohnDoe", "John", "Doe", "Main Street", 123, NULL, "12345", "Cityville", "Countryland", 123456789, "john.doe@email.com", "password123", "VOLUNTEER"),
+  ("JaneSmith", "Jane", "Smith", "Maple Avenue", 456, "Suite A", "67890", "Townsville", "Countryland", 987654321, "jane.smith@email.com", "pass456", "VOLUNTEER"),
+  ("AliceJognson", "Alice", "Johnson", "Oak Street", 789, NULL, "54321", "Villagetown", "Countryland", 456789012, "alice.johnson@email.com", "secure789", "VOLUNTEER"),
+  ("BobMiller5", "Bob", "Miller", "Pine Road", 101, "Apt 5", "13579", "Hamletville", "Countryland", 789012345, "bob.miller@email.com", "secret567", "VOLUNTEER"),
+  ("EvaWilson123", "Eva", "Wilson", "Cedar Lane", 202, NULL, "24680", "Hillside", "Countryland", 234567890, "eva.wilson@email.com", "hidden890", "VOLUNTEER"),
+  ("ChrisB", "Chris", "Brown", "Rose Lane", 303, "Suite B", "97531", "Gardentown", "Countryland", 345678901, "chris.brown@email.com", "roses123", "VOLUNTEER"),
+  ("MariaGARCIA", "Maria", "Garcia", "Sunset Boulevard", 404, NULL, "86420", "Beachville", "Countryland", 567890123, "maria.garcia@email.com", "sunset456", "VOLUNTEER"),
+  ("MichaelAnderson95", "Michael", "Anderson", "Mountain View", 505, "Cabin C", "74123", "Peakville", "Countryland", 678901234, "michael.anderson@email.com", "mountain789", "VOLUNTEER"),
+  ("EmilyC", "Emily", "Clark", "Ocean Drive", 606, NULL, "36987", "Wavetown", "Countryland", 789012345, "emily.clark@email.com", "ocean567", "VOLUNTEER"),
+  ("DanielMoore", "Daniel", "Moore", "Valley Street", 707, "Apartment D", "25874", "Meadowville", "Countryland", 890123456, "daniel.moore@email.com", "valley890", "VOLUNTEER"),
+  ("SarahWilson", "Sarah", "Wilson", "Lakefront Road", 808, NULL, "15963", "Shoreville", "Countryland", 901234567, "sarah.wilson@email.com", "lakefront123", "CUSTOMER"),
+  ("R-Taylor", "Ryan", "Taylor", "Park Lane", 909, "Unit E", "75319", "Greentown", "Countryland", 123456789, "ryan.taylor@email.com", "park456", "CUSTOMER"),
+  ("OliviaBaker", "Olivia", "Baker", "Grove Street", 1010, NULL, "64237", "Woodville", "Countryland", 234567890, "olivia.baker@email.com", "grove789", "CUSTOMER"),
+  ("JamesCooper", "James", "Cooper", "Harbor View", 1111, "House F", "52846", "Portville", "Countryland", 345678901, "james.cooper@email.com", "harbor123", "CUSTOMER"),
+  ("Sophia69", "Sophia", "Ward", "Highland Avenue", 1212, NULL, "91735", "Hilltown", "Countryland", 456789012, "sophia.ward@email.com", "highland456", "CUSTOMER"),
+  ("LiamFisher456", "Liam", "Fisher", "River Road", 1313, "Suite G", "36928", "Rivertown", "Countryland", 567890123, "liam.fisher@email.com", "river789", "CUSTOMER"),
+  ("AvaMartin", "Ava", "Martin", "Meadow Lane", 1414, NULL, "86420", "Meadowtown", "Countryland", 678901234, "ava.martin@email.com", "meadow567", "CUSTOMER"),
+  ("NoahBailey", "Noah", "Bailey", "Hillside Drive", 1515, "Unit H", "97531", "Hillville", "Countryland", 789012345, "noah.bailey@email.com", "hillside890", "CUSTOMER"),
+  ("EmmaP", "Emma", "Perez", "Skyline Avenue", 1616, NULL, "24680", "Skytown", "Countryland", 890123456, "emma.perez@email.com", "skyline123", "CUSTOMER"),
+  ("MillerJ", "Jackson", "Miller", "Breeze Lane", 1717, "Apartment I", "75319", "Breezetown", "Countryland", 901234567, "jackson.miller@email.com", "breeze456", "CUSTOMER");
 
 INSERT INTO locations (ownerID, streetname, houseNumber, bus, postalCode, city, country, locationType) VALUES
   (1, "Volunteer Street", 111, "Suite V", "11111", "Volunteerville", "Countryland", "PRIVATE"),
