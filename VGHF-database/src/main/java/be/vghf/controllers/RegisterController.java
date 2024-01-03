@@ -32,16 +32,34 @@ public class RegisterController implements Controller{
         user.setFirstName(firstNameField.getText());
         user.setLastName(lastNameField.getText());
         user.setStreetName(streetNameField.getText());
-        user.setHouseNumber(Integer.valueOf(houseNumberField.getText()));
+
+        if(validHouseNumber()){
+            user.setHouseNumber(Integer.valueOf(houseNumberField.getText()));
+        }else{
+            BaseController.showErrorAlert("Error", "The house number must be a number");
+        }
+
         user.setPostalCode(postalCodeField.getText());
         user.setCity(lastNameField.getText());
         user.setCountry(countryField.getText());
-        user.setEmail(emailField.getText());
+
+        if(validEmail()){
+            user.setEmail(emailField.getText());
+        }else{
+            BaseController.showErrorAlert("Error", "The e-mailadres is invalid");
+        }
 
         if (busField.getText().isEmpty()) user.setBus(null);
         else user.setBus(busField.getText());
-        if (telephoneField.getText().isEmpty()) user.setTelephone(0);
-        else user.setTelephone(Integer.valueOf(telephoneField.getText()));
+
+        if (telephoneField.getText().isEmpty()){
+            user.setTelephone(0);
+        } else if(validTelephoneNumber()){
+            user.setTelephone(Integer.valueOf(telephoneField.getText()));
+        }else{
+            BaseController.showErrorAlert("Error", "The telephone number can only contain numbers");
+        }
+
 
         if (passwordField.getText().equals(confirmPasswordField.getText())){
             user.setPassword(UserRepository.hashPassword(passwordField.getText()));
@@ -55,6 +73,30 @@ public class RegisterController implements Controller{
         GenericRepository.save(user);
     }
 
+    private boolean validEmail(){
+        if((emailField.getText()).contains("@")){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean validHouseNumber(){
+        try {
+            Integer.parseInt(houseNumberField.getText());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private boolean validTelephoneNumber(){
+        try {
+            Integer.parseInt(telephoneField.getText());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
     private boolean areFieldsEmpty() {
         return firstNameField.getText().isEmpty() ||
                 lastNameField.getText().isEmpty() ||
