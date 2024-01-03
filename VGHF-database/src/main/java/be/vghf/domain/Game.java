@@ -1,7 +1,11 @@
 package be.vghf.domain;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +33,7 @@ public class Game {
     private String title;
 
     @Column (name = "releaseDate")
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
     @Column (name = "genre")
     private String genre;
@@ -79,12 +83,13 @@ public class Game {
         this.title = title;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setReleaseDate(java.sql.Date releaseDate){
+        LocalDate date = releaseDate.toLocalDate();
+        this.releaseDate = date;
     }
 
     public Set<Console> getConsoles() {

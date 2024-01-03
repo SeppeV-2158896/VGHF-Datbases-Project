@@ -2,8 +2,10 @@ package be.vghf.controllers;
 
 import be.vghf.domain.User;
 import be.vghf.enums.UserType;
+import be.vghf.repository.GameRepository;
+import be.vghf.repository.LocationRepository;
 import be.vghf.repository.Repository;
-import be.vghf.repository.UserRepositoryImpl;
+import be.vghf.repository.UserRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,9 +38,9 @@ public class BaseController {
         testTekst.setText("Account knop geduwd");
         System.out.println("knop geduwd");
 
-        var repo = new UserRepositoryImpl();
-        for (var user : repo.getAllUsers()){
-            System.out.println(user.getFirstName() + " " + user.getLastName());
+        var repo = new GameRepository();
+        for (var user : repo.getAllGames()){
+            System.out.println(user.getTitle());
         }
     }
 }
