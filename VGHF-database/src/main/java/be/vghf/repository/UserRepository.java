@@ -1,15 +1,6 @@
 package be.vghf.repository;
-
 import be.vghf.domain.User;
-
-<<<<<<< HEAD
 import java.util.List;
-
-public class UserRepository {
-    public UserRepository(){}
-
-    public List<User> getAllUsers() {
-=======
 import java.security.MessageDigest;
 import java.util.List;
 
@@ -31,16 +22,11 @@ public class UserRepository implements Repository{
     }
 
     public List<User> getAll() {
->>>>>>> da937dc3907de5f6ba147234ae4215ae0759e60e
         var query = EntityManagerSingleton.getInstance().getCriteriaBuilder().createQuery(User.class);
         var root = query.from(User.class);
 
         query.select(root);
 
-<<<<<<< HEAD
-        return Repository.query(query);
-    }
-=======
         return GenericRepository.query(query);
     }
 
@@ -69,6 +55,4 @@ public class UserRepository implements Repository{
         }
         return null;
     }
-
->>>>>>> da937dc3907de5f6ba147234ae4215ae0759e60e
 }

@@ -14,6 +14,6 @@ public class Dev_companyRepository {
 
         query.select(root);
 
-        return Repository.query(query);
+        return GenericRepository.query(query);
     }
 }

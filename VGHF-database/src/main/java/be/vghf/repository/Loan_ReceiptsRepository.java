@@ -14,6 +14,6 @@ public class Loan_ReceiptsRepository {
 
         query.select(root);
 
-        return Repository.query(query);
+        return GenericRepository.query(query);
     }
 }
