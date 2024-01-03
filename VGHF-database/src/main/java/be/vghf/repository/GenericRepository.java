@@ -20,4 +20,11 @@ public class GenericRepository {
         return EntityManagerSingleton.getInstance().createQuery(query).getResultList();
     }
 
+    public static <T> void delete(T object){
+        EntityManager em = EntityManagerSingleton.getInstance();
+
+        em.getTransaction().begin();
+        em.remove(object);
+        em.getTransaction().commit();
+    }
 }

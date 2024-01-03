@@ -28,6 +28,11 @@ public class RegisterController implements Controller{
         if (areFieldsEmpty()){
             BaseController.showErrorAlert("Error", "All fields with a * should be filled in!");
         }
+
+        if(!emailField.getText().contains("@")){
+            BaseController.showErrorAlert("Error", "Email must contain '@'.");
+        }
+
         var user = new User();
         user.setFirstName(firstNameField.getText());
         user.setLastName(lastNameField.getText());
@@ -49,6 +54,7 @@ public class RegisterController implements Controller{
         else {
             BaseController.showErrorAlert("Error", "Passwords don't match");
         }
+
 
         user.setUserType(UserType.CLIENT);
 
