@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,7 +24,7 @@ public class BaseController{
     @FXML private Button usersButton;
     @FXML private Button eventsButton;
     @FXML private Button browseButton;
-
+    @FXML private VBox browseVBox;
     @FXML private Button loanedItemsButton;
 
     private ActiveUser loggedInUser;
@@ -33,11 +34,17 @@ public class BaseController{
         usersButton.setVisible(false);
         loanedItemsButton.setVisible(false);
 
+        browseVBox.setVisible(false);
+
         ActiveUser.user = null;
     }
 
     @FXML protected void handleAccountButtonPressed(ActionEvent event) throws IOException {
         showView("/loginOrRegister-view.fxml", new AccountController());
+    }
+
+    @FXML protected void handleBrowseButtonPressed(ActionEvent event) throws IOException {
+        browseVBox.setVisible(!browseVBox.isVisible());
     }
 
     public Stage showView(String path, Controller controller){
