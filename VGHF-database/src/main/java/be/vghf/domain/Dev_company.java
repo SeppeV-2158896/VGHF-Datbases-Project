@@ -22,10 +22,10 @@ public class Dev_company implements Serializable {
 
     @Column (name = "supportEmail")
     private String supportEmail;
-
+    /* Uitgecomment omdat het programma anders niet wil werken door een of andere gekke ParseException??
     @Column (name = "establishedDate")
     private Date establishedDate;
-
+    Ik snap het ook niet waarom... */
     @Column (name = "streetname")
     private String streetName;
 
@@ -79,7 +79,7 @@ public class Dev_company implements Serializable {
     public void setSupportEmail(String supportEmail) {
         this.supportEmail = supportEmail;
     }
-
+    /*
     public Date getEstablishedDate() {
         return establishedDate;
     }
@@ -87,7 +87,7 @@ public class Dev_company implements Serializable {
     public void setEstablishedDate(Date establishedDate) {
         this.establishedDate = establishedDate;
     }
-
+    */
     public String getStreetName() {
         return streetName;
     }

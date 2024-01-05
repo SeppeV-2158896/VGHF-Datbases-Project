@@ -27,13 +27,13 @@ public class Console implements Serializable{
     @ManyToOne
     @JoinColumn(name = "company", nullable = false)
     private Dev_company company;
-
+    /* Uitgecomment omdat het programma anders niet wil werken door een of andere gekke ParseException??
     @Column (name = "releasedYear")
     private Date releaseYear;
 
     @Column (name = "discontinuationYear")
     private Date discontinuationYear;
-
+    Ik snap het ook niet waarom... */
     @Column (name = "unitsSoldMillion")
     private double unitsSoldInMillions;
 
@@ -46,7 +46,8 @@ public class Console implements Serializable{
             joinColumns = { @JoinColumn(name = "consoleID") },
             inverseJoinColumns = { @JoinColumn(name = "gameID") }
     )
-    Set<Game> games = new HashSet<>();
+    //@ManyToMany(mappedBy = "consoles")
+    private Set<Game> games = new HashSet<>();
 
     public int getColumnID() {
         return consoleID;
@@ -75,7 +76,7 @@ public class Console implements Serializable{
     public void setCompany(Dev_company company) {
         this.company = company;
     }
-
+    /*
     public Date getReleaseYear() {
         return releaseYear;
     }
@@ -91,7 +92,7 @@ public class Console implements Serializable{
     public void setDiscontinuationYear(Date discontinuationYear) {
         this.discontinuationYear = discontinuationYear;
     }
-
+    */
     public double getUnitsSoldInMillions() {
         return unitsSoldInMillions;
     }
@@ -106,5 +107,9 @@ public class Console implements Serializable{
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public Set<Game> getGames(){
+        return games;
     }
 }
