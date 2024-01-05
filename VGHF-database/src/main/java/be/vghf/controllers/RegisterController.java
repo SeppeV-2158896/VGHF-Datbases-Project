@@ -2,7 +2,9 @@ package be.vghf.controllers;
 
 import be.vghf.domain.User;
 import be.vghf.enums.UserType;
+import be.vghf.models.ActiveUser;
 import be.vghf.repository.GenericRepository;
+import be.vghf.repository.Repository;
 import be.vghf.repository.UserRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import javafx.scene.control.TextField;
 public class RegisterController implements Controller{
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
+    @FXML private TextField usernameField;
     @FXML private TextField streetNameField;
     @FXML private TextField houseNumberField;
     @FXML private TextField busField;
@@ -27,6 +30,8 @@ public class RegisterController implements Controller{
     public void registerUser(ActionEvent actionEvent) {
         if (areFieldsEmpty()){
             BaseController.showErrorAlert("Error", "All fields with a * should be filled in!");
+            return;
+
         }
         var user = new User();
         user.setFirstName(firstNameField.getText());
@@ -37,6 +42,8 @@ public class RegisterController implements Controller{
             user.setHouseNumber(Integer.valueOf(houseNumberField.getText()));
         }else{
             BaseController.showErrorAlert("Error", "The house number must be a number");
+            return;
+
         }
 
         user.setPostalCode(postalCodeField.getText());
@@ -47,6 +54,7 @@ public class RegisterController implements Controller{
             user.setEmail(emailField.getText());
         }else{
             BaseController.showErrorAlert("Error", "The e-mailadres is invalid");
+            return;
         }
 
         if (busField.getText().isEmpty()) user.setBus(null);
@@ -58,6 +66,8 @@ public class RegisterController implements Controller{
             user.setTelephone(Integer.valueOf(telephoneField.getText()));
         }else{
             BaseController.showErrorAlert("Error", "The telephone number can only contain numbers");
+            return;
+
         }
 
 
@@ -66,11 +76,26 @@ public class RegisterController implements Controller{
         }
         else {
             BaseController.showErrorAlert("Error", "Passwords don't match");
+            return;
+
+        }
+
+        if (isUsernameUnique(usernameField.getText())){
+            user.setUserName(usernameField.getText());
+        }
+        else {
+            BaseController.showErrorAlert("Error", "Username already in use");
+            return;
+
         }
 
         user.setUserType(UserType.CLIENT);
 
         GenericRepository.save(user);
+
+        ActiveUser.user = user;
+        baseController.update();
+        firstNameField.getScene().getWindow().hide();
     }
 
     private boolean validEmail(){
@@ -78,6 +103,10 @@ public class RegisterController implements Controller{
             return true;
         }
         return false;
+    }
+
+    private boolean isUsernameUnique(String username){
+        return UserRepository.getUserByName(username).isEmpty();
     }
 
     private boolean validHouseNumber(){
@@ -100,6 +129,7 @@ public class RegisterController implements Controller{
     private boolean areFieldsEmpty() {
         return firstNameField.getText().isEmpty() ||
                 lastNameField.getText().isEmpty() ||
+                usernameField.getText().isEmpty() ||
                 streetNameField.getText().isEmpty() ||
                 houseNumberField.getText().isEmpty() ||
                 postalCodeField.getText().isEmpty() ||

@@ -19,38 +19,41 @@
         <Label text="Last Name*" GridPane.rowIndex="2" />
         <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label text="Street Name*" GridPane.rowIndex="3" />
-        <TextField fx:id="streetNameField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label text="Username*" GridPane.rowIndex="3" />
+        <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Label text="House Number*" GridPane.rowIndex="4" />
-        <TextField fx:id="houseNumberField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label text="Street Name*" GridPane.rowIndex="4" />
+        <TextField fx:id="streetNameField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-        <Label text="Bus" GridPane.rowIndex="5" />
-        <TextField fx:id="busField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label text="House Number*" GridPane.rowIndex="5" />
+        <TextField fx:id="houseNumberField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-        <Label text="Postal Code*" GridPane.rowIndex="6" />
-        <TextField fx:id="postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Label text="Bus" GridPane.rowIndex="6" />
+        <TextField fx:id="busField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-        <Label text="City*" GridPane.rowIndex="7" />
-        <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label text="Postal Code*" GridPane.rowIndex="7" />
+        <TextField fx:id="postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-        <Label text="Country*" GridPane.rowIndex="8" />
-        <TextField fx:id="countryField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+        <Label text="City*" GridPane.rowIndex="8" />
+        <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 
-        <Label text="Telephone" GridPane.rowIndex="9" />
-        <TextField fx:id="telephoneField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+        <Label text="Country*" GridPane.rowIndex="9" />
+        <TextField fx:id="countryField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 
-        <Label text="Email*" GridPane.rowIndex="10" />
-        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+        <Label text="Telephone" GridPane.rowIndex="10" />
+        <TextField fx:id="telephoneField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
-        <Label text="Password*" GridPane.rowIndex="11" />
-        <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+        <Label text="Email*" GridPane.rowIndex="11" />
+        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="11" />
 
-        <Label text="Confirm Password*" GridPane.rowIndex="12" />
-        <TextField fx:id="confirmPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+        <Label text="Password*" GridPane.rowIndex="12" />
+        <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+
+        <Label text="Confirm Password*" GridPane.rowIndex="13" />
+        <TextField fx:id="confirmPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="13" />
 
         <!-- Add a button to trigger the registration -->
-        <Button onAction="#registerUser" text="Register" GridPane.columnSpan="2" GridPane.rowIndex="13">
+        <Button onAction="#registerUser" text="Register" GridPane.columnSpan="2" GridPane.rowIndex="14">
             <style>
                 -fx-background-color: #4CAF50;
                 -fx-text-fill: white;

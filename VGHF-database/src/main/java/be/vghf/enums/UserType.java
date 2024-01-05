@@ -1,3 +1,3 @@
 package be.vghf.enums;
 
-public enum UserType {VOLUNTEER, CLIENT}
+public enum UserType {CLIENT, VOLUNTEER}

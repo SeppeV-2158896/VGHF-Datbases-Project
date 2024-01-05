@@ -20,8 +20,7 @@ public class LoginController implements Controller{
 
 
     public void handleLoginButton(ActionEvent actionEvent) {
-        String[] info = user.getText().split("[.]",2);
-        List<User> users = UserRepository.getUserByName(info);
+        List<User> users = UserRepository.getUserByName(user.getText());
         if (users.isEmpty()){
             BaseController.showErrorAlert("ALERT", "This name is not yet in use");
             return;
