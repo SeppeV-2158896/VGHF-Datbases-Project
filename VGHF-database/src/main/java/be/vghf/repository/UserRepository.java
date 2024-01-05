@@ -8,16 +8,13 @@ import java.util.List;
 public class UserRepository implements Repository{
     public UserRepository(){}
 
-    public static List<User> getUserByName(String[] names) {
-        String firstname = names[0];
-        String lastname = names[1];
+    public static List<User> getUserByName(String name) {
 
         var criteriaBuilder = EntityManagerSingleton.getInstance().getCriteriaBuilder();
         var query = criteriaBuilder.createQuery(User.class);
         var root = query.from(User.class);
 
-        query.where(criteriaBuilder.equal(root.get("firstName"), firstname));
-        query.where(criteriaBuilder.equal(root.get("lastName"), lastname));
+        query.where(criteriaBuilder.equal(root.get("username"), name));
 
         return GenericRepository.query(query);
     }

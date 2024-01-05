@@ -7,8 +7,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-//TODO: check if username exists
-//TODO: check if constraints are ok -> email contain @
 @Entity
 @Table (name = "users")
 public class User {
@@ -18,7 +16,7 @@ public class User {
     private int userID;
 
     @Column (name = "username")
-    private String userName;
+    private String username;
 
     @Column (name = "firstname")
     private String firstName;
@@ -64,11 +62,11 @@ public class User {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     public String getFirstName() {
@@ -179,7 +177,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "userID=" + userID +
-                ", userName='" + userName + '\'' +
+                ", userName='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", streetName='" + streetName + '\'' +
