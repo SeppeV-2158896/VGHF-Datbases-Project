@@ -20,6 +20,7 @@ public class GameRepository implements Repository{
 
     public List<Game> getGameByName(String[] name){
         ArrayList<Game> games = new ArrayList<>();
+
         for(String str : name){
             var criteriaBuilder = EntityManagerSingleton.getInstance().getCriteriaBuilder();
             var query = criteriaBuilder.createQuery(Game.class);

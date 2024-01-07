@@ -25,6 +25,7 @@ public class BaseController{
     @FXML private Button eventsButton;
     @FXML private Button browseButton;
     @FXML private VBox browseVBox;
+    @FXML private VBox eventVBox;
     @FXML private Button loanedItemsButton;
 
     private ActiveUser loggedInUser;
@@ -33,7 +34,7 @@ public class BaseController{
     public void initialize() {
         usersButton.setVisible(false);
         loanedItemsButton.setVisible(false);
-
+        eventVBox.setVisible(false);
         browseVBox.setVisible(true);
 
         ActiveUser.user = null;
@@ -46,8 +47,17 @@ public class BaseController{
     @FXML protected void handleBrowseButtonPressed(ActionEvent event) throws IOException {
         if (!browseVBox.isVisible()){
             browseVBox.setVisible(true);
+            eventVBox.setVisible(false);
         }
 
+    }
+
+    //TODO: Dit werkt niet, ik krijg de eventVBox niet te zien
+    @FXML protected void handleEventsButtonPressed(ActionEvent event) throws IOException{
+        if (!eventVBox.isVisible()) {
+            browseVBox.setVisible(false);
+            eventVBox.setVisible(true);
+        }
     }
 
     public Stage showView(String path, Controller controller){

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="be.vghf.controllers.EventsController">
+  <tabs>
+    <Tab text="Events">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="EventsSearchText" promptText="Zoeken..." AnchorPane.topAnchor="0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="100" onKeyReleased="#handleSearch"/>
+                   <ComboBox fx:id="filterComboBox" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="0" onAction="#handleFilterChange"/>
+                   <TableView fx:id="eventsTableView" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0"/>
+               </children>
+            </AnchorPane>
+         </content>
+    </Tab>
+      <Tab text="Locations">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                   <TextField fx:id="locationsSearchText" promptText="Zoeken..." AnchorPane.topAnchor="0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="100" onKeyReleased="#handleSearch"/>
+                   <ComboBox fx:id="locationfilterBox" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="0" onAction="#handleFilterChange"/>
+                   <TableView fx:id="locationsTableView" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0"/>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>
