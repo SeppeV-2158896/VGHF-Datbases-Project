@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.Accordion?>
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.vghf.controllers.BaseController">
   <children>
       <AnchorPane prefHeight="480.0" prefWidth="873.0">
@@ -21,9 +22,11 @@
                 <Region />
               </root>
             </SubScene>
-             <VBox fx:id="browseVBox" layoutX="30" layoutY="50">
-                 <fx:include source="browse-view.fxml"/>
-             </VBox>
+             <AnchorPane>
+                 <VBox fx:id="browseVBox" AnchorPane.rightAnchor="10" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="50">
+                     <fx:include source="browse-view.fxml"/>
+                 </VBox>
+             </AnchorPane>
             <Text fx:id="testTekst" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="700.0" AnchorPane.topAnchor="10.0" />
 
          </children>

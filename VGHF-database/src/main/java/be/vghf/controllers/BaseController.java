@@ -34,7 +34,7 @@ public class BaseController{
         usersButton.setVisible(false);
         loanedItemsButton.setVisible(false);
 
-        browseVBox.setVisible(false);
+        browseVBox.setVisible(true);
 
         ActiveUser.user = null;
     }
@@ -44,7 +44,10 @@ public class BaseController{
     }
 
     @FXML protected void handleBrowseButtonPressed(ActionEvent event) throws IOException {
-        browseVBox.setVisible(!browseVBox.isVisible());
+        if (!browseVBox.isVisible()){
+            browseVBox.setVisible(true);
+        }
+
     }
 
     public Stage showView(String path, Controller controller){

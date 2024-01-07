@@ -54,7 +54,7 @@ public class User {
     @ManyToMany(mappedBy = "volunteers")
     private Set<Location> locations = new HashSet<>();
     @Column (name = "userType")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private UserType userType;
 
     public int getUserID() {

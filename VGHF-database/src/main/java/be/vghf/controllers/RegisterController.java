@@ -89,7 +89,7 @@ public class RegisterController implements Controller{
 
         }
 
-        user.setUserType(UserType.CLIENT);
+        user.setUserType(UserType.CUSTOMER);
 
         GenericRepository.save(user);
 

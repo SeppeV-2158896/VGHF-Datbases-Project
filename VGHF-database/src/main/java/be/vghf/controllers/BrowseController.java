@@ -1,5 +1,6 @@
 package be.vghf.controllers;
 
+import antlr.StringUtils;
 import be.vghf.domain.Console;
 import be.vghf.domain.Game;
 import be.vghf.domain.Location;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BrowseController implements Controller{
     private BaseController baseController;
@@ -65,13 +67,13 @@ public class BrowseController implements Controller{
             return new SimpleStringProperty(location != null ? location.getStreetName() : "");
         });
 
-        TableColumn<Game, String> homeBaseColumn = new TableColumn<>("Home Base Location");
-        homeBaseColumn.setCellValueFactory(cellData -> {
-            Location homeBase = cellData.getValue().getHomeBase();
-            return new SimpleStringProperty(homeBase != null ? homeBase.getStreetName() : "");
+        TableColumn<Game, String> consoleColumn = new TableColumn<>("Console");
+        consoleColumn.setCellValueFactory(cellData -> {
+            String consoles = consoleSetToString(cellData.getValue().getConsoles());
+            return new SimpleStringProperty(consoles);
         });
 
-        gamesTableView.getColumns().addAll(titleColumn, genreColumn, ownerColumn, currentLocationColumn, homeBaseColumn);
+        gamesTableView.getColumns().addAll(titleColumn, genreColumn, ownerColumn, currentLocationColumn, consoleColumn);
     }
     @Override
     public void setBaseController(BaseController baseController) {
@@ -139,5 +141,9 @@ public class BrowseController implements Controller{
             games.addAll(console.getGames());
         }
         return new ArrayList<>(games);
+    }
+
+    private String consoleSetToString(Set<Console> list){
+        return list.stream().map(Console::getConsoleName).collect(Collectors.joining(", "));
     }
 }
