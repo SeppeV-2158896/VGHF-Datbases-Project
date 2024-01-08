@@ -26,6 +26,11 @@ public class BaseController{
     @FXML private Button usersButton;
     @FXML private Button eventsButton;
     @FXML private Button browseButton;
+<<<<<<< HEAD
+=======
+    @FXML private VBox browseVBox;
+    @FXML private VBox eventVBox;
+>>>>>>> 80f17ff81fcc8497787965d5bf6aee575bd6d08b
     @FXML private Button loanedItemsButton;
     @FXML private AnchorPane subScene;
 
@@ -33,7 +38,13 @@ public class BaseController{
     public void initialize() {
         usersButton.setVisible(false);
         loanedItemsButton.setVisible(false);
+<<<<<<< HEAD
         changeSubscene("/browse-view.fxml", new BrowseController());
+=======
+        eventVBox.setVisible(false);
+        browseVBox.setVisible(true);
+
+>>>>>>> 80f17ff81fcc8497787965d5bf6aee575bd6d08b
         ActiveUser.user = null;
     }
 
@@ -42,7 +53,23 @@ public class BaseController{
     }
 
     @FXML protected void handleBrowseButtonPressed(ActionEvent event) throws IOException {
+<<<<<<< HEAD
         changeSubscene("/browse-view.fxml", new BrowseController());
+=======
+        if (!browseVBox.isVisible()){
+            browseVBox.setVisible(true);
+            eventVBox.setVisible(false);
+        }
+
+>>>>>>> 80f17ff81fcc8497787965d5bf6aee575bd6d08b
+    }
+
+    //TODO: Dit werkt niet, ik krijg de eventVBox niet te zien
+    @FXML protected void handleEventsButtonPressed(ActionEvent event) throws IOException{
+        if (!eventVBox.isVisible()) {
+            browseVBox.setVisible(false);
+            eventVBox.setVisible(true);
+        }
     }
 
     public Stage showView(String path, Controller controller){

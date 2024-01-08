@@ -11,5 +11,10 @@
         <module name="VGHF-database.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="project-template" target="13" />
+      <module name="project-template.main" target="13" />
+      <module name="project-template.test" target="13" />
+    </bytecodeTargetLevel>
   </component>
 </project>
