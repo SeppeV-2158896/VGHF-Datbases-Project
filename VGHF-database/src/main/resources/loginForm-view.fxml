@@ -19,7 +19,7 @@
                             <children>
                                 <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                <TextField fx:id="user" text="Firstname.Lastname" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <TextField fx:id="user" text="Username" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                 <TextField fx:id="password" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
                             <columnConstraints>
