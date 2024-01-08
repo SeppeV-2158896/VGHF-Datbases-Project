@@ -73,6 +73,10 @@ public class BaseController{
     @FXML protected void handleEventsButtonPressed(ActionEvent event) throws IOException{
     }
 
+    @FXML protected void handleUsersButtonPressed(ActionEvent actionEvent) {
+        changeSubscene("/users-view.fxml", new UsersController());
+    }
+
     public Stage showView(String path, Controller controller){
         try {
             var loader = new FXMLLoader(BaseController.class.getResource(path));
@@ -150,4 +154,6 @@ public class BaseController{
         newWindow.setScene(new Scene(loader.load()));
         newWindow.show();
     }
+
+
 }
