@@ -2,15 +2,14 @@
 
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
-
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ComboBox?>
-
 <?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
 <TabPane tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:id="tabPane">
   <tabs>
     <Tab text="Games">
@@ -18,7 +17,7 @@
                 <AnchorPane fx:id="gamesTab" >
                    <children>
                        <TextField fx:id="gameSearchText" promptText="Zoeken..." AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="100"/>
-                       <ComboBox fx:id="filterComboBox" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10"/>
+                       <ComboBox fx:id="gamesFilterComboBox" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10"/>
                        <TilePane fx:id="gamesTableView" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="50"/>
                    </children>
                 </AnchorPane>
@@ -34,14 +33,14 @@
         <content>
           <AnchorPane>
                <children>
-                  <TableView layoutX="6.0" layoutY="7.0" >
-                    <columns>
-                      <TableColumn text="Name" />
-                      <TableColumn text="Adress" />
-                        <TableColumn text="Website" />
-                        <TableColumn text="Contact" />
-                    </columns>
-                  </TableView>
+                   <VBox AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+                       <HBox>
+                           <TextField fx:id="companySearchText" promptText="Zoeken..." AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="100"/>
+                           <ComboBox fx:id="companiesFilterComboBox" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10"/>
+                       </HBox>
+                       <TableView fx:id="companiesTableView" layoutX="6.0" layoutY="7.0" >
+                       </TableView>
+                   </VBox>
                </children>
             </AnchorPane>
         </content>
