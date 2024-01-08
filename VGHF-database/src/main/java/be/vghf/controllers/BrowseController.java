@@ -42,7 +42,6 @@ public class BrowseController implements Controller{
     //Games:
 
     //TODO: Pex: Als je als VOLUNTEER op een game klikt moet je de locatie, owner en homebase kunnen aanpassen door te kiezen uit een lijst waarin je kan filteren
-    //TODO: Aanpassen van de UI van het aanpassen van een game, randen moeten randen worden -> add spacing
     //TODO: Pex: VOLUNTEER moet game kunnen toevoegen
 
     //Consoles:
