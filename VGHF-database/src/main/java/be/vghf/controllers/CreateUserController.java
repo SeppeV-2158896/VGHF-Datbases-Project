@@ -51,28 +51,31 @@ public class CreateUserController implements Controller{
         //nothing for now
     }
 
-    @FXML protected void saveNewOwner(ActionEvent event){
-        User owner = new User();
+    @FXML protected void saveNewUser(ActionEvent event){
+        User user = new User();
         //setters + check als data = geldig
 
         if(validInformation()){
-            owner.setUserName(usernameField.getText());
-            owner.setFirstName(firstNameField.getText());
-            owner.setLastName(lastNameField.getText());
-            owner.setStreetName(streetNameField.getText());
-            owner.setHouseNumber(Integer.parseInt(houseNumberField.getText()));
-            owner.setBus(busField.getText());
-            owner.setPostalCode(postalCodeField.getText());
-            owner.setCity(cityField.getText());
-            owner.setCountry(countryField.getText());
-            owner.setTelephone(Integer.parseInt(telephoneField.getText()));
-            owner.setEmail(emailField.getText());
-            owner.setPassword(passwordField.getText());
-
-            owner.setUserType(UserType.VOLUNTEER);
+            user.setUserName(usernameField.getText());
+            user.setFirstName(firstNameField.getText());
+            user.setLastName(lastNameField.getText());
+            user.setStreetName(streetNameField.getText());
+            user.setHouseNumber(Integer.parseInt(houseNumberField.getText()));
+            user.setBus(busField.getText());
+            user.setPostalCode(postalCodeField.getText());
+            user.setCity(cityField.getText());
+            user.setCountry(countryField.getText());
+            user.setTelephone(Integer.parseInt(telephoneField.getText()));
+            user.setEmail(emailField.getText());
+            user.setPassword(passwordField.getText());
 
             if(listener instanceof EditOwnerLocationController){
-                ((EditOwnerLocationController) listener).newOwnerCreated(owner);
+                user.setUserType(UserType.VOLUNTEER);
+                ((EditOwnerLocationController) listener).newOwnerCreated(user);
+            }
+            else{
+                user.setUserType(UserType.CUSTOMER);
+                ((UsersController) listener).newUserCreated(user);
             }
 
             Button sourceButton = (Button) event.getSource();

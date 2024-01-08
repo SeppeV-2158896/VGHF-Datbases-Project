@@ -3,8 +3,10 @@ package be.vghf.controllers;
 import be.vghf.domain.Dev_company;
 import be.vghf.domain.User;
 import be.vghf.repository.Dev_companyRepository;
+import be.vghf.repository.GenericRepository;
 import be.vghf.repository.UserRepository;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -25,12 +28,15 @@ import java.util.stream.Collectors;
 
 
 public class UsersController implements Controller {
-
+    BaseController baseController;
     @FXML private TextField nameQueryField;
     @FXML private TextField locationQueryField;
     @FXML private Text nameText;
     @FXML private Text locationText;
     @FXML private Button submitButton;
+    @FXML private Button editButton;
+    @FXML private Button addButton;
+    @FXML private Button deleteButton;
     @FXML private TableView<User> userTableView;
 
     @FXML
@@ -74,11 +80,27 @@ public class UsersController implements Controller {
 
         submitButton.setText("Search");
         submitButton.setOnAction(event -> handleSearch(event));
+
+        editButton.setText("Edit");
+        editButton.setOnAction(event -> handleEdit(event));
+        editButton.setDisable(true);
+
+        addButton.setText("Add");
+        addButton.setOnAction(event -> {
+            try {
+                handleAdd(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        deleteButton.setText("Delete");
+        deleteButton.setOnAction(event -> handleDelete(event));
     }
 
     @Override
     public void setBaseController(BaseController baseController) {
-
+        this.baseController = baseController;
     }
 
     @Override
@@ -86,7 +108,7 @@ public class UsersController implements Controller {
 
     }
 
-    @FXML protected void handleSearch(Event event) {
+    @FXML protected void handleSearch(ActionEvent event) {
         String nameText = nameQueryField.getText();
         String[] nameArray = nameText.split("\\s+");
         String locationText = locationQueryField.getText();
@@ -118,5 +140,44 @@ public class UsersController implements Controller {
         }
 
         userTableView.setItems(FXCollections.observableArrayList(results));
+    }
+
+    @FXML protected void handleEdit(ActionEvent event){
+        User selectedUser = userTableView.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML protected void handleAdd(Event event) throws IOException {
+        CreateUserController createUserController = new CreateUserController();
+        baseController.showView("New user", createUserController, "/createUser-view.fxml");
+        createUserController.setListener(this);
+    }
+
+    @FXML protected void handleDelete(Event event){
+        User selectedUser = userTableView.getSelectionModel().getSelectedItem();
+        GenericRepository.delete(selectedUser);
+
+        var items = userTableView.getItems();
+        items.remove(selectedUser);
+        userTableView.setItems(items);
+
+        editButton.setDisable(true);
+    }
+
+    @FXML protected void handleItemSelected(MouseEvent event){
+        User selectedUser = userTableView.getSelectionModel().getSelectedItem();
+        if(selectedUser != null){
+            editButton.setDisable(false);
+        }
+        else{
+            editButton.setDisable(true);
+        }
+    }
+
+    public void newUserCreated(User user){
+        GenericRepository.save(user);
+
+        var items = userTableView.getItems();
+        items.add(user);
+        userTableView.setItems(items);
     }
 }
