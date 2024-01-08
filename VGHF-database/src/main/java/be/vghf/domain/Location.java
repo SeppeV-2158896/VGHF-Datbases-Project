@@ -144,4 +144,9 @@ public class Location {
     public void setOwnedGames(Set<Game> ownedGames) {
         this.ownedGames = ownedGames;
     }
+
+    @Override
+    public String toString() {
+        return streetName + houseNumber + bus + ',' + postalCode + city + ',' + country;
+    }
 }

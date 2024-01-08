@@ -27,4 +27,12 @@ public class GenericRepository {
         em.remove(object);
         em.getTransaction().commit();
     }
+
+    public static <T> void update(T object){
+        EntityManager em = EntityManagerSingleton.getInstance();
+
+        em.getTransaction().begin();
+        em.merge(object);
+        em.getTransaction().commit();
+    }
 }

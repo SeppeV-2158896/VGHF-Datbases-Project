@@ -4,7 +4,6 @@ import be.vghf.enums.ConsoleType;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,13 +26,13 @@ public class Console implements Serializable{
     @ManyToOne
     @JoinColumn(name = "company", nullable = false)
     private Dev_company company;
-    /* Uitgecomment omdat het programma anders niet wil werken door een of andere gekke ParseException??
+
     @Column (name = "releasedYear")
-    private Date releaseYear;
+    private String releaseYear;
 
     @Column (name = "discontinuationYear")
-    private Date discontinuationYear;
-    Ik snap het ook niet waarom... */
+    private String discontinuationYear;
+
     @Column (name = "unitsSoldMillion")
     private double unitsSoldInMillions;
 
@@ -76,23 +75,23 @@ public class Console implements Serializable{
     public void setCompany(Dev_company company) {
         this.company = company;
     }
-    /*
-    public Date getReleaseYear() {
+
+    public String getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(Date releaseYear) {
+    public void setReleaseYear(String releaseYear) {
         this.releaseYear = releaseYear;
     }
 
-    public Date getDiscontinuationYear() {
+    public String getDiscontinuationYear() {
         return discontinuationYear;
     }
 
-    public void setDiscontinuationYear(Date discontinuationYear) {
+    public void setDiscontinuationYear(String discontinuationYear) {
         this.discontinuationYear = discontinuationYear;
     }
-    */
+
     public double getUnitsSoldInMillions() {
         return unitsSoldInMillions;
     }

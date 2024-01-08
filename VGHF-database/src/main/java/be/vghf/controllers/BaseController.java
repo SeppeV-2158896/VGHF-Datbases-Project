@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -19,23 +20,20 @@ import java.io.IOException;
 
 public class BaseController{
 
+    @FXML private AnchorPane baseContainer;
     @FXML private Text testTekst;
     @FXML private Button accountButton;
     @FXML private Button usersButton;
     @FXML private Button eventsButton;
     @FXML private Button browseButton;
-    @FXML private VBox browseVBox;
     @FXML private Button loanedItemsButton;
-
-    private ActiveUser loggedInUser;
+    @FXML private AnchorPane subScene;
 
     @FXML
     public void initialize() {
         usersButton.setVisible(false);
         loanedItemsButton.setVisible(false);
-
-        browseVBox.setVisible(true);
-
+        changeSubscene("/browse-view.fxml", new BrowseController());
         ActiveUser.user = null;
     }
 
@@ -44,10 +42,7 @@ public class BaseController{
     }
 
     @FXML protected void handleBrowseButtonPressed(ActionEvent event) throws IOException {
-        if (!browseVBox.isVisible()){
-            browseVBox.setVisible(true);
-        }
-
+        changeSubscene("/browse-view.fxml", new BrowseController());
     }
 
     public Stage showView(String path, Controller controller){
@@ -58,7 +53,8 @@ public class BaseController{
                 loader.setController(controller);
                 controller.setBaseController(this);
             }
-                Parent root = loader.load();
+            Parent root = loader.load();
+
 
             Stage stage = new Stage();
             stage.setTitle("VGHF Database Software");
@@ -72,6 +68,24 @@ public class BaseController{
         }
 
         return null;
+    }
+
+    public void changeSubscene(String path, Controller controller){
+        try {
+            subScene.getChildren().clear();
+            var loader = new FXMLLoader(BaseController.class.getResource(path));
+
+            if (controller != null) {
+                loader.setController(controller);
+                controller.setBaseController(this);
+            }
+            Parent root = loader.load();
+
+            subScene.getChildren().add(root);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static void showErrorAlert(String title, String content) {
@@ -96,6 +110,7 @@ public class BaseController{
         if (ActiveUser.user.getUserType().equals(UserType.VOLUNTEER)){
             usersButton.setVisible(true);
         }
+
     }
 
 }

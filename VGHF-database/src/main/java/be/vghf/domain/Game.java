@@ -1,11 +1,6 @@
 package be.vghf.domain;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,10 +26,10 @@ public class Game {
 
     @Column (name = "title")
     private String title;
-    /*
+
     @Column (name = "releaseDate")
-    private Timestamp releaseDate;
-    */
+    private String releaseDate;
+
     @Column (name = "genre")
     private String genre;
 
@@ -82,15 +77,15 @@ public class Game {
     public void setTitle(String title) {
         this.title = title;
     }
-    /*
-    public Timestamp getReleaseDate() {
+
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Timestamp releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
-    */
+
 
     public Set<Console> getConsoles() {
         return consoles;
