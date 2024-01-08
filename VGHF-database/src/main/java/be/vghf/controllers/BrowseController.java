@@ -63,6 +63,10 @@ public class BrowseController implements Controller{
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
     }
+    @Override
+    public void setListener(Controller controller){
+        //no listener needed here
+    }
     @FXML public void initialize(){
         GameRepository gr = new GameRepository();
         var games = gr.getAll();

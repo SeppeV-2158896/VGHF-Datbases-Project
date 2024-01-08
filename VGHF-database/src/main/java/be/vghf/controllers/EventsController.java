@@ -77,6 +77,10 @@ public class EventsController implements Controller{
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
     }
+    @Override
+    public void setListener(Controller controller){
+        //no listener needed here
+    }
 
     @FXML protected void handleSearch(KeyEvent event) throws IOException {
         if(event.getCode() != KeyCode.ENTER){

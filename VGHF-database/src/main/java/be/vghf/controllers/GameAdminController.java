@@ -1,6 +1,7 @@
 package be.vghf.controllers;
 
 import be.vghf.domain.Game;
+import be.vghf.domain.User;
 import be.vghf.repository.GenericRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +10,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class GameAdminController implements Controller{
+public class GameAdminController implements Controller {
     private BaseController baseController;
 
     @FXML
@@ -67,10 +68,17 @@ public class GameAdminController implements Controller{
 
     @FXML protected void editOwner(ActionEvent event){
         try{ //nog aanpassen anders gaat het nie werken he
-            baseController.createNewWindow("Edit owner", new EditOwnerLocationController(), "/editOwnerLocations-view.fxml");
+            EditOwnerLocationController eolController = new EditOwnerLocationController();
+            baseController.createNewWindow("Edit owner", eolController, "/editOwnerLocations-view.fxml");
+            eolController.setListener(this);
         } catch (IOException e){
             throw new RuntimeException("Failed to open window: " + e.getMessage(), e);
         }
+    }
+
+    public void selectedUserConfirmed(User user){
+        game.setOwner(user);
+        ownerButton.setText(game.getOwner().getFirstName() + " " + game.getOwner().getLastName());
     }
 
     public void editHomeBase(ActionEvent event){
@@ -84,5 +92,10 @@ public class GameAdminController implements Controller{
     @Override
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
+    }
+
+    @Override
+    public void setListener(Controller controller){
+        //no listener needed here
     }
 }

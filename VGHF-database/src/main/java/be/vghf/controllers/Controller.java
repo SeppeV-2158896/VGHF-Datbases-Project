@@ -2,5 +2,7 @@ package be.vghf.controllers;
 
 public interface Controller {
 
-    public void setBaseController(BaseController baseController);
+    void setBaseController(BaseController baseController);
+
+    void setListener(Controller controller);
 }

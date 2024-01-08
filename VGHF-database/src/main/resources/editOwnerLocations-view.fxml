@@ -17,11 +17,12 @@
     <Label text="Address"/>
     <TextField fx:id="addressField" onKeyReleased="#handleSearch"/>
 
-    <TableView fx:id="table"/>
+    <TableView fx:id="table" onMouseClicked="#handleMouseClick"/>
 
     <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
-        <Button text="Add" onAction="#addOwner"/>
-        <Button text="Delete" onAction="#deleteOwner"/>
+        <Button fx:id="addButton" text="Add" onAction="#addOwner"/>
+        <Button fx:id="deleteButton" text="Delete" onAction="#deleteOwner"/>
+        <Button fx:id="confirmButton" text="Confirm" onAction="#confirmSelectedOwner" alignment="BASELINE_RIGHT"/>
     </HBox>
 
 </VBox>
