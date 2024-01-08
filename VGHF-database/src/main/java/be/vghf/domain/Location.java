@@ -1,6 +1,9 @@
 package be.vghf.domain;
 
 import be.vghf.enums.LocationType;
+import be.vghf.enums.UserType;
+import be.vghf.models.ActiveUser;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -147,7 +150,10 @@ public class Location {
 
     @Override
     public String toString() {
-        if(bus != null){
+        if((ActiveUser.user == null || ActiveUser.user.getUserType() == UserType.CUSTOMER) && (this.locationType == LocationType.PRIVATE || this.locationType == LocationType.STORAGE)){
+            return "[hidden]";
+        }
+        else if(bus != null){
             return streetName + ' ' + houseNumber + ' ' + bus + ", " + postalCode + ' ' + city + ", " + country;
         }
         else{

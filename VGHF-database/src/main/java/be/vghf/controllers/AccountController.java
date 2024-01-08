@@ -18,12 +18,12 @@ public class AccountController implements Controller {
 
     public void handleRegisterButton(ActionEvent actionEvent) {
         registerButton.getScene().getWindow().hide();
-        baseController.showView("/registerForm-view.fxml", new RegisterController());
+        baseController.showView("Register", new RegisterController(), "/registerForm-view.fxml");
     }
 
     public void handleLoginButton(ActionEvent actionEvent) {
         loginButton.getScene().getWindow().hide();
-        baseController.showView("/loginForm-view.fxml", new LoginController());
+        baseController.showView("Login", new LoginController(), "/loginForm-view.fxml");
     }
     @Override
     public void setBaseController (BaseController baseController){

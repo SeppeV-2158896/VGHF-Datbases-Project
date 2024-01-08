@@ -6,6 +6,7 @@ import be.vghf.models.ActiveUser;
 import be.vghf.repository.ConsoleRepository;
 import be.vghf.repository.Dev_companyRepository;
 import be.vghf.repository.GameRepository;
+import be.vghf.repository.GenericRepository;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -38,14 +39,11 @@ public class BrowseController implements Controller{
     @FXML private TextField companySearchText;
     @FXML private ComboBox<String> companiesFilterComboBox;
 
-    //TODO: Opschonen van de code in browse controller -> meerdere controllers of meer functie definitie
-
     //Games:
 
     //TODO: Als je als VOLUNTEER op een game klikt moet je de locatie, owner en homebase kunnen aanpassen door te kiezen uit een lijst waarin je kan filteren
     //TODO: Aanpassen van de UI van het aanpassen van een game, randen moeten randen worden -> add spacing
     //TODO: Maak het mogelijk dat je zowel op titel als console te gelijk kan filteren
-    //TODO: Locatie moet hidden zijn als het een prive locatie is
     //TODO: VOLUNTEER moet game kunnen toevoegen
 
     //Consoles:
@@ -62,12 +60,20 @@ public class BrowseController implements Controller{
     @Override
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
+        baseController.setListener(this);
     }
     @Override
     public void setListener(Controller controller){
         //no listener needed here
     }
     @FXML public void initialize(){
+        tabPane.resize(1920,1080);
+        initializeGamesBrowser();
+        initializeCompanyBrowser();
+        initializeConsoleBrowser();
+
+    }
+    private void initializeGamesBrowser(){
         gameRepository = new GameRepository();
         var games = gameRepository.getAll();
 
@@ -80,18 +86,8 @@ public class BrowseController implements Controller{
 
         gameSearchText.setOnKeyReleased(this::handleGameSearch);
         companySearchText.setOnKeyReleased(this::handleCompanySearch);
-
-        ConsoleRepository cr = new ConsoleRepository();
-        var consoles = cr.getAll();
-        setConsolesInConsolePane(consoles);
-
-        tabPane.resize(1920,1080);
-
-        initalizeCompanyBrowser();
-
     }
-
-    private void initalizeCompanyBrowser(){
+    private void initializeCompanyBrowser(){
         companiesFilterComboBox.setPromptText("Filter");
         companiesFilterComboBox.getItems().add("All");
         companiesFilterComboBox.getItems().add("Title");
@@ -117,6 +113,12 @@ public class BrowseController implements Controller{
         companiesTableView.setEditable(false);
         companiesTableView.getColumns().addAll(nameCol, websiteCol, emailCol, addressCol);
     }
+    private void initializeConsoleBrowser(){
+        ConsoleRepository cr = new ConsoleRepository();
+        var consoles = cr.getAll();
+        setConsolesInConsolePane(consoles);
+    }
+
 
     private void setConsolesInConsolePane(List<Console> consoles) {
         consoleTab.getChildren().clear();
@@ -157,7 +159,7 @@ public class BrowseController implements Controller{
         String[] gameSearch = gameSearchText.split("\\s+");
         Set<Game> gameResults = null;
 
-        if(currentFilter == "All"){
+        if(currentFilter == "All" || currentFilter == null){
             gameResults = queryGameWithoutOrAllFilter(gameSearch);
         }
         else if(currentFilter == "Title"){
@@ -229,9 +231,7 @@ public class BrowseController implements Controller{
         return new Dev_companyRepository().getCompanyByLocation(wordsArray);
     }
 
-    private String consoleSetToString(Set<Console> list){
-        return list.stream().map(Console::getConsoleName).collect(Collectors.joining(", "));
-    }
+
 
     private void showGamesInTileView(Set<Game> games) {
 
@@ -259,7 +259,7 @@ public class BrowseController implements Controller{
 
         Label label1 = new Label("Game: " + game.getTitle());
         Label label2 = new Label("Release date: " + game.getReleaseDate().toString());
-        Label label3 = new Label("Consoles: " + consoleSetToString(game.getConsoles()));
+        Label label3 = new Label("Consoles: " + GenericRepository.consoleSetToString(game.getConsoles()));
         Label label4 = new Label("Location: " + game.getCurrentLocation().toString());
         Label label5 = new Label("Genre: " + game.getGenre());
 
@@ -279,14 +279,10 @@ public class BrowseController implements Controller{
                     return;
                 }
                 if (ActiveUser.user.getUserType() == UserType.VOLUNTEER){
-                    try {
-                        GameAdminController gaController = new GameAdminController();
-                        baseController.createNewWindow("Game details", gaController, "/gameAdmin-view.fxml");
-                        gaController.setGame(game);
-                        gaController.setListener(listener);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    GameAdminController gaController = new GameAdminController();
+                    baseController.showView("Game details", gaController, "/gameAdmin-view.fxml");
+                    gaController.setGame(game);
+                    gaController.setListener(listener);
                 }
             }
         });
@@ -295,17 +291,6 @@ public class BrowseController implements Controller{
     }
 
     public void updateGameDetails(Game newGame){
-        for(Game game : gameRepository.getAll()){
-            if(game.getGameID() == newGame.getGameID()){
-                game.setOwner(newGame.getOwner());
-                game.setReleaseDate(newGame.getReleaseDate());
-                game.setGenre(newGame.getGenre());
-                game.setOwner(newGame.getOwner());
-                game.setHomeBase(newGame.getHomeBase());
-                game.setCurrentLocation(newGame.getCurrentLocation());
-                break;
-            }
-        }
         Set<Game> games = Set.copyOf(gameRepository.getAll());
         showGamesInTileView(games);
     }

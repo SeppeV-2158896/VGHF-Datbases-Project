@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class BaseController{
+public class BaseController implements Controller{
 
     @FXML private AnchorPane baseContainer;
     @FXML private Text testTekst;
@@ -28,6 +28,9 @@ public class BaseController{
     @FXML private Button browseButton;
     @FXML private Button loanedItemsButton;
     @FXML private AnchorPane subScene;
+
+    private Controller listener;
+    private BaseController baseController = this;
 
     //Loaned Items:
 
@@ -62,7 +65,7 @@ public class BaseController{
     }
 
     @FXML protected void handleAccountButtonPressed(ActionEvent event) throws IOException {
-        showView("/loginOrRegister-view.fxml", new AccountController());
+        showView("Account Manager", new AccountController(),"/loginOrRegister-view.fxml");
     }
 
     @FXML protected void handleBrowseButtonPressed(ActionEvent event) throws IOException {
@@ -77,7 +80,7 @@ public class BaseController{
         changeSubscene("/users-view.fxml", new UsersController());
     }
 
-    public Stage showView(String path, Controller controller){
+    public Stage showView(String title, Controller controller, String path){
         try {
             var loader = new FXMLLoader(BaseController.class.getResource(path));
 
@@ -89,7 +92,7 @@ public class BaseController{
 
 
             Stage stage = new Stage();
-            stage.setTitle("VGHF Database Software");
+            stage.setTitle(title);
             stage.setScene(new Scene(root));
             stage.show();
 
@@ -130,7 +133,7 @@ public class BaseController{
 
     public void update() {
 
-        if (ActiveUser.user == null){
+        if (ActiveUser.user == null) {
             usersButton.setVisible(false);
             loanedItemsButton.setVisible(false);
 
@@ -139,20 +142,17 @@ public class BaseController{
 
         loanedItemsButton.setVisible(true);
 
-        if (ActiveUser.user.getUserType().equals(UserType.VOLUNTEER)){
+        if (ActiveUser.user.getUserType().equals(UserType.VOLUNTEER)) {
             usersButton.setVisible(true);
         }
-
     }
 
-    public void createNewWindow(String title, Controller controller, String path) throws IOException {
-        Stage newWindow = new Stage();
-        newWindow.setTitle(title);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-        loader.setController(controller);
-        controller.setBaseController(this);
-        newWindow.setScene(new Scene(loader.load()));
-        newWindow.show();
+    @Override
+    public void setBaseController(BaseController baseController) {
+    }
+    @Override
+    public void setListener(Controller listener) {
+        this.listener = listener;
     }
 
 

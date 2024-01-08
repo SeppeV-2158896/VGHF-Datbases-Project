@@ -76,13 +76,9 @@ public class GameAdminController implements Controller {
     }
 
     @FXML protected void editOwner(ActionEvent event){
-        try{ //nog aanpassen anders gaat het nie werken he
-            EditOwnerLocationController eolController = new EditOwnerLocationController();
-            baseController.createNewWindow("Edit owner", eolController, "/editOwnerLocations-view.fxml");
-            eolController.setListener(this);
-        } catch (IOException e){
-            throw new RuntimeException("Failed to open window: " + e.getMessage(), e);
-        }
+        EditOwnerLocationController eolController = new EditOwnerLocationController();
+        baseController.showView("Edit owner", eolController, "/editOwnerLocations-view.fxml");
+        eolController.setListener(this);
     }
 
     public void selectedUserConfirmed(User user){
