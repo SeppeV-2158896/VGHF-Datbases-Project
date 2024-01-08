@@ -2,6 +2,7 @@ package be.vghf.controllers;
 
 import be.vghf.domain.Game;
 import be.vghf.domain.User;
+import be.vghf.repository.GenericRepository;
 import be.vghf.repository.UserRepository;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -111,12 +112,27 @@ public class EditOwnerLocationController implements Controller{
         }
     }
 
-    @FXML protected void addOwner(ActionEvent event){
-        return;
+    @FXML protected void addOwner(ActionEvent event) throws IOException {
+        CreateUserController createUserController = new CreateUserController();
+        baseController.createNewWindow("New user", createUserController, "/createUser-view.fxml");
+        createUserController.setListener(this);
     }
 
     @FXML protected void deleteOwner(ActionEvent event){
-        return;
+        User owner = (User) table.getSelectionModel().getSelectedItem();
+        GenericRepository.delete(owner);
+
+        var items = table.getItems();
+        items.remove(owner);
+        table.setItems(items);
+    }
+
+    public void newOwnerCreated(User newOwner){
+        GenericRepository.save(newOwner);
+
+        var items = table.getItems();
+        items.add(newOwner);
+        table.setItems(items);
     }
 
     @Override
