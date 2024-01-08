@@ -54,7 +54,6 @@ public class BrowseController implements Controller{
 
     //Companies:
 
-    //TODO: Toevoegen van de company view en filters
     //TODO: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
     //TODO: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
 
