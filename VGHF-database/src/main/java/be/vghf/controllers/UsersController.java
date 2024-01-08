@@ -86,13 +86,7 @@ public class UsersController implements Controller {
         editButton.setDisable(true);
 
         addButton.setText("Add");
-        addButton.setOnAction(event -> {
-            try {
-                handleAdd(event);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        addButton.setOnAction(event -> handleAdd(event));
 
         deleteButton.setText("Delete");
         deleteButton.setOnAction(event -> handleDelete(event));
@@ -144,12 +138,16 @@ public class UsersController implements Controller {
 
     @FXML protected void handleEdit(ActionEvent event){
         User selectedUser = userTableView.getSelectionModel().getSelectedItem();
+        EditUserController editUserController = new EditUserController();
+        editUserController.setUser(selectedUser);
+        editUserController.setListener(this);
+        baseController.showView("Edit user", editUserController, "/createUser-view.fxml");
     }
 
-    @FXML protected void handleAdd(Event event) throws IOException {
+    @FXML protected void handleAdd(Event event) {
         CreateUserController createUserController = new CreateUserController();
-        baseController.showView("New user", createUserController, "/createUser-view.fxml");
         createUserController.setListener(this);
+        baseController.showView("New user", createUserController, "/createUser-view.fxml");
     }
 
     @FXML protected void handleDelete(Event event){
@@ -179,5 +177,10 @@ public class UsersController implements Controller {
         var items = userTableView.getItems();
         items.add(user);
         userTableView.setItems(items);
+    }
+
+    public void userEdited(User user){
+        GenericRepository.update(user);
+        userTableView.refresh();
     }
 }

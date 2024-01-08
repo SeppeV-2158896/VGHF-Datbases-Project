@@ -4,10 +4,13 @@ import be.vghf.domain.User;
 import be.vghf.enums.UserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class CreateUserController implements Controller{
+public class EditUserController implements Controller{
     @FXML
     private Label title;
     @FXML
@@ -36,6 +39,7 @@ public class CreateUserController implements Controller{
     private TextField passwordField;
     private BaseController baseController;
     private Controller listener;
+    private User user;
     @Override
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
@@ -46,16 +50,28 @@ public class CreateUserController implements Controller{
         this.listener = controller;
     }
 
+    public void setUser(User user){
+        this.user = user;
+    }
+
     @FXML public void initialize(){
-        if(listener instanceof UsersController){
-            title.setText("Create new user");
-        }
+        title.setText("Edit user");
+
+        usernameField.setText(user.getUserName());
+        firstNameField.setText(user.getFirstName());
+        lastNameField.setText(user.getLastName());
+        streetNameField.setText(user.getStreetName());
+        houseNumberField.setText(Integer.toString(user.getHouseNumber()));
+        busField.setText(user.getBus());
+        postalCodeField.setText(user.getPostalCode());
+        cityField.setText(user.getCity());
+        countryField.setText(user.getCountry());
+        telephoneField.setText(Integer.toString(user.getTelephone()));
+        emailField.setText(user.getEmail());
+        passwordField.setText(user.getPassword());
     }
 
     @FXML protected void saveUser(ActionEvent event){
-        User user = new User();
-        //setters + check als data = geldig
-
         if(validInformation()){
             user.setUserName(usernameField.getText());
             user.setFirstName(firstNameField.getText());
@@ -70,14 +86,7 @@ public class CreateUserController implements Controller{
             user.setEmail(emailField.getText());
             user.setPassword(passwordField.getText());
 
-            if(listener instanceof EditOwnerLocationController){
-                user.setUserType(UserType.VOLUNTEER);
-                ((EditOwnerLocationController) listener).newOwnerCreated(user);
-            }
-            else{
-                user.setUserType(UserType.CUSTOMER);
-                ((UsersController) listener).newUserCreated(user);
-            }
+            ((UsersController) listener).userEdited(user);
 
             Button sourceButton = (Button) event.getSource();
             Stage stage = (Stage) sourceButton.getScene().getWindow();
@@ -85,11 +94,10 @@ public class CreateUserController implements Controller{
         }
         else{
             displayErrorAlert("ERROR", "Invalid input\n" +
-                                                    "Check if all fields are properly filled in.\n" +
-                                                    "(House number and telephone have to be numbers only!)");
+                    "Check if all fields are properly filled in.\n" +
+                    "(House number and telephone have to be numbers only!)");
         }
     }
-
     private boolean validInformation(){
         try{
             Integer.parseInt(houseNumberField.getText());

@@ -41,8 +41,7 @@ public class BrowseController implements Controller{
 
     //Games:
 
-    //TODO: Als je als VOLUNTEER op een game klikt moet je de locatie, owner en homebase kunnen aanpassen door te kiezen uit een lijst waarin je kan filteren
-    //TODO: Aanpassen van de UI van het aanpassen van een game, randen moeten randen worden -> add spacing
+    //TODO: Als je als VOLUNTEER op een game klikt moet je de locatie en homebase kunnen aanpassen door te kiezen uit een lijst waarin je kan filteren
     //TODO: Maak het mogelijk dat je zowel op titel als console te gelijk kan filteren
     //TODO: VOLUNTEER moet game kunnen toevoegen
 
