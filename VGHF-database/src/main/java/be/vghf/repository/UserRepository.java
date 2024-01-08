@@ -1,9 +1,13 @@
 package be.vghf.repository;
 
+import be.vghf.domain.Game;
 import be.vghf.domain.User;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserRepository implements Repository{
     public UserRepository(){}
@@ -26,6 +30,22 @@ public class UserRepository implements Repository{
         query.select(root);
 
         return GenericRepository.query(query);
+    }
+
+    public List<User> getUserByAddress(String[] address){
+        Set<User> users = new HashSet<>();
+
+        for(String str : address){
+            var criteriaBuilder = EntityManagerSingleton.getInstance().getCriteriaBuilder();
+            var query = criteriaBuilder.createQuery(User.class);
+            var root = query.from(User.class);
+
+            //dit gaat nog niet werken
+            query.where(criteriaBuilder.like(root.get("address"), "%" + str + "%"));
+
+            users.addAll(GenericRepository.query(query));
+        }
+        return new ArrayList<>(users);
     }
 
     public static String hashPassword(String input){

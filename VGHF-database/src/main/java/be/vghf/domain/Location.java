@@ -147,6 +147,11 @@ public class Location {
 
     @Override
     public String toString() {
-        return streetName + houseNumber + bus + ',' + postalCode + city + ',' + country;
+        if(bus != null){
+            return streetName + ' ' + houseNumber + ' ' + bus + ", " + postalCode + ' ' + city + ", " + country;
+        }
+        else{
+            return streetName + ' ' + houseNumber + ", " + postalCode + ' ' + city + ", " + country;
+        }
     }
 }

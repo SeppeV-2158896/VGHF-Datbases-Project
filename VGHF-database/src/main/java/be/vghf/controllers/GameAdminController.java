@@ -7,7 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class GameAdminController{
+import java.io.IOException;
+
+public class GameAdminController implements Controller{
+    private BaseController baseController;
 
     @FXML
     private TextField titleField;
@@ -19,13 +22,13 @@ public class GameAdminController{
     private TextField genreField;
 
     @FXML
-    private TextField ownerField;
+    private Button ownerButton;
 
     @FXML
-    private TextField homeBaseField;
+    private Button homeBaseButton;
 
     @FXML
-    private TextField currentLocationField;
+    private Button currentLocationButton;
 
     @FXML
     private Button saveButton;
@@ -57,6 +60,29 @@ public class GameAdminController{
         titleField.setText(game.getTitle());
         releaseDateField.setText(game.getReleaseDate());
         genreField.setText(game.getGenre());
+        ownerButton.setText(game.getOwner().getFirstName() + " " + game.getOwner().getLastName());
+        homeBaseButton.setText(game.getHomeBase().toString());
+        currentLocationButton.setText(game.getCurrentLocation().toString());
     }
 
+    @FXML protected void editOwner(ActionEvent event){
+        try{ //nog aanpassen anders gaat het nie werken he
+            baseController.createNewWindow("Edit owner", new EditOwnerLocationController(), "/editOwnerLocations-view.fxml");
+        } catch (IOException e){
+            throw new RuntimeException("Failed to open window: " + e.getMessage(), e);
+        }
+    }
+
+    public void editHomeBase(ActionEvent event){
+
+    }
+
+    public void editCurrentLocation(ActionEvent event){
+
+    }
+
+    @Override
+    public void setBaseController(BaseController baseController) {
+        this.baseController = baseController;
+    }
 }
