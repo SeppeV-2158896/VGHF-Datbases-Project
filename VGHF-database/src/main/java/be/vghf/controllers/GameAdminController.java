@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -37,6 +38,8 @@ public class GameAdminController implements Controller {
     @FXML
     private Button deleteButton;
 
+    private BrowseController listener;
+
     // Inject your Game instance here
     private Game game;
 
@@ -45,12 +48,18 @@ public class GameAdminController implements Controller {
         this.game = game;
         populateFields();
     }
-    public void saveGame(ActionEvent actionEvent) {
+    public void saveGame(ActionEvent event) {
         game.setTitle(titleField.getText());
         game.setReleaseDate(releaseDateField.getText());
         game.setGenre(genreField.getText());
 
         GenericRepository.update(game);
+
+        listener.updateGameDetails(game);
+
+        Button sourceButton = (Button) event.getSource();
+        Stage stage = (Stage) sourceButton.getScene().getWindow();
+        stage.close();
     }
 
     public void deleteGame(ActionEvent actionEvent) {
@@ -96,6 +105,6 @@ public class GameAdminController implements Controller {
 
     @Override
     public void setListener(Controller controller){
-        //no listener needed here
+        this.listener = (BrowseController) controller;
     }
 }
