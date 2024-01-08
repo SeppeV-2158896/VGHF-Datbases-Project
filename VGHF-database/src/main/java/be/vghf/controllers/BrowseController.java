@@ -36,6 +36,28 @@ public class BrowseController implements Controller{
     @FXML private TextField companySearchText;
     @FXML private ComboBox<String> companiesFilterComboBox;
 
+    //TODO: Opschonen van de code in browse controller -> meerdere controllers of meer functie definitie
+
+    //Games:
+
+    //TODO: Als je als VOLUNTEER op een game klikt moet je de locatie, owner en homebase kunnen aanpassen door te kiezen uit een lijst waarin je kan filteren
+    //TODO: Aanpassen van de UI van het aanpassen van een game, randen moeten randen worden -> add spacing
+    //TODO: Maak het mogelijk dat je zowel op titel als console te gelijk kan filteren
+    //TODO: Locatie moet hidden zijn als het een prive locatie is
+    //TODO: VOLUNTEER moet game kunnen toevoegen
+
+    //Consoles:
+
+    //TODO: Toevoegen van de filters
+    //TODO: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
+    //TODO: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
+
+    //Companies:
+
+    //TODO: Toevoegen van de company view en filters
+    //TODO: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
+    //TODO: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
+
     @Override
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
