@@ -146,8 +146,6 @@ public class BrowseController implements Controller{
         AnchorPane.setTopAnchor(treeView, 0.0);
     }
 
-
-
     @FXML protected void handleGameSearch(KeyEvent event) {
         if(event.getCode() != KeyCode.ENTER){
             return;
@@ -197,14 +195,13 @@ public class BrowseController implements Controller{
 
     private Set<Game> queryGameWithoutOrAllFilter(String[] wordsArray){
         var results = queryGameWithConsoleFilter(wordsArray);
-        results.addAll(queryGameWithTitleFilter(wordsArray));
-        return results;
+        results.stream().filter((queryGameWithTitleFilter(wordsArray))::contains);
+        return results.stream().filter((queryGameWithTitleFilter(wordsArray))::contains).collect(Collectors.toSet());
     }
     private Set<Game> queryGameWithTitleFilter(String[] wordsArray){
         var results = gameRepository.getGameByName(wordsArray);
         return results;
     }
-
     private Set<Game> queryGameWithConsoleFilter(String[] wordsArray) {
         Set<Game> games = new HashSet<>();
 
