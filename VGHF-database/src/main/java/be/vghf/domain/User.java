@@ -1,6 +1,7 @@
 package be.vghf.domain;
 
 import be.vghf.enums.UserType;
+import be.vghf.repository.UserRepository;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
@@ -53,6 +54,9 @@ public class User {
 
     @ManyToMany(mappedBy = "volunteers")
     private Set<Location> locations = new HashSet<>();
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Loan_Receipts> loaned_items = new HashSet<>();
     @Column (name = "userType")
     @Enumerated(EnumType.STRING)
     private UserType userType;
@@ -173,6 +177,14 @@ public class User {
         this.userType = userType;
     }
 
+    public Set<Loan_Receipts> getLoaned_items() {
+        return loaned_items;
+    }
+
+    public void setLoaned_items(Set<Loan_Receipts> loaned_items) {
+        this.loaned_items = loaned_items;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -200,5 +212,9 @@ public class User {
                 (bus == null ? "," : bus + ",") + " " +
                 postalCode + " " + city + " " + country;
         return address;
+    }
+
+    public Double getTotalFine(){
+        return UserRepository.getTotalFine(this);
     }
 }

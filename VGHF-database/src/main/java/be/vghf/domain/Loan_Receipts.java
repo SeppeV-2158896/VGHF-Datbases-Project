@@ -8,24 +8,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table (name = "loan_receipts")
+@Table (name = "loan_receips")
 public class Loan_Receipts {
     @Column(name = "referenceID")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int referenceID;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "bridge_games_loanreceipts",
-            joinColumns = {@JoinColumn(name = "loanID")},
-            inverseJoinColumns = {@JoinColumn(name = "gameID")}
-    )
+    @ManyToMany
     Set<Game> games = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "customerID", nullable = false)
-    private User userID;
+    private User customer;
 
     @Column(name = "loanedDate")
     private Date loanedDate;
@@ -50,12 +45,12 @@ public class Loan_Receipts {
         this.games = games;
     }
 
-    public User getUserID() {
-        return userID;
+    public User getCustomer() {
+        return customer;
     }
 
-    public void setUserID(User userID) {
-        this.userID = userID;
+    public void setCustomer(User customer) {
+        this.customer = customer;
     }
 
     public Date getLoanedDate() {

@@ -63,10 +63,14 @@ public class UsersController implements Controller {
         typeCol.setCellValueFactory(
                 new PropertyValueFactory<User, String>("userType"));
 
+        TableColumn<User, Double> totalFineCol = new TableColumn<User,Double>("Type");
+        totalFineCol.setCellValueFactory(
+                new PropertyValueFactory<User, Double>("totalFine"));
+
 
         userTableView.setItems(FXCollections.observableList(new UserRepository().getAll()));
         userTableView.setEditable(false);
-        userTableView.getColumns().addAll(usernameCol, firstNameCol, lastNameCol, addressCol, telCol, emailCol, typeCol);
+        userTableView.getColumns().addAll(usernameCol, firstNameCol, lastNameCol, addressCol, telCol, emailCol, typeCol, totalFineCol);
 
         submitButton.setText("Search");
         submitButton.setOnAction(event -> handleSearch(event));

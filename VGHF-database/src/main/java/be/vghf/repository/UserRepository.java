@@ -2,7 +2,9 @@ package be.vghf.repository;
 
 import be.vghf.domain.Dev_company;
 import be.vghf.domain.Game;
+import be.vghf.domain.Loan_Receipts;
 import be.vghf.domain.User;
+import be.vghf.enums.State;
 
 import javax.persistence.criteria.Predicate;
 import java.security.MessageDigest;
@@ -88,6 +90,17 @@ public class UserRepository implements Repository{
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static Double getTotalFine(User user){
+        var entityManager = EntityManagerSingleton.getInstance();
+        var query = entityManager.createQuery(
+                "SELECT SUM(lr.fine) FROM Loan_Receipts lr WHERE lr.customer = :user AND lr.fine IS NOT NULL",
+                Double.class
+        );
+        query.setParameter("user", user);
+
+        return (Double) query.getSingleResult();
     }
 
 }
