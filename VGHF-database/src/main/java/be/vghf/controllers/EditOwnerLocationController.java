@@ -14,9 +14,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class EditOwnerLocationController implements Controller{
     private BaseController baseController;
@@ -59,11 +58,18 @@ public class EditOwnerLocationController implements Controller{
 
         UserRepository userRepository = new UserRepository();
         List<User> results = new ArrayList<>();
-        if(!ownerText.isEmpty()){
+        if(!ownerText.isEmpty() && addressText.isEmpty()){
             results.addAll(userRepository.getUserByName(ownerText));
         }
-        if (addressArray.length != 0){
+        else if (ownerText.isEmpty() && !addressText.isEmpty()){
             results.addAll(userRepository.getUserByAddress(addressArray));
+        }
+        else if (!ownerText.isEmpty() && !addressText.isEmpty()){
+            List<User> nameResults = userRepository.getUserByName(ownerText);
+            List<User> addressResults = userRepository.getUserByAddress(addressArray);
+            results = nameResults.stream()
+                    .filter(addressResults::contains)
+                    .collect(Collectors.toList());
         }
 
         table.setItems(FXCollections.observableArrayList(results));

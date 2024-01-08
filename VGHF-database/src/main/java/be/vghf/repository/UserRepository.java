@@ -1,8 +1,10 @@
 package be.vghf.repository;
 
+import be.vghf.domain.Dev_company;
 import be.vghf.domain.Game;
 import be.vghf.domain.User;
 
+import javax.persistence.criteria.Predicate;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,7 +20,13 @@ public class UserRepository implements Repository{
         var query = criteriaBuilder.createQuery(User.class);
         var root = query.from(User.class);
 
-        query.where(criteriaBuilder.equal(root.get("username"), name));
+        Predicate[] predicates = new Predicate[3];
+
+        predicates[0] = criteriaBuilder.like(root.get("username"),"%" + name + "%");
+        predicates[1] = criteriaBuilder.like(root.get("firstName"),"%" + name + "%");
+        predicates[2] = criteriaBuilder.like(root.get("lastName"),"%" + name + "%");
+
+        query.where(criteriaBuilder.or(predicates));
 
         return GenericRepository.query(query);
     }
@@ -40,10 +48,18 @@ public class UserRepository implements Repository{
             var query = criteriaBuilder.createQuery(User.class);
             var root = query.from(User.class);
 
-            //dit gaat nog niet werken
-            query.where(criteriaBuilder.like(root.get("address"), "%" + str + "%"));
+            Predicate[] predicates = new Predicate[4];
 
-            users.addAll(GenericRepository.query(query));
+            predicates[0] = criteriaBuilder.like(root.get("streetName"),"%" + str + "%");
+            predicates[1] = criteriaBuilder.like(root.get("postalCode"),"%" + str + "%");
+            predicates[2] = criteriaBuilder.like(root.get("city"),"%" + str + "%");
+            predicates[3] = criteriaBuilder.like(root.get("country"),"%" + str + "%");
+
+            query.where(criteriaBuilder.or(predicates));
+
+            List<User> queryResults = GenericRepository.query(query);
+
+            users.addAll(queryResults);
         }
         return new ArrayList<>(users);
     }
