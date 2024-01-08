@@ -1,24 +1,15 @@
 package be.vghf.controllers;
 
-import antlr.StringUtils;
-import be.vghf.domain.Console;
-import be.vghf.domain.Game;
-import be.vghf.domain.Location;
-import be.vghf.domain.User;
+import be.vghf.domain.*;
 import be.vghf.enums.UserType;
 import be.vghf.models.ActiveUser;
 import be.vghf.repository.ConsoleRepository;
+import be.vghf.repository.Dev_companyRepository;
 import be.vghf.repository.GameRepository;
-import com.sun.source.tree.Tree;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Orientation;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
@@ -28,57 +19,40 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import org.controlsfx.control.CheckTreeView;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.w3c.dom.Node;
 
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BrowseController implements Controller{
     private BaseController baseController;
     @FXML private TextField gameSearchText;
     @FXML private TilePane gamesTableView;
-    @FXML private ComboBox<String> filterComboBox;
+    @FXML private ComboBox<String> gamesFilterComboBox;
     @FXML private AnchorPane gamesTab;
-
+    @FXML private TableView<Dev_company> companiesTableView;
     @FXML private TabPane tabPane;
     @FXML private AnchorPane consoleTab;
-    private static SessionFactory sessionFactory;
-    private String currentFilter;
+    @FXML private TextField companySearchText;
+    @FXML private ComboBox<String> companiesFilterComboBox;
+
+    @Override
+    public void setBaseController(BaseController baseController) {
+        this.baseController = baseController;
+    }
     @FXML public void initialize(){
         GameRepository gr = new GameRepository();
         var games = gr.getAll();
 
-        showGamesInTileView(games);
+        showGamesInTileView(new HashSet<>(games));
 
-        filterComboBox.setPromptText("Filter");
-        filterComboBox.getItems().add("All");
-        filterComboBox.getItems().add("Title");
-        filterComboBox.getItems().add("Console");
+        gamesFilterComboBox.setPromptText("Filter");
+        gamesFilterComboBox.getItems().add("All");
+        gamesFilterComboBox.getItems().add("Title");
+        gamesFilterComboBox.getItems().add("Console");
 
-        currentFilter = "All";
-
-        filterComboBox.onActionProperty().set(this::handleFilterChange);
-        gameSearchText.setOnKeyReleased(event -> {
-            try {
-                handleSearch(event);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        gameSearchText.setOnKeyReleased(this::handleGameSearch);
+        companySearchText.setOnKeyReleased(this::handleCompanySearch);
 
         ConsoleRepository cr = new ConsoleRepository();
         var consoles = cr.getAll();
@@ -86,6 +60,35 @@ public class BrowseController implements Controller{
 
         tabPane.resize(1920,1080);
 
+        initalizeCompanyBrowser();
+
+    }
+
+    private void initalizeCompanyBrowser(){
+        companiesFilterComboBox.setPromptText("Filter");
+        companiesFilterComboBox.getItems().add("All");
+        companiesFilterComboBox.getItems().add("Title");
+        companiesFilterComboBox.getItems().add("Location");
+
+        TableColumn<Dev_company, String> nameCol = new TableColumn<Dev_company, String>("Company name");
+        nameCol.setCellValueFactory(
+                new PropertyValueFactory<Dev_company, String>("companyName"));
+
+        TableColumn<Dev_company, String> websiteCol = new TableColumn<Dev_company, String>("Website");
+        websiteCol.setCellValueFactory(
+                new PropertyValueFactory<Dev_company, String>("website"));
+
+        TableColumn<Dev_company, String> emailCol = new TableColumn<Dev_company,String>("Email");
+        emailCol.setCellValueFactory(
+                new PropertyValueFactory<Dev_company, String>("supportEmail"));
+
+        TableColumn<Dev_company, String> addressCol = new TableColumn<Dev_company, String>("Address");
+        addressCol.setCellValueFactory(
+                new PropertyValueFactory<Dev_company, String>("address"));
+
+        companiesTableView.setItems(FXCollections.observableList(new Dev_companyRepository().getAll()));
+        companiesTableView.setEditable(false);
+        companiesTableView.getColumns().addAll(nameCol, websiteCol, emailCol, addressCol);
     }
 
     private void setConsolesInConsolePane(List<Console> consoles) {
@@ -114,64 +117,67 @@ public class BrowseController implements Controller{
         AnchorPane.setTopAnchor(treeView, 0.0);
     }
 
-    @Override
-    public void setBaseController(BaseController baseController) {
-        this.baseController = baseController;
-    }
 
-    @FXML protected void handleSearch(KeyEvent event) throws IOException {
+
+    @FXML protected void handleGameSearch(KeyEvent event) {
         if(event.getCode() != KeyCode.ENTER){
             return;
         }
 
-        String searchText = gameSearchText.getText();
-        String[] wordsArray = searchText.split("\\s+");
-        List<Game> results = null;
+        String currentFilter = gamesFilterComboBox.getValue();
+
+        String gameSearchText = this.gameSearchText.getText();
+        String[] gameSearch = gameSearchText.split("\\s+");
+        Set<Game> gameResults = null;
 
         if(currentFilter == "All"){
-            results = queryWithoutOrAllFilter(wordsArray);
+            gameResults = queryGameWithoutOrAllFilter(gameSearch);
         }
         else if(currentFilter == "Title"){
-            results = queryWithTitleFilter(wordsArray);
+            gameResults = queryGameWithTitleFilter(gameSearch);
         }
         else if(currentFilter == "Console"){
-            results = queryWithConsoleFilter(wordsArray);
+            gameResults = queryGameWithConsoleFilter(gameSearch);
         }
 
-        showGamesInTileView(results);
-
-        //System.out.println("searchText: " + searchText);
+        showGamesInTileView(gameResults);
     }
 
-    @FXML protected void handleFilterChange(ActionEvent event){
-        currentFilter = filterComboBox.getValue();
-        if(currentFilter == "All"){
-            System.out.println("selectedFilter: " + currentFilter);
+    @FXML private void handleCompanySearch(KeyEvent event) {
+        if(event.getCode() != KeyCode.ENTER){
+            return;
         }
-        else if(currentFilter == "Title"){
-            System.out.println("selectedFilter: " + currentFilter);
+        String currentFilter = companiesFilterComboBox.getValue();
+
+        String companySearchText = this.companySearchText.getText();
+        String[] companySearch = companySearchText.split("\\s+");
+        Set<Dev_company> companyResults = new HashSet<>();
+
+        if(Objects.equals(currentFilter, "All") || Objects.equals(currentFilter, null)){
+            companyResults = queryCompaniesWithoutOrAllFilter(companySearch);
         }
-        else if(currentFilter == "Console"){
-            System.out.println("selectedFilter: " + currentFilter);
+        else if(Objects.equals(currentFilter, "Name")){
+            companyResults = queryCompaniesWithTitleFilter(companySearch);
         }
+        else if(Objects.equals(currentFilter, "Location")){
+            companyResults = queryCompaniesWithLocationFilter(companySearch);
+        }
+
+        companiesTableView.setItems(FXCollections.observableArrayList(companyResults));
     }
 
-    private List<Game> queryWithoutOrAllFilter(String[] wordsArray){
-        Set<Game> games = new HashSet<>();
-
-        var results = queryWithConsoleFilter(wordsArray);
-        results.addAll(queryWithTitleFilter(wordsArray));
-
-        games.addAll(results);
-        return new ArrayList<>(games);
+    private Set<Game> queryGameWithoutOrAllFilter(String[] wordsArray){
+        var results = queryGameWithConsoleFilter(wordsArray);
+        results.addAll(queryGameWithTitleFilter(wordsArray));
+        return results;
     }
-    private List<Game> queryWithTitleFilter(String[] wordsArray){
+    private Set<Game> queryGameWithTitleFilter(String[] wordsArray){
         GameRepository gr = new GameRepository();
         var results = gr.getGameByName(wordsArray);
         return results;
     }
 
-    private List<Game> queryWithConsoleFilter(String[] wordsArray) {
+    private Set<Game> queryGameWithConsoleFilter(String[] wordsArray) {
         Set<Game> games = new HashSet<>();
 
         ConsoleRepository cr = new ConsoleRepository();
@@ -179,14 +185,29 @@ public class BrowseController implements Controller{
         for(Console console : consoles){
             games.addAll(console.getGames());
         }
-        return new ArrayList<>(games);
+        return games;
+    }
+
+    private Set<Dev_company> queryCompaniesWithoutOrAllFilter(String[] wordsArray){
+
+        var results = queryCompaniesWithTitleFilter(wordsArray);
+        results.addAll(queryCompaniesWithLocationFilter(wordsArray));
+
+        return results;
+    }
+    private Set<Dev_company> queryCompaniesWithTitleFilter(String[] wordsArray){
+        return new Dev_companyRepository().getCompaniesByName(wordsArray);
+    }
+
+    private Set<Dev_company> queryCompaniesWithLocationFilter(String[] wordsArray) {
+        return new Dev_companyRepository().getCompanyByLocation(wordsArray);
     }
 
     private String consoleSetToString(Set<Console> list){
         return list.stream().map(Console::getConsoleName).collect(Collectors.joining(", "));
     }
 
-    private void showGamesInTileView(List<Game> games) {
+    private void showGamesInTileView(Set<Game> games) {
 
         try {
             gamesTableView.getChildren().clear();

@@ -4,7 +4,9 @@ import be.vghf.domain.Game;
 import be.vghf.domain.User;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GameRepository implements Repository{
     public GameRepository(){}
@@ -18,8 +20,8 @@ public class GameRepository implements Repository{
         return GenericRepository.query(query);
     }
 
-    public List<Game> getGameByName(String[] name){
-        ArrayList<Game> games = new ArrayList<>();
+    public Set<Game> getGameByName(String[] name){
+        Set<Game> games = new HashSet<>();
 
         for(String str : name){
             var criteriaBuilder = EntityManagerSingleton.getInstance().getCriteriaBuilder();
@@ -30,11 +32,7 @@ public class GameRepository implements Repository{
 
             List<Game> queryResults = GenericRepository.query(query);
 
-            for(Game game : queryResults){
-                if(!games.contains(game)){
-                    games.add(game);
-                }
-            }
+            games.addAll(queryResults);
         }
         return games;
     }
