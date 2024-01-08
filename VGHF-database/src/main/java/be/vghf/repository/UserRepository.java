@@ -33,6 +33,8 @@ public class UserRepository implements Repository{
         return GenericRepository.query(query);
     }
 
+
+
     public List<User> getAll() {
         var query = EntityManagerSingleton.getInstance().getCriteriaBuilder().createQuery(User.class);
         var root = query.from(User.class);
@@ -100,7 +102,34 @@ public class UserRepository implements Repository{
         );
         query.setParameter("user", user);
 
-        return (Double) query.getSingleResult();
+        return (Double) (query.getSingleResult() == null ? 0 : query.getSingleResult());
+    }
+
+    public static Double getOutstandingFine(User user) {
+        var entityManager = EntityManagerSingleton.getInstance();
+        var query = entityManager.createQuery(
+                "SELECT SUM(CASE WHEN lr.returnDate IS NULL " +
+                        "THEN (julianday('now') - julianday(lr.loanedDate, '+' || lr.loanTerm || ' days')) " +
+                        "ELSE (julianday(lr.returnDate) - julianday(lr.loanedDate, '+' || lr.loanTerm || ' days')) END) " +
+                        "FROM Loan_Receipts lr WHERE lr.customer = :user " +
+                        "AND (lr.returnDate IS NULL AND (julianday('now') - julianday(lr.loanedDate, '+' || lr.loanTerm || ' days')) > 0 " +
+                        "OR lr.returnDate IS NOT NULL AND (julianday(lr.returnDate) - julianday(lr.loanedDate, '+' || lr.loanTerm || ' days')) > 0)",
+                Double.class
+        );
+        query.setParameter("user", user);
+
+        return (Double) (query.getSingleResult() == null ? 0 : query.getSingleResult()*0.25);
+    }
+
+    public static Integer getCurrentAmountOfLoanedItems(User user){
+        var entityManager = EntityManagerSingleton.getInstance();
+        var query = entityManager.createQuery(
+                "SELECT COUNT(lr) FROM Loan_Receipts lr WHERE lr.customer = :user AND lr.returnDate IS NULL",
+                Long.class
+        );
+        query.setParameter("user", user);
+
+        return (int) (query.getSingleResult() == null ? 0 : query.getSingleResult());
     }
 
 }

@@ -63,14 +63,22 @@ public class UsersController implements Controller {
         typeCol.setCellValueFactory(
                 new PropertyValueFactory<User, String>("userType"));
 
-        TableColumn<User, Double> totalFineCol = new TableColumn<User,Double>("Type");
+        TableColumn<User, Double> totalFineCol = new TableColumn<User,Double>("Total Payed Fines");
         totalFineCol.setCellValueFactory(
                 new PropertyValueFactory<User, Double>("totalFine"));
+        TableColumn<User, Double> outStandingFineCol = new TableColumn<User,Double>("Outstanding Fine");
+        outStandingFineCol.setCellValueFactory(
+                new PropertyValueFactory<User, Double>("outStandingFine"));
+        TableColumn<User, Integer> activeLoansCol = new TableColumn<User, Integer>("Amount of items in loan");
+        activeLoansCol.setCellValueFactory(
+                new PropertyValueFactory<User, Integer>("amountOfActiveLoans"));
+
+
 
 
         userTableView.setItems(FXCollections.observableList(new UserRepository().getAll()));
         userTableView.setEditable(false);
-        userTableView.getColumns().addAll(usernameCol, firstNameCol, lastNameCol, addressCol, telCol, emailCol, typeCol, totalFineCol);
+        userTableView.getColumns().addAll(usernameCol, firstNameCol, lastNameCol, addressCol, telCol, emailCol, typeCol, totalFineCol, outStandingFineCol, activeLoansCol);
 
         submitButton.setText("Search");
         submitButton.setOnAction(event -> handleSearch(event));

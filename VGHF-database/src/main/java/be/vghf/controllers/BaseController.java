@@ -34,7 +34,7 @@ public class BaseController implements Controller{
 
     //Loaned Items:
 
-    //TODO: ALS VOLUNTEER of CLIENT moet je eerst alle spellen zien die je hebt uitgeleend op datum en degene die nog uitgeleend zijn moeten een andere kleur hebben dan die wat zijn afgerond, ook een andere kleur voor openstaande boetes
+    //TODO: Pex: ALS VOLUNTEER of CLIENT moet je eerst alle spellen zien die je hebt uitgeleend op datum en degene die nog uitgeleend zijn moeten een andere kleur hebben dan die wat zijn afgerond, ook een andere kleur voor openstaande boetes
     //TODO: Toevoegen van een statpanel om onze query kunsten aan wouter te laten zien: Most used console, Amount of loaned items, total fine paid, ...
     /*TODO: Admin moet op een knop kunnen duwen die een nieuw window opent waarin hij games kan uitlenen en markeren als terug gebracht, let op volunteer
      * moet eerst zijn actieve locatie aangeven en dan hier de geleende spellen van zien, is onlogisch dat je spellen van andere locaties uitleend en verwerkt.
@@ -50,7 +50,6 @@ public class BaseController implements Controller{
 
     //Users
 
-    //TODO: Alle gegevens + openstaande boetes + aantal uitgeleende spellen + activeringsdatum??
     //TODO: Dubbelklik op aantal uitgeleende spellen cel -> loaned items gefilterd op user
 
 

@@ -217,4 +217,12 @@ public class User {
     public Double getTotalFine(){
         return UserRepository.getTotalFine(this);
     }
+
+    public Double getOutStandingFine(){
+        return UserRepository.getOutstandingFine(this);
+    }
+
+    public Integer getAmountOfActiveLoans(){
+        return UserRepository.getCurrentAmountOfLoanedItems(this);
+    }
 }

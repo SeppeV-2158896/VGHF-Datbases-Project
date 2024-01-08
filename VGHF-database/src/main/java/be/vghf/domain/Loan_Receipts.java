@@ -26,7 +26,10 @@ public class Loan_Receipts {
     private Date loanedDate;
 
     @Column (name = "loanTermInDays")
-    private int returnDate;
+    private int loanTerm;
+
+    @Column (name = "returnDate")
+    private String returnDate;
 
     @Column (name = "fine")
     private double fine;
@@ -61,12 +64,12 @@ public class Loan_Receipts {
         this.loanedDate = loanedDate;
     }
 
-    public int getReturnDate() {
-        return returnDate;
+    public int getLoanTerm() {
+        return loanTerm;
     }
 
-    public void setReturnDate(int returnDate) {
-        this.returnDate = returnDate;
+    public void setLoanTerm(int loanTerm) {
+        this.loanTerm = loanTerm;
     }
 
     public double getFine() {
@@ -83,5 +86,13 @@ public class Loan_Receipts {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public String getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(String returnDate) {
+        this.returnDate = returnDate;
     }
 }
