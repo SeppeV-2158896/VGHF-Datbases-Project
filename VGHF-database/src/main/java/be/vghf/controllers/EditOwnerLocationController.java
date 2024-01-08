@@ -5,13 +5,17 @@ import be.vghf.domain.User;
 import be.vghf.repository.UserRepository;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.*;
@@ -25,6 +29,14 @@ public class EditOwnerLocationController implements Controller{
     private TextField addressField;
     @FXML
     private TableView table;
+    @FXML
+    private Button addButton;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button confirmButton;
+
+    private GameAdminController listener;
 
     @FXML public void initialize(){
         EditOwnerLocationController controller = new EditOwnerLocationController();
@@ -45,6 +57,8 @@ public class EditOwnerLocationController implements Controller{
 
         var results = new UserRepository().getAll();
         table.setItems(FXCollections.observableArrayList(results));
+
+        confirmButton.setDisable(true);
     }
 
     @FXML protected void handleSearch(KeyEvent event) throws IOException {
@@ -77,16 +91,41 @@ public class EditOwnerLocationController implements Controller{
         //System.out.println("searchText: " + searchText);
     }
 
-    @FXML protected void addOwner(){
-
+    @FXML protected void handleMouseClick(MouseEvent event){
+        if(event.getClickCount() == 1 && table.getSelectionModel().getSelectedItem() != null){
+            confirmButton.setDisable(false);
+        }
+        else{
+            confirmButton.setDisable(true);
+        }
     }
 
-    @FXML protected void deleteOwner(){
+    @FXML protected void confirmSelectedOwner(ActionEvent event){
+        User selectedOwner = (User) table.getSelectionModel().getSelectedItem();
+        if (selectedOwner != null && listener != null) {
+            listener.selectedUserConfirmed(selectedOwner);
 
+            Button sourceButton = (Button) event.getSource();
+            Stage stage = (Stage) sourceButton.getScene().getWindow();
+            stage.close();
+        }
+    }
+
+    @FXML protected void addOwner(ActionEvent event){
+        return;
+    }
+
+    @FXML protected void deleteOwner(ActionEvent event){
+        return;
     }
 
     @Override
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
+    }
+
+    @Override
+    public void setListener(Controller controller){
+        this.listener = (GameAdminController) controller;
     }
 }

@@ -139,10 +139,12 @@ public class RegisterController implements Controller{
                 passwordField.getText().isEmpty() ||
                 confirmPasswordField.getText().isEmpty();
     }
-
+    @Override
     public void setBaseController (BaseController baseController){
         this.baseController = baseController;
     }
-
-
+    @Override
+    public void setListener(Controller controller){
+        //no listener needed here
+    }
 }

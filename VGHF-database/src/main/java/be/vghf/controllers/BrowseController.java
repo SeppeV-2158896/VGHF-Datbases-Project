@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 
 public class BrowseController implements Controller{
     private BaseController baseController;
+    private GameRepository gameRepository;
     @FXML private TextField gameSearchText;
     @FXML private TilePane gamesTableView;
     @FXML private ComboBox<String> gamesFilterComboBox;
@@ -62,9 +63,13 @@ public class BrowseController implements Controller{
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
     }
+    @Override
+    public void setListener(Controller controller){
+        //no listener needed here
+    }
     @FXML public void initialize(){
-        GameRepository gr = new GameRepository();
-        var games = gr.getAll();
+        gameRepository = new GameRepository();
+        var games = gameRepository.getAll();
 
         showGamesInTileView(new HashSet<>(games));
 
@@ -194,8 +199,7 @@ public class BrowseController implements Controller{
         return results;
     }
     private Set<Game> queryGameWithTitleFilter(String[] wordsArray){
-        GameRepository gr = new GameRepository();
-        var results = gr.getGameByName(wordsArray);
+        var results = gameRepository.getGameByName(wordsArray);
         return results;
     }
 
@@ -266,6 +270,8 @@ public class BrowseController implements Controller{
         layout.getChildren().add(label5);
 
         anchorPane.getChildren().add(layout);
+
+        var listener = this;
         layout.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -277,6 +283,7 @@ public class BrowseController implements Controller{
                         GameAdminController gaController = new GameAdminController();
                         baseController.createNewWindow("Game details", gaController, "/gameAdmin-view.fxml");
                         gaController.setGame(game);
+                        gaController.setListener(listener);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -285,5 +292,21 @@ public class BrowseController implements Controller{
         });
 
         return anchorPane;
+    }
+
+    public void updateGameDetails(Game newGame){
+        for(Game game : gameRepository.getAll()){
+            if(game.getGameID() == newGame.getGameID()){
+                game.setOwner(newGame.getOwner());
+                game.setReleaseDate(newGame.getReleaseDate());
+                game.setGenre(newGame.getGenre());
+                game.setOwner(newGame.getOwner());
+                game.setHomeBase(newGame.getHomeBase());
+                game.setCurrentLocation(newGame.getCurrentLocation());
+                break;
+            }
+        }
+        Set<Game> games = Set.copyOf(gameRepository.getAll());
+        showGamesInTileView(games);
     }
 }

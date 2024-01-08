@@ -25,9 +25,13 @@ public class AccountController implements Controller {
         loginButton.getScene().getWindow().hide();
         baseController.showView("/loginForm-view.fxml", new LoginController());
     }
-
+    @Override
     public void setBaseController (BaseController baseController){
         this.baseController = baseController;
     }
 
+    @Override
+    public void setListener(Controller controller){
+        //no listener needed here
+    }
 }

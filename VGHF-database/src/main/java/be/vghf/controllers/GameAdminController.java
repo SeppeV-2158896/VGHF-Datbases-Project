@@ -1,15 +1,17 @@
 package be.vghf.controllers;
 
 import be.vghf.domain.Game;
+import be.vghf.domain.User;
 import be.vghf.repository.GenericRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class GameAdminController implements Controller{
+public class GameAdminController implements Controller {
     private BaseController baseController;
 
     @FXML
@@ -36,6 +38,8 @@ public class GameAdminController implements Controller{
     @FXML
     private Button deleteButton;
 
+    private BrowseController listener;
+
     // Inject your Game instance here
     private Game game;
 
@@ -44,12 +48,18 @@ public class GameAdminController implements Controller{
         this.game = game;
         populateFields();
     }
-    public void saveGame(ActionEvent actionEvent) {
+    public void saveGame(ActionEvent event) {
         game.setTitle(titleField.getText());
         game.setReleaseDate(releaseDateField.getText());
         game.setGenre(genreField.getText());
 
         GenericRepository.update(game);
+
+        listener.updateGameDetails(game);
+
+        Button sourceButton = (Button) event.getSource();
+        Stage stage = (Stage) sourceButton.getScene().getWindow();
+        stage.close();
     }
 
     public void deleteGame(ActionEvent actionEvent) {
@@ -67,10 +77,17 @@ public class GameAdminController implements Controller{
 
     @FXML protected void editOwner(ActionEvent event){
         try{ //nog aanpassen anders gaat het nie werken he
-            baseController.createNewWindow("Edit owner", new EditOwnerLocationController(), "/editOwnerLocations-view.fxml");
+            EditOwnerLocationController eolController = new EditOwnerLocationController();
+            baseController.createNewWindow("Edit owner", eolController, "/editOwnerLocations-view.fxml");
+            eolController.setListener(this);
         } catch (IOException e){
             throw new RuntimeException("Failed to open window: " + e.getMessage(), e);
         }
+    }
+
+    public void selectedUserConfirmed(User user){
+        game.setOwner(user);
+        ownerButton.setText(game.getOwner().getFirstName() + " " + game.getOwner().getLastName());
     }
 
     public void editHomeBase(ActionEvent event){
@@ -84,5 +101,10 @@ public class GameAdminController implements Controller{
     @Override
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
+    }
+
+    @Override
+    public void setListener(Controller controller){
+        this.listener = (BrowseController) controller;
     }
 }

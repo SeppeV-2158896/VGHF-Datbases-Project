@@ -37,7 +37,12 @@ public class LoginController implements Controller{
         }
     }
 
+    @Override
     public void setBaseController (BaseController baseController){
         this.baseController = baseController;
+    }
+    @Override
+    public void setListener(Controller controller){
+        //no listener needed here
     }
 }
