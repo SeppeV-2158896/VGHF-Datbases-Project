@@ -21,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -273,16 +274,11 @@ public class BrowseController implements Controller{
                 }
                 if (ActiveUser.user.getUserType() == UserType.VOLUNTEER){
                     try {
-                        Stage newWindow = new Stage();
-                        newWindow.setTitle("New Scene");
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gameAdmin-view.fxml"));
-                        var controller = new GameAdminController();
-                        loader.setController(controller);
-                        newWindow.setScene(new Scene(loader.load()));
-                        newWindow.show();
-                        controller.setGame(game);
-                    } catch (Exception e){
-                        e.printStackTrace();
+                        GameAdminController gaController = new GameAdminController();
+                        baseController.createNewWindow("Game details", gaController, "/gameAdmin-view.fxml");
+                        gaController.setGame(game);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }

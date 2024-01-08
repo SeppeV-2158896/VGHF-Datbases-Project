@@ -193,4 +193,12 @@ public class User {
                 ", userType=" + userType +
                 '}';
     }
+
+    public String getAddress(){
+        String address =    streetName + " " +
+                houseNumber + " " +
+                (bus == null ? "," : bus + ",") + " " +
+                postalCode + " " + city + " " + country;
+        return address;
+    }
 }

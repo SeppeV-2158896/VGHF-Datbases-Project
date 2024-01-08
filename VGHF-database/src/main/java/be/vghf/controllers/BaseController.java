@@ -141,4 +141,13 @@ public class BaseController{
 
     }
 
+    public void createNewWindow(String title, Controller controller, String path) throws IOException {
+        Stage newWindow = new Stage();
+        newWindow.setTitle(title);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        loader.setController(controller);
+        controller.setBaseController(this);
+        newWindow.setScene(new Scene(loader.load()));
+        newWindow.show();
+    }
 }
