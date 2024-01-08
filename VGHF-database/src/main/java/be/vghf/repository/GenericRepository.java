@@ -1,8 +1,12 @@
 package be.vghf.repository;
 
+import be.vghf.domain.Console;
+
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GenericRepository {
     public GenericRepository(){
@@ -34,5 +38,9 @@ public class GenericRepository {
         em.getTransaction().begin();
         em.merge(object);
         em.getTransaction().commit();
+    }
+
+    public static String consoleSetToString(Set<Console> list){
+        return list.stream().map(Console::getConsoleName).collect(Collectors.joining(", "));
     }
 }

@@ -14,7 +14,7 @@ public class VGHFApplication extends Application {
 
 
         var controller = new BaseController();
-        var setStage = controller.showView("/base-view.fxml", null);
+        var setStage = controller.showView("VGHF Software", null, "/base-view.fxml");
         assert setStage != null;
         setStage.setMaximized(true);
     }

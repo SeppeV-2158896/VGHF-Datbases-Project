@@ -114,7 +114,7 @@ public class EditOwnerLocationController implements Controller{
 
     @FXML protected void addOwner(ActionEvent event) throws IOException {
         CreateUserController createUserController = new CreateUserController();
-        baseController.createNewWindow("New user", createUserController, "/createUser-view.fxml");
+        baseController.showView("New user", createUserController, "/createUser-view.fxml");
         createUserController.setListener(this);
     }
 
