@@ -55,8 +55,8 @@ public class CreateLocationController implements Controller {
             location.setCountry(countryField.getText());
             location.setLocationType(typeComboBox.getValue());
 
-            if(listener instanceof EditGameLocationController){
-                ((EditGameLocationController) listener).newLocationCreated(location);
+            if(listener instanceof SelectLocationController){
+                ((SelectLocationController) listener).newLocationCreated(location);
             }
             else{
             }
@@ -73,7 +73,7 @@ public class CreateLocationController implements Controller {
     }
 
     @FXML protected void handleChangeOwner(ActionEvent event){
-        EditGameOwnerController egoController = new EditGameOwnerController();
+        SelectuserController egoController = new SelectuserController();
         egoController.setListener(this);
         baseController.showView("Edit owner", egoController, "/selectUser-view.fxml");
     }

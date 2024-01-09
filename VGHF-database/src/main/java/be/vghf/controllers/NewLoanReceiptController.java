@@ -2,16 +2,13 @@ package be.vghf.controllers;
 
 import be.vghf.domain.Game;
 import be.vghf.domain.Loan_Receipts;
-import be.vghf.domain.Location;
 import be.vghf.domain.User;
 import be.vghf.repository.GameRepository;
 import be.vghf.repository.GenericRepository;
 import be.vghf.repository.Loan_ReceiptsRepository;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
@@ -54,7 +51,7 @@ public class NewLoanReceiptController implements Controller {
     }
 
     @FXML protected void selectCustomer(ActionEvent actionEvent) {
-        EditGameOwnerController controller = new EditGameOwnerController();
+        SelectuserController controller = new SelectuserController();
         controller.setListener(this);
         baseController.showView("Edit owner", controller, "/selectUser-view.fxml");
     }

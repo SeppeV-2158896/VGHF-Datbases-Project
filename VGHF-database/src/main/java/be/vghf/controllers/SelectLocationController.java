@@ -1,10 +1,8 @@
 package be.vghf.controllers;
 
 import be.vghf.domain.Location;
-import be.vghf.domain.User;
 import be.vghf.repository.GenericRepository;
 import be.vghf.repository.LocationRepository;
-import be.vghf.repository.UserRepository;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -19,11 +17,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditGameLocationController implements Controller{
+public class SelectLocationController implements Controller{
     @FXML
     private TextField addressField;
     @FXML

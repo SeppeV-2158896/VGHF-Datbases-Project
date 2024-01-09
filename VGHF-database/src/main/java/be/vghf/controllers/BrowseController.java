@@ -9,6 +9,7 @@ import be.vghf.repository.GameRepository;
 import be.vghf.repository.GenericRepository;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +34,7 @@ public class BrowseController implements Controller{
     @FXML private TextField gameSearchText;
     @FXML private TilePane gamesTableView;
     @FXML private ComboBox<String> gamesFilterComboBox;
-    @FXML private AnchorPane gamesTab;
+    @FXML private AnchorPane gamesTabPane;
     @FXML private TableView<Dev_company> companiesTableView;
     @FXML private TabPane tabPane;
     @FXML private AnchorPane consoleTab;
@@ -41,6 +42,8 @@ public class BrowseController implements Controller{
     @FXML private ComboBox<String> companiesFilterComboBox;
     @FXML private TextField consoleQueryField;
     @FXML private Button addGameButton;
+
+    @FXML private Tab gamesTab;
 
     //Games:
 
@@ -62,10 +65,12 @@ public class BrowseController implements Controller{
         this.baseController = baseController;
         baseController.setListener(this);
     }
+
     @Override
     public void setListener(Controller controller){
         //no listener needed here
     }
+
     @FXML public void initialize(){
         tabPane.resize(1920,1080);
         initializeGamesBrowser();
@@ -73,6 +78,7 @@ public class BrowseController implements Controller{
         initializeConsoleBrowser();
 
     }
+
     private void initializeGamesBrowser(){
         gameRepository = new GameRepository();
         var games = gameRepository.getAll();
@@ -99,6 +105,7 @@ public class BrowseController implements Controller{
         gameResults = queryGameWithTitleFilter(gameSearch);
         showGamesInTileView(gameResults);
     }
+
     private void initializeCompanyBrowser(){
         companiesFilterComboBox.setPromptText("Filter");
         companiesFilterComboBox.getItems().add("All");
@@ -124,7 +131,13 @@ public class BrowseController implements Controller{
         companiesTableView.setItems(FXCollections.observableList(new Dev_companyRepository().getAll()));
         companiesTableView.setEditable(false);
         companiesTableView.getColumns().addAll(nameCol, websiteCol, emailCol, addressCol);
+
+        companiesTableView.setOnMouseReleased(event -> {
+            showGamesInTileView(companiesTableView.getSelectionModel().getSelectedItem().getGames());
+            tabPane.getSelectionModel().select(gamesTab);
+        });
     }
+
     private void initializeConsoleBrowser(){
         ConsoleRepository cr = new ConsoleRepository();
         var consoles = cr.getAll();
@@ -132,6 +145,7 @@ public class BrowseController implements Controller{
 
         consoleQueryField.setOnKeyReleased(this::handleConsoleSearch);
     }
+
     @FXML protected void handleGameSearch(KeyEvent event) {
         if(event.getCode() != KeyCode.ENTER){
             return;
@@ -185,15 +199,18 @@ public class BrowseController implements Controller{
 
         companiesTableView.setItems(FXCollections.observableArrayList(companyResults));
     }
+
     private Set<Game> queryGameWithoutOrAllFilter(String[] wordsArray){
         var results = queryGameWithConsoleFilter(wordsArray);
         results.stream().filter((queryGameWithTitleFilter(wordsArray))::contains);
         return results.stream().filter((queryGameWithTitleFilter(wordsArray))::contains).collect(Collectors.toSet());
     }
+
     private Set<Game> queryGameWithTitleFilter(String[] wordsArray){
         var results = gameRepository.getGameByName(wordsArray);
         return results;
     }
+
     private Set<Game> queryGameWithConsoleFilter(String[] wordsArray) {
         Set<Game> games = new HashSet<>();
 
@@ -204,10 +221,12 @@ public class BrowseController implements Controller{
         }
         return games;
     }
+
     private Set<Game> queryGameWithLocationFilter(String[] wordsArray){
         var results = gameRepository.getGameByName(wordsArray);
         return results;
     }
+
     private Set<Dev_company> queryCompaniesWithoutOrAllFilter(String[] wordsArray){
 
         var results = queryCompaniesWithTitleFilter(wordsArray);
@@ -215,12 +234,15 @@ public class BrowseController implements Controller{
 
         return results;
     }
+
     private Set<Dev_company> queryCompaniesWithTitleFilter(String[] wordsArray){
         return new Dev_companyRepository().getCompaniesByName(wordsArray);
     }
+
     private Set<Dev_company> queryCompaniesWithLocationFilter(String[] wordsArray) {
         return new Dev_companyRepository().getCompanyByLocation(wordsArray);
     }
+
     private void handleConsoleSearch(KeyEvent keyEvent) {
         if(keyEvent.getCode() != KeyCode.ENTER){
             return;
@@ -230,6 +252,7 @@ public class BrowseController implements Controller{
         String[] consoleSearch = consoleSearchText.split("\\s+");
         setConsolesInConsolePane(new ConsoleRepository().getConsoleByName(consoleSearch));
     }
+
     private void showGamesInTileView(Set<Game> games) {
 
         try {
@@ -246,6 +269,7 @@ public class BrowseController implements Controller{
             e.printStackTrace();
         }
     }
+
     private AnchorPane createTileView(Game game){
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setPrefSize(200, 100);
@@ -285,6 +309,7 @@ public class BrowseController implements Controller{
 
         return anchorPane;
     }
+
     public void updateGameDetails(Game newGame){
         Set<Game> games = Set.copyOf(gameRepository.getAll());
         showGamesInTileView(games);
@@ -293,9 +318,12 @@ public class BrowseController implements Controller{
     private void setConsolesInConsolePane(List<Console> consoles) {
         consoleTab.getChildren().clear();
 
-        TreeItem<String> root = new TreeItem<>("Consoles");
+        VBox treeView = new VBox();
 
         for (var console : consoles){
+            AnchorPane pane = new AnchorPane();
+            pane.setPrefSize(1920, 60);
+
             TreeItem<String> consoleRoot = new TreeItem<>("Console: " + console.getConsoleName());
             consoleRoot.getChildren().addAll(
                     new TreeItem<>("Type: " + console.getConsoleType()),
@@ -305,16 +333,27 @@ public class BrowseController implements Controller{
                     new TreeItem<>("Remarks: " + console.getRemarks())
             );
 
-            root.getChildren().add(consoleRoot);
-        }
-        root.setExpanded(true);
-        TreeView<String> treeView = new TreeView<>(root);
+            TreeView<String> consoleRootView = new TreeView<>(consoleRoot);
+            consoleRootView.setPrefHeight(60);
 
-        consoleTab.resize(tabPane.getWidth(), tabPane.getHeight());
+            consoleRootView.setOnMouseReleased(event -> {
+                showGamesInTileView(console.getGames());
+                tabPane.getSelectionModel().select(gamesTab);
+                gameSearchText.setText(console.getConsoleName());
+            });
+            pane.getChildren().add(consoleRootView);
+            treeView.getChildren().add(pane);
+        }
+
+        consoleTab.resize(consoleTab.getWidth(), consoleTab.getHeight());
         consoleTab.getChildren().add(treeView);
         AnchorPane.setBottomAnchor(treeView, 0.0);
         AnchorPane.setLeftAnchor(treeView, 0.0);
         AnchorPane.setRightAnchor(treeView, 0.0);
         AnchorPane.setTopAnchor(treeView, 0.0);
+
+
     }
+
+
 }

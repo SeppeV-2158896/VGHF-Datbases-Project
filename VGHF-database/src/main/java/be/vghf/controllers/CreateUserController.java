@@ -70,9 +70,9 @@ public class CreateUserController implements Controller{
             user.setEmail(emailField.getText());
             user.setPassword(passwordField.getText());
 
-            if(listener instanceof EditGameOwnerController){
+            if(listener instanceof SelectuserController){
                 user.setUserType(UserType.VOLUNTEER);
-                ((EditGameOwnerController) listener).newOwnerCreated(user);
+                ((SelectuserController) listener).newOwnerCreated(user);
             }
             else{
                 user.setUserType(UserType.CUSTOMER);

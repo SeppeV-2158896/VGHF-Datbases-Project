@@ -101,7 +101,7 @@ public class GameAdminController implements Controller {
     }
 
     @FXML protected void editOwner(ActionEvent event){
-        EditGameOwnerController egoController = new EditGameOwnerController();
+        SelectuserController egoController = new SelectuserController();
         egoController.setListener(this);
         baseController.showView("Edit owner", egoController, "/selectUser-view.fxml");
     }
@@ -134,7 +134,7 @@ public class GameAdminController implements Controller {
     }
 
     @FXML protected void editLocation(ActionEvent event){
-        EditGameLocationController eglController = new EditGameLocationController();
+        SelectLocationController eglController = new SelectLocationController();
         eglController.setListener(this);
         String title = "";
         if(event.getSource() == homeBaseButton){

@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EditGameOwnerController implements Controller{
+public class SelectuserController implements Controller{
     private BaseController baseController;
     @FXML
     private TextField ownerField;
