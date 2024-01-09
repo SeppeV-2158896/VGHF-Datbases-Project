@@ -331,9 +331,11 @@ public class BrowseController implements Controller{
             consoleRootView.setPrefHeight(60);
 
             consoleRootView.setOnMouseReleased(event -> {
-                showGamesInTileView(console.getGames());
-                tabPane.getSelectionModel().select(gamesTab);
-                gameSearchText.setText(console.getConsoleName());
+                if (event.getClickCount() == 2) {
+                    showGamesInTileView(console.getGames());
+                    tabPane.getSelectionModel().select(gamesTab);
+                    gameSearchText.setText(console.getConsoleName());
+                }
             });
             pane.getChildren().add(consoleRootView);
             treeView.getChildren().add(pane);
