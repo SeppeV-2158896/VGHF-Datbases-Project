@@ -50,18 +50,13 @@ public class BrowseController implements Controller{
     private Console selectedConsole = null;
 
     //Games:
-
     //TODO: Pex: Als je als VOLUNTEER op een game klikt moet je de locatie, owner en homebase kunnen aanpassen door te kiezen uit een lijst waarin je kan filteren
     //TODO: Pex: VOLUNTEER moet game kunnen toevoegen
 
     //Consoles:
-
-    //TODO: Seppe: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console
     //TODO: Pex: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
 
     //Companies:
-
-    //TODO: Seppe: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
     //TODO: Pex: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
 
     @Override
@@ -327,10 +322,12 @@ public class BrowseController implements Controller{
         consoleTab.getChildren().clear();
 
         VBox treeView = new VBox();
+        treeView.setSpacing(10);
+        VBox.setVgrow(treeView, Priority.ALWAYS);
 
         for (var console : consoles){
             AnchorPane pane = new AnchorPane();
-            pane.setPrefSize(1920, 60);
+            pane.setPrefWidth(1920);
 
             TreeItem<String> consoleRoot = new TreeItem<>("Console: " + console.getConsoleName());
             consoleRoot.getChildren().addAll(
@@ -343,6 +340,7 @@ public class BrowseController implements Controller{
 
             TreeView<String> consoleRootView = new TreeView<>(consoleRoot);
             consoleRootView.setPrefHeight(60);
+            consoleRootView.setPrefWidth(1920);
 
             consoleRootView.setOnMouseReleased(event -> {
                 if (event.getClickCount() == 1){
