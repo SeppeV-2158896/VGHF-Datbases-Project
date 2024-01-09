@@ -36,11 +36,9 @@ public class EditGameOwnerController implements Controller{
     @FXML
     private Button confirmButton;
 
-    private GameAdminController listener;
+    private Controller listener;
 
     @FXML public void initialize(){
-        EditGameOwnerController controller = new EditGameOwnerController();
-
         TableColumn<User, String> firstNameColumn = new TableColumn<>("First name");
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
 
@@ -103,7 +101,12 @@ public class EditGameOwnerController implements Controller{
     @FXML protected void confirmSelectedOwner(ActionEvent event){
         User selectedOwner = (User) table.getSelectionModel().getSelectedItem();
         if (selectedOwner != null && listener != null) {
-            listener.selectedUserConfirmed(selectedOwner);
+            if(listener instanceof GameAdminController){
+                ((GameAdminController) listener).selectedUserConfirmed(selectedOwner);
+            }
+            else if(listener instanceof CreateLocationController){
+                ((CreateLocationController) listener).selectedOwnerConfirmed(selectedOwner);
+            }
 
             Button sourceButton = (Button) event.getSource();
             Stage stage = (Stage) sourceButton.getScene().getWindow();
@@ -141,6 +144,6 @@ public class EditGameOwnerController implements Controller{
 
     @Override
     public void setListener(Controller controller){
-        this.listener = (GameAdminController) controller;
+        this.listener = controller;
     }
 }
