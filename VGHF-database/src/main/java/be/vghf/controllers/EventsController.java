@@ -100,6 +100,7 @@ public class EventsController implements Controller {
                 var controller = new GamesAtLocationController();
                 baseController.changeSubscene("/location-games-tree-view.fxml", controller);
                 controller.initialize(location);
+                controller.setBaseController(baseController);
             }
     }
 

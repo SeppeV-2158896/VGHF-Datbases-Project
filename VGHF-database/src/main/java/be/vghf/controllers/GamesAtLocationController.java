@@ -2,29 +2,34 @@ package be.vghf.controllers;
 
 import be.vghf.domain.Game;
 import be.vghf.domain.Location;
+import be.vghf.enums.UserType;
+import be.vghf.models.ActiveUser;
 import be.vghf.repository.GameRepository;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 import java.util.*;
 
 public class GamesAtLocationController implements Controller {
     private BaseController baseController;
     @FXML private AnchorPane gamesAtLocationPane;
-    @FXML private AnchorPane anchorPane;
+    @FXML private ScrollPane scrollPane;
 
 
     @FXML public void initialize(Location location){
-        anchorPane.resize(3000,3000);
+        scrollPane.resize(1920,1080);
         setGamesInPane(location);
     }
 
     private void setGamesInPane(Location location) {
         Map<Location, List<Game>> homebaseMap = makeHomebaseMap(location);
         gamesAtLocationPane.getChildren().clear();
-
         TreeItem<String> root = new TreeItem<>("Games");
         var locations = homebaseMap.keySet();
 
@@ -32,16 +37,15 @@ public class GamesAtLocationController implements Controller {
             TreeItem<String> locationRoot = new TreeItem<>("Homebase: "  + loc.toString());
             List<Game> games = homebaseMap.get(loc);
             for(var game: games) {
-                locationRoot.getChildren().add(
-                        new TreeItem<>("Game: " + game.getTitle())
-                );
+                TreeItem<String>  gameItem = new TreeItem<>("Game: " + game.getTitle());
+                locationRoot.getChildren().add(gameItem);
             }
             root.getChildren().add(locationRoot);
         }
         root.setExpanded(true);
         TreeView<String> treeView = new TreeView<>(root);
-
-        gamesAtLocationPane.resize(anchorPane.getWidth(), anchorPane.getHeight());
+        treeView.setPrefWidth(1920);
+        gamesAtLocationPane.resize(scrollPane.getWidth(), scrollPane.getHeight());
         gamesAtLocationPane.getChildren().add(treeView);
         AnchorPane.setBottomAnchor(treeView, 0.0);
         AnchorPane.setLeftAnchor(treeView, 0.0);
