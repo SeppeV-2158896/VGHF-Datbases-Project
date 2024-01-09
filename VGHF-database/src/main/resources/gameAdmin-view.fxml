@@ -12,7 +12,7 @@
       prefWidth="400" prefHeight="400">
  <!-- style="-fx-padding: boven rechts onder links;" -->
 
-    <Label text="Game Details" styleClass="title" style="-fx-font-size: 24pt; -fx-font-weight: bold;"/>
+    <Label fx:id="windowTitle" text="Create new game" styleClass="title" style="-fx-font-size: 24pt; -fx-font-weight: bold;"/>
 
     <Label text="Title"/>
     <TextField fx:id="titleField"/>
@@ -24,17 +24,19 @@
     <TextField fx:id="genreField"/>
 
     <Label text="Owner"/>
-    <Button fx:id="ownerButton" onAction="#editOwner"/>
+    <Button fx:id="ownerButton" onAction="#editOwner" text="Pick owner"/>
 
     <Label text="Home Base"/>
-    <Button fx:id="homeBaseButton" onAction="#editLocation"/>
+    <Button fx:id="homeBaseButton" onAction="#editLocation" text="Pick home base location"/>
 
     <Label text="Current Location"/>
-    <Button fx:id="currentLocationButton" onAction="#editLocation"/>
+    <Button fx:id="currentLocationButton" onAction="#editLocation" text="Pick current location"/>
 
     <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
-        <Button text="Save" onAction="#saveGame"/>
-        <Button text="Delete" onAction="#deleteGame"/>
+        <Button fx:id="saveButton" text="Save" onAction="#saveGame"/>
+        <Button fx:id="deleteButton" text="Delete" onAction="#deleteGame"/>
+        <Button fx:id="loanButton" text="Loan" onAction="#loanGame"/>
+        <Button fx:id="returnButton" text="Return" onAction="#returnGame"/>
     </HBox>
 
 </VBox>

@@ -10,14 +10,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.control.Button?>
 <TabPane tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:id="tabPane">
   <tabs>
     <Tab text="Games">
          <content>
                 <AnchorPane fx:id="gamesTab" >
                    <children>
-                       <TextField fx:id="gameSearchText" promptText="Search..." AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="100"/>
-                       <ComboBox fx:id="gamesFilterComboBox" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10"/>
+                       <HBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" spacing="10">
+                           <Button fx:id="addGameButton" text="Add" onAction="#handleAddGame"/>
+                           <TextField fx:id="gameSearchText" promptText="Search..." prefWidth="1050"/>
+                           <ComboBox fx:id="gamesFilterComboBox" prefWidth="150"/>
+                       </HBox>
                        <TilePane fx:id="gamesTableView" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="50"/>
                    </children>
                 </AnchorPane>
@@ -36,12 +40,11 @@
           <AnchorPane>
                <children>
                    <VBox AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-                       <HBox>
-                           <TextField fx:id="companySearchText" promptText="Zoeken..." AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="100"/>
-                           <ComboBox fx:id="companiesFilterComboBox" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10"/>
+                       <HBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10.0" spacing="10">
+                           <TextField fx:id="companySearchText" promptText="Zoeken..." prefWidth="1110"/>
+                           <ComboBox fx:id="companiesFilterComboBox" prefWidth="150"/>
                        </HBox>
-                       <TableView fx:id="companiesTableView" layoutX="6.0" layoutY="7.0" >
-                       </TableView>
+                       <TableView fx:id="companiesTableView" layoutX="6.0" layoutY="7.0"/>
                    </VBox>
                </children>
             </AnchorPane>

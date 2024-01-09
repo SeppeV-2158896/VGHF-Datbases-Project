@@ -3,7 +3,6 @@ package be.vghf.controllers;
 import be.vghf.domain.Location;
 import be.vghf.domain.User;
 import be.vghf.enums.LocationType;
-import be.vghf.enums.UserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -76,7 +75,7 @@ public class CreateLocationController implements Controller {
     @FXML protected void handleChangeOwner(ActionEvent event){
         EditGameOwnerController egoController = new EditGameOwnerController();
         egoController.setListener(this);
-        baseController.showView("Edit owner", egoController, "/editGameOwner-view.fxml");
+        baseController.showView("Edit owner", egoController, "/selectUser-view.fxml");
     }
 
     public void selectedOwnerConfirmed(User owner){

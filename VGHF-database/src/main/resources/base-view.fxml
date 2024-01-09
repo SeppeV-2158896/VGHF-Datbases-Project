@@ -18,7 +18,7 @@
                    <Button fx:id="accountButton" layoutY="100.0" mnemonicParsing="false" onAction="#handleAccountButtonPressed" prefWidth="150.0" text="Account" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                </children>
             </AnchorPane>
-             <AnchorPane fx:id="subScene" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+             <AnchorPane fx:id="subScene">
                  <Text fx:id="testTekst" text="Test" AnchorPane.rightAnchor="10"></Text>
              </AnchorPane>
         </children>

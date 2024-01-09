@@ -8,6 +8,7 @@ import be.vghf.repository.Dev_companyRepository;
 import be.vghf.repository.GameRepository;
 import be.vghf.repository.GenericRepository;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +40,7 @@ public class BrowseController implements Controller{
     @FXML private TextField companySearchText;
     @FXML private ComboBox<String> companiesFilterComboBox;
     @FXML private TextField consoleQueryField;
+    @FXML private Button addGameButton;
 
     //Games:
 
@@ -47,7 +49,7 @@ public class BrowseController implements Controller{
 
     //Consoles:
 
-    //TODO: Seppe: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
+    //TODO: Seppe: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console
     //TODO: Pex: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
 
     //Companies:
@@ -74,6 +76,8 @@ public class BrowseController implements Controller{
     private void initializeGamesBrowser(){
         gameRepository = new GameRepository();
         var games = gameRepository.getAll();
+
+        addGameButton.setVisible(false);
 
         showGamesInTileView(new HashSet<>(games));
 
@@ -145,6 +149,14 @@ public class BrowseController implements Controller{
 
         showGamesInTileView(gameResults);
     }
+
+    @FXML protected void handleAddGame(ActionEvent event){
+        GameAdminController gameAdminController = new GameAdminController();
+        gameAdminController.setNewGame(true);
+        gameAdminController.setListener(this);
+        baseController.showView("Create new game", gameAdminController, "/gameAdmin-view.fxml");
+    }
+
     @FXML private void handleCompanySearch(KeyEvent event) {
         if(event.getCode() != KeyCode.ENTER){
             return;
@@ -271,6 +283,7 @@ public class BrowseController implements Controller{
         Set<Game> games = Set.copyOf(gameRepository.getAll());
         showGamesInTileView(games);
     }
+
     private void setConsolesInConsolePane(List<Console> consoles) {
         consoleTab.getChildren().clear();
 
