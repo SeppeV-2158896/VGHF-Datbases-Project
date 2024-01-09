@@ -11,7 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class GameAdminController implements Controller {
     private BaseController baseController;
@@ -119,9 +123,21 @@ public class GameAdminController implements Controller {
         closeWindow();
     }
 
-    @FXML protected void returnGame(ActionEvent event){
+    @FXML protected void returnGame(ActionEvent event) throws ParseException {
         var activeLoan = Loan_ReceiptsRepository.getActiveLoanByGame(game);
         activeLoan.setReturnDate(LocalDate.now().toString());
+
+        //https://stackoverflow.com/questions/17940200/how-to-find-the-duration-of-difference-between-two-dates-in-java
+        Date loaned = new SimpleDateFormat("yyyy-MM-dd").parse(activeLoan.getLoanedDate());
+        Date returned = new SimpleDateFormat("yyyy-MM-dd").parse(activeLoan.getReturnDate());
+
+        long duration  = returned.getTime() - loaned.getTime();
+        long diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
+
+        if(diffInDays > activeLoan.getLoanTerm()){
+            activeLoan.setFine("" + diffInDays*0.25);
+        }
+
         GenericRepository.update(activeLoan);
 
         closeWindow();

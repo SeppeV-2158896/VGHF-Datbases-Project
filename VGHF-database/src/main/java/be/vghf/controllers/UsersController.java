@@ -161,16 +161,12 @@ public class UsersController implements Controller {
         baseController.showView("New user", createUserController, "/createUser-view.fxml");
     }
 
-    @FXML protected void handleDelete(Event event){
+    @FXML protected void handleItemSelected(MouseEvent event){
         User selectedUser = userTableView.getSelectionModel().getSelectedItem();
-        GenericRepository.delete(selectedUser);
-
-        var items = userTableView.getItems();
-        items.remove(selectedUser);
-        userTableView.setItems(items);
-
-        editButton.setDisable(true);
+        editButton.setDisable(selectedUser == null);
+        loansButton.setDisable(selectedUser == null);
     }
+
 
     private void handleLoans(ActionEvent event) {
         User selectedUser = userTableView.getSelectionModel().getSelectedItem();

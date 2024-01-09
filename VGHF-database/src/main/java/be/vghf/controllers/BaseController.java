@@ -33,19 +33,17 @@ public class BaseController implements Controller{
     private Controller listener;
     private BaseController baseController = this;
 
-    //Loaned Items:
-    //TODO: Gitte: ALS VOLUNTEER of CLIENT moet je eerst alle spellen zien die je hebt uitgeleend op datum en degene die nog uitgeleend zijn moeten een andere kleur hebben dan die wat zijn afgerond, ook een andere kleur voor openstaande boetes
 
     //Events en Locations
     //TODO: Gitte: Toevoegen van een couch db server die als key de naam van een expo bevat met dan een korte bio en link naar de website
     //TODO: Gitte: Toevoegen van filter (ComboBox voor type locatie) en queryfield voor locatie
-    //TODO: Gitte: Volunteers moeten op een locatie kunnen klikken naar een treeview van alle spellen per home base
+    //TODO: Gitte: als volunteer klikt op game in treeview, open gameAdminView
+
 
 
     @FXML
     public void initialize() {
         usersButton.setVisible(false);
-        loanedItemsButton.setVisible(false);
 
         changeSubscene("/browse-view.fxml", new BrowseController());
 
@@ -64,6 +62,14 @@ public class BaseController implements Controller{
     @FXML protected void handleUsersButtonPressed(ActionEvent actionEvent) {
         changeSubscene("/users-view.fxml", new UsersController());
     }
+    @FXML protected void handleLoansButtonPressed(ActionEvent actionevent){
+        User user = ActiveUser.user;
+        var loanedItemsController = new LoanedItemsController();
+        baseController.changeSubscene("/userLoanedItems-view.fxml", loanedItemsController);
+        loanedItemsController.setUser(user);
+        loanedItemsController.setListener(this);
+    }
+
     public Stage showView(String title, Controller controller, String path){
         try {
             var loader = new FXMLLoader(BaseController.class.getResource(path));
@@ -116,7 +122,6 @@ public class BaseController implements Controller{
 
         if (ActiveUser.user == null) {
             usersButton.setVisible(false);
-            loanedItemsButton.setVisible(false);
 
             return;
         }
@@ -127,7 +132,8 @@ public class BaseController implements Controller{
             usersButton.setVisible(true);
 
             Button addGameButton = (Button) subScene.lookup("#addGameButton");
-            addGameButton.setVisible(true);
+            if(addGameButton != null){ addGameButton.setVisible(true);}
+
 
             TextField searchBar = (TextField) subScene.lookup("#gameSearchText");
             AnchorPane.setLeftAnchor(searchBar, 60.0);
