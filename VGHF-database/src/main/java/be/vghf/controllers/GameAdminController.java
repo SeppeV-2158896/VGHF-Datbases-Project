@@ -1,14 +1,16 @@
 package be.vghf.controllers;
 
-import be.vghf.domain.Game;
-import be.vghf.domain.Location;
-import be.vghf.domain.User;
+import be.vghf.domain.*;
+import be.vghf.repository.GameRepository;
 import be.vghf.repository.GenericRepository;
+import be.vghf.repository.Loan_ReceiptsRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.time.LocalDate;
 
 public class GameAdminController implements Controller {
     private BaseController baseController;
@@ -37,7 +39,11 @@ public class GameAdminController implements Controller {
     @FXML
     private Button deleteButton;
 
-    private BrowseController listener;
+    @FXML private Button loanButton;
+
+    @FXML private Button returnButton;
+
+    private Controller listener;
 
     // Inject your Game instance here
     private Game game;
@@ -54,15 +60,11 @@ public class GameAdminController implements Controller {
 
         GenericRepository.update(game);
 
-        listener.updateGameDetails(game);
+        ((BrowseController) listener).updateGameDetails(game);
 
         Button sourceButton = (Button) event.getSource();
         Stage stage = (Stage) sourceButton.getScene().getWindow();
         stage.close();
-    }
-
-    public void deleteGame(ActionEvent actionEvent) {
-        GenericRepository.delete(game);
     }
 
     private void populateFields() {
@@ -72,12 +74,36 @@ public class GameAdminController implements Controller {
         ownerButton.setText(game.getOwner().getFirstName() + " " + game.getOwner().getLastName());
         homeBaseButton.setText(game.getHomeBase().toString());
         currentLocationButton.setText(game.getCurrentLocation().toString());
+
+        loanButton.setDisable(Loan_ReceiptsRepository.getActiveLoanByGame(game) != null);
+        returnButton.setDisable(Loan_ReceiptsRepository.getActiveLoanByGame(game) == null);
     }
 
     @FXML protected void editOwner(ActionEvent event){
         EditGameOwnerController egoController = new EditGameOwnerController();
         egoController.setListener(this);
-        baseController.showView("Edit owner", egoController, "/editGameOwner-view.fxml");
+        baseController.showView("Edit owner", egoController, "/selectUser-view.fxml");
+    }
+
+    @FXML protected void loanGame(ActionEvent event){
+        var controller = new NewLoanReceiptController();
+        baseController.showView("Create new Loan", controller, "/newLoanReceipts-view.fxml");
+        controller.setBaseController(baseController);
+        controller.setGame(game);
+    }
+
+    @FXML protected void deleteGame(ActionEvent event){
+        GameRepository.deleteGameWithReferences(game);
+        closeWindow();
+    }
+
+    @FXML protected void returnGame(ActionEvent event){
+        var activeLoan = Loan_ReceiptsRepository.getActiveLoanByGame(game);
+        activeLoan.setReturnDate(LocalDate.now().toString());
+        GenericRepository.update(activeLoan);
+
+        loanButton.getScene().getWindow().hide();
+
     }
 
     public void selectedUserConfirmed(User user){
@@ -97,7 +123,7 @@ public class GameAdminController implements Controller {
             title = "Edit current location";
             eglController.setIsHomeBase(false);
         }
-        baseController.showView(title, eglController, "/editGameLocation-view.fxml");
+        baseController.showView(title, eglController, "/selectLocation-view.fxml");
     }
 
     public void selectedHomeBaseConfirmed(Location location){
@@ -110,6 +136,10 @@ public class GameAdminController implements Controller {
         currentLocationButton.setText(game.getCurrentLocation().toString());
     }
 
+    public void closeWindow(){
+        this.loanButton.getScene().getWindow().hide();
+    }
+
     @Override
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
@@ -117,6 +147,6 @@ public class GameAdminController implements Controller {
 
     @Override
     public void setListener(Controller controller){
-        this.listener = (BrowseController) controller;
+        this.listener = controller;
     }
 }

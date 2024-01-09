@@ -32,8 +32,6 @@ public class EditGameOwnerController implements Controller{
     @FXML
     private Button addButton;
     @FXML
-    private Button deleteButton;
-    @FXML
     private Button confirmButton;
 
     private Controller listener;
@@ -118,15 +116,6 @@ public class EditGameOwnerController implements Controller{
         CreateUserController createUserController = new CreateUserController();
         createUserController.setListener(this);
         baseController.showView("New user", createUserController, "/createUser-view.fxml");
-    }
-
-    @FXML protected void deleteOwner(ActionEvent event){
-        User owner = (User) table.getSelectionModel().getSelectedItem();
-        GenericRepository.delete(owner);
-
-        var items = table.getItems();
-        items.remove(owner);
-        table.setItems(items);
     }
 
     public void newOwnerCreated(User newOwner){

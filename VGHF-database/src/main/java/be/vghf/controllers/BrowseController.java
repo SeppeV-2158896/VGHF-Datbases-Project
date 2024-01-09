@@ -47,7 +47,7 @@ public class BrowseController implements Controller{
 
     //Consoles:
 
-    //TODO: Seppe: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
+    //TODO: Seppe: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console
     //TODO: Pex: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
 
     //Companies:

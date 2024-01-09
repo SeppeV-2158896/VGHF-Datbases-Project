@@ -97,10 +97,6 @@ public class UsersController implements Controller {
         addButton.setOnAction(event -> handleAdd(event));
         addButton.setVisible(false);
 
-        deleteButton.setText("Delete");
-        deleteButton.setOnAction(event -> handleDelete(event));
-        deleteButton.setDisable(true);
-
         loansButton.setText("Loaned Items");
         loansButton.setOnAction(event -> handleLoans(event));
         loansButton.setDisable(true);
@@ -166,7 +162,7 @@ public class UsersController implements Controller {
         baseController.showView("New user", createUserController, "/createUser-view.fxml");
     }
 
-    @FXML protected void handleDelete(Event event){
+    /*@FXML protected void handleDelete(Event event){
         User selectedUser = userTableView.getSelectionModel().getSelectedItem();
         GenericRepository.delete(selectedUser);
 
@@ -175,7 +171,7 @@ public class UsersController implements Controller {
         userTableView.setItems(items);
 
         editButton.setDisable(true);
-    }
+    }*/
 
     private void handleLoans(ActionEvent event) {
         User selectedUser = userTableView.getSelectionModel().getSelectedItem();
