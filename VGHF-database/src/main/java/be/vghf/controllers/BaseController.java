@@ -34,7 +34,7 @@ public class BaseController implements Controller{
 
     //Loaned Items:
 
-    //TODO: Pex: ALS VOLUNTEER of CLIENT moet je eerst alle spellen zien die je hebt uitgeleend op datum en degene die nog uitgeleend zijn moeten een andere kleur hebben dan die wat zijn afgerond, ook een andere kleur voor openstaande boetes
+    //TODO: Gitte: ALS VOLUNTEER of CLIENT moet je eerst alle spellen zien die je hebt uitgeleend op datum en degene die nog uitgeleend zijn moeten een andere kleur hebben dan die wat zijn afgerond, ook een andere kleur voor openstaande boetes
     //TODO: Seppe: Toevoegen van een statpanel om onze query kunsten aan wouter te laten zien: Most used console, Amount of loaned items, total fine paid, ...
     /*TODO: Seppe: Admin moet op een knop kunnen duwen die een nieuw window opent waarin hij games kan uitlenen en markeren als terug gebracht, let op volunteer
      * moet eerst zijn actieve locatie aangeven en dan hier de geleende spellen van zien, is onlogisch dat je spellen van andere locaties uitleend en verwerkt.
@@ -47,7 +47,7 @@ public class BaseController implements Controller{
     //TODO: Gitte: Toevoegen van een couch db server die als key de naam van een expo bevat met dan een korte bio en link naar de website
     //TODO: Gitte: Gasten moeten lijst kunnen krijgen van de aanwezige spellen
     //TODO: Gitte: Toevoegen van filter (ComboBox voor type locatie) en queryfield voor locatie
-    //TODO: Gitte: Volunteers moeten op een locatie kunnen klikken en een tabel van alle spellen te zien krijgen en kunnen switchen naar een treeview van alle spellen per home base
+    //TODO: Gitte: Volunteers moeten op een locatie kunnen klikken naar een treeview van alle spellen per home base
 
 
     @FXML
@@ -59,24 +59,19 @@ public class BaseController implements Controller{
 
         ActiveUser.user = null;
     }
-
     @FXML protected void handleAccountButtonPressed(ActionEvent event) throws IOException {
         showView("Account Manager", new AccountController(),"/loginOrRegister-view.fxml");
     }
-
     @FXML protected void handleBrowseButtonPressed(ActionEvent event) throws IOException {
         changeSubscene("/browse-view.fxml", new BrowseController());
 
     }
-
     @FXML protected void handleEventsButtonPressed(ActionEvent event) throws IOException{
         changeSubscene("/events-locations-view.fxml", new EventsController());
     }
-
     @FXML protected void handleUsersButtonPressed(ActionEvent actionEvent) {
         changeSubscene("/users-view.fxml", new UsersController());
     }
-
     public Stage showView(String title, Controller controller, String path){
         try {
             var loader = new FXMLLoader(BaseController.class.getResource(path));
@@ -101,7 +96,6 @@ public class BaseController implements Controller{
 
         return null;
     }
-
     public void changeSubscene(String path, Controller controller){
         try {
             subScene.getChildren().clear();
@@ -119,7 +113,6 @@ public class BaseController implements Controller{
             e.printStackTrace();
         }
     }
-
     public static void showErrorAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -127,7 +120,6 @@ public class BaseController implements Controller{
         alert.setContentText(content);
         alert.showAndWait();
     }
-
     public void update() {
 
         if (ActiveUser.user == null) {
@@ -143,7 +135,6 @@ public class BaseController implements Controller{
             usersButton.setVisible(true);
         }
     }
-
     @Override
     public void setBaseController(BaseController baseController) {
     }

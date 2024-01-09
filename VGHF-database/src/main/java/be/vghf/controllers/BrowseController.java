@@ -116,8 +116,6 @@ public class BrowseController implements Controller{
         var consoles = cr.getAll();
         setConsolesInConsolePane(consoles);
     }
-
-
     private void setConsolesInConsolePane(List<Console> consoles) {
         consoleTab.getChildren().clear();
         TreeItem<String> root = new TreeItem<>("Consoles");
