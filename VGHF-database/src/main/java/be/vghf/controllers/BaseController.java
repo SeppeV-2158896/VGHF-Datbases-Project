@@ -50,7 +50,11 @@ public class BaseController implements Controller{
         ActiveUser.user = null;
     }
     @FXML protected void handleAccountButtonPressed(ActionEvent event) throws IOException {
-        showView("Account Manager", new AccountController(),"/loginOrRegister-view.fxml");
+        if(ActiveUser.user == null){
+            showView("Account Manager", new AccountController(),"/loginOrRegister-view.fxml");
+        }else{
+            showView("Account Manager", new LogoutController(),"/logout-view.fxml");
+        }
     }
     @FXML protected void handleBrowseButtonPressed(ActionEvent event) throws IOException {
         changeSubscene("/browse-view.fxml", new BrowseController());
