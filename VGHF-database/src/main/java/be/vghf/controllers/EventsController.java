@@ -24,6 +24,7 @@ public class EventsController implements Controller {
     @FXML
     private TilePane locationsTilePane;
 
+
     @FXML public void initialize(){
         setLocations(new LocationRepository().getAll());
     }
@@ -59,7 +60,11 @@ public class EventsController implements Controller {
         Hyperlink gamesLink = new Hyperlink("View Games");
         gamesLink.setOnAction(event -> handleGames(location));
 
-        anchorPane.getChildren().addAll(ownerLabel, addressLabel, typeLabel, gamesLink);
+        Hyperlink controlPanelLink = new Hyperlink("Open Control Panel");
+        controlPanelLink.setOnAction(event -> handleControl(location));
+        controlPanelLink.setVisible(ActiveUser.user != null && ActiveUser.user.getUserType() == UserType.VOLUNTEER);
+
+        anchorPane.getChildren().addAll(ownerLabel, addressLabel, typeLabel, gamesLink, controlPanelLink);
 
         AnchorPane.setTopAnchor(ownerLabel, 10.0);
         AnchorPane.setLeftAnchor(ownerLabel, 10.0);
@@ -69,8 +74,17 @@ public class EventsController implements Controller {
         AnchorPane.setLeftAnchor(typeLabel, 10.0);
         AnchorPane.setTopAnchor(gamesLink, 70.0);
         AnchorPane.setLeftAnchor(gamesLink, 10.0);
+        AnchorPane.setTopAnchor(controlPanelLink, 90.0);
+        AnchorPane.setLeftAnchor(controlPanelLink, 10.0);
+
 
         return anchorPane;
+    }
+
+    private void handleControl(Location location) {
+        var controller = new ControlPannelController();
+        baseController.showView("Location Control Panel", controller, "/controlPanel-view.fxml");
+        controller.setLocation(location);
     }
 
     private void handleGames(Location location) {
@@ -86,7 +100,6 @@ public class EventsController implements Controller {
             if (ActiveUser.user.getUserType() == UserType.VOLUNTEER){
                 return;
             }
-
     }
 
     @Override
