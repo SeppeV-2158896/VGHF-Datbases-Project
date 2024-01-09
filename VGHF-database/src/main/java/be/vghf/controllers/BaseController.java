@@ -35,7 +35,6 @@ public class BaseController implements Controller{
     //Loaned Items:
 
     //TODO: Gitte: ALS VOLUNTEER of CLIENT moet je eerst alle spellen zien die je hebt uitgeleend op datum en degene die nog uitgeleend zijn moeten een andere kleur hebben dan die wat zijn afgerond, ook een andere kleur voor openstaande boetes
-    //TODO: Seppe: Toevoegen van een statpanel om onze query kunsten aan wouter te laten zien: Most used console, Amount of loaned items, total fine paid, ...
     /*TODO: Seppe: Admin moet op een knop kunnen duwen die een nieuw window opent waarin hij games kan uitlenen en markeren als terug gebracht, let op volunteer
      * moet eerst zijn actieve locatie aangeven en dan hier de geleende spellen van zien, is onlogisch dat je spellen van andere locaties uitleend en verwerkt.
      * Als je als VOLUNTEER op een game klikt moet je de game kunnen uitlenen aan een gebruiker door het op zoeken van de volledige naam (voor + achternaam, zoals in de bib).

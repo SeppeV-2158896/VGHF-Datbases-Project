@@ -1,6 +1,7 @@
 package be.vghf.controllers;
 
 import be.vghf.domain.Game;
+import be.vghf.domain.Location;
 import be.vghf.domain.User;
 import be.vghf.repository.GenericRepository;
 import javafx.event.ActionEvent;
@@ -74,9 +75,9 @@ public class GameAdminController implements Controller {
     }
 
     @FXML protected void editOwner(ActionEvent event){
-        EditGameOwnerController eolController = new EditGameOwnerController();
-        baseController.showView("Edit owner", eolController, "/editOwnerLocations-view.fxml");
-        eolController.setListener(this);
+        EditGameOwnerController egoController = new EditGameOwnerController();
+        egoController.setListener(this);
+        baseController.showView("Edit owner", egoController, "/editGameOwner-view.fxml");
     }
 
     public void selectedUserConfirmed(User user){
@@ -84,12 +85,29 @@ public class GameAdminController implements Controller {
         ownerButton.setText(game.getOwner().getFirstName() + " " + game.getOwner().getLastName());
     }
 
-    public void editHomeBase(ActionEvent event){
-
+    @FXML protected void editLocation(ActionEvent event){
+        EditGameLocationController eglController = new EditGameLocationController();
+        eglController.setListener(this);
+        String title = "";
+        if(event.getSource() == homeBaseButton){
+            title = "Edit home base location";
+            eglController.setIsHomeBase(true);
+        }
+        else if(event.getSource() == currentLocationButton){
+            title = "Edit current location";
+            eglController.setIsHomeBase(false);
+        }
+        baseController.showView(title, eglController, "/editGameLocation-view.fxml");
     }
 
-    public void editCurrentLocation(ActionEvent event){
+    public void selectedHomeBaseConfirmed(Location location){
+        game.setHomeBase(location);
+        homeBaseButton.setText(game.getHomeBase().toString());
+    }
 
+    public void selectedCurrentLocationConfirmed(Location location){
+        game.setCurrentLocation(location);
+        currentLocationButton.setText(game.getCurrentLocation().toString());
     }
 
     @Override
