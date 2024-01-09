@@ -47,6 +47,7 @@ public class BrowseController implements Controller{
     @FXML private Button editConsoleButton;
 
     @FXML private Tab gamesTab;
+    private Console selectedConsole = null;
 
     //Games:
 
@@ -141,8 +142,9 @@ public class BrowseController implements Controller{
         setConsolesInConsolePane(consoles);
 
         addConsoleButton.setVisible(false);
-        deleteConsoleButton.setVisible(false);
         editConsoleButton.setVisible(false);
+
+        editConsoleButton.setDisable(true);
 
         consoleQueryField.setOnKeyReleased(this::handleConsoleSearch);
     }
@@ -343,7 +345,11 @@ public class BrowseController implements Controller{
             consoleRootView.setPrefHeight(60);
 
             consoleRootView.setOnMouseReleased(event -> {
-                if (event.getClickCount() == 2) {
+                if (event.getClickCount() == 1){
+                    selectedConsole = console;
+                    editConsoleButton.setDisable(false);
+                }
+                else if (event.getClickCount() == 2) {
                     showGamesInTileView(console.getGames());
                     tabPane.getSelectionModel().select(gamesTab);
                     gameSearchText.setText(console.getConsoleName());
@@ -373,6 +379,9 @@ public class BrowseController implements Controller{
     }
 
     @FXML protected void handleEditConsole(ActionEvent event){
-
+        CreateConsoleController createConsoleController = new CreateConsoleController();
+        createConsoleController.setListener(this);
+        createConsoleController.setConsole(selectedConsole);
+        baseController.showView("Create new console", createConsoleController, "/createConsole-view.fxml");
     }
 }

@@ -31,10 +31,9 @@
       <content>
           <VBox>
               <HBox spacing="10">
-                  <TextField fx:id="consoleQueryField" promptText="Search..." prefWidth="1050"/>
-                  <Button fx:id="addConsoleButton" text="Add" onAction="#handleAddConsole"/>
-                  <Button fx:id="deleteConsoleButton" text="Delete" onAction="#handleDeleteConsole"/>
-                  <Button fx:id="editConsoleButton" text="Edit" onAction="#handleEditConsole"/>
+                  <TextField fx:id="consoleQueryField" promptText="Search..." prefWidth="1110"/>
+                  <Button fx:id="addConsoleButton" text="Add" onAction="#handleAddConsole" prefWidth="70"/>
+                  <Button fx:id="editConsoleButton" text="Edit" onAction="#handleEditConsole" prefWidth="70"/>
               </HBox>
               <AnchorPane fx:id="consoleTab"></AnchorPane>
           </VBox>

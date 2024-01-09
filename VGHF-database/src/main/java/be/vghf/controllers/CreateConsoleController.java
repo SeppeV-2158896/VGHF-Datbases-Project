@@ -57,7 +57,7 @@ public class CreateConsoleController implements Controller{
         if(!validInformation()){
             displayErrorAlert("ERROR", "Invalid input\n" +
                     "Check if all fields are properly filled in.\n" +
-                    "(House number and telephone have to be numbers only!)");
+                    "(Dates should be yyyy-mm-dd)");
             return;
         }
 
@@ -114,10 +114,14 @@ public class CreateConsoleController implements Controller{
         alert.showAndWait();
     }
 
+    public void setConsole(Console console){
+        this.console = console;
+    }
+
     private void populateFields(){
         consoleNameField.setText(console.getConsoleName());
         typeComboBox.setValue(console.getConsoleType());
-        companyButton.setText(console.getCompany().toString());
+        companyButton.setText(console.getCompany().getCompanyName());
         releaseYearField.setText(console.getReleaseYear());
         discontinuedYearField.setText(console.getDiscontinuationYear());
         unitsSoldField.setText(Double.toString(console.getUnitsSoldInMillions()));
