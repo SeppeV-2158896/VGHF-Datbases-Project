@@ -86,6 +86,16 @@ public class BrowseController implements Controller{
         gameSearchText.setOnKeyReleased(this::handleGameSearch);
         companySearchText.setOnKeyReleased(this::handleCompanySearch);
     }
+
+    public void initializeGamesWithLocation(String Location){
+        String currentFilter = gamesFilterComboBox.getValue();
+
+        this.gameSearchText.setText(Location);
+        String[] gameSearch = Location.split("\\s+");
+        Set<Game> gameResults = null;
+        gameResults = queryGameWithTitleFilter(gameSearch);
+        showGamesInTileView(gameResults);
+    }
     private void initializeCompanyBrowser(){
         companiesFilterComboBox.setPromptText("Filter");
         companiesFilterComboBox.getItems().add("All");
@@ -186,6 +196,10 @@ public class BrowseController implements Controller{
             games.addAll(console.getGames());
         }
         return games;
+    }
+    private Set<Game> queryGameWithLocationFilter(String[] wordsArray){
+        var results = gameRepository.getGameByName(wordsArray);
+        return results;
     }
     private Set<Dev_company> queryCompaniesWithoutOrAllFilter(String[] wordsArray){
 
