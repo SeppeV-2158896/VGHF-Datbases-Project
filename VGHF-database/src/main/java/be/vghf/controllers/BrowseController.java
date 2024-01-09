@@ -46,18 +46,13 @@ public class BrowseController implements Controller{
     @FXML private Tab gamesTab;
 
     //Games:
-
     //TODO: Pex: Als je als VOLUNTEER op een game klikt moet je de locatie, owner en homebase kunnen aanpassen door te kiezen uit een lijst waarin je kan filteren
     //TODO: Pex: VOLUNTEER moet game kunnen toevoegen
 
     //Consoles:
-
-    //TODO: Seppe: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console
     //TODO: Pex: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
 
     //Companies:
-
-    //TODO: Seppe: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
     //TODO: Pex: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
 
     @Override
