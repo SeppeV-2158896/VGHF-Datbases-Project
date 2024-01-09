@@ -19,5 +19,8 @@
     <Label text="Loan Term (days):" />
     <TextField fx:id="loanTermField" promptText="Enter Loan Term" />
 
-    <Button text="Create Loan Receipt" onAction="#createLoanReceipt" />
+    <Label text="Customer:" />
+    <Button fx:id="customerButton" text="Select the customer" onAction="#selectCustomer"/>
+
+    <Button fx:id="createButton" text="Create Loan Receipt" onAction="#createLoanReceipt" />
 </VBox>

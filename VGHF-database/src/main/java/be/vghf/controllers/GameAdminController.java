@@ -54,7 +54,6 @@ public class GameAdminController implements Controller {
 
     @FXML protected void initialize(){
         if(!newGame){
-            populateFields();
             windowTitle.setText("Game details");
         }
         else{
@@ -62,9 +61,9 @@ public class GameAdminController implements Controller {
         }
     }
 
-    // Set the Game instance from your main application
     public void setGame(Game game) {
         this.game = game;
+        populateFields();
     }
 
     public void setNewGame(boolean isNewGame){
@@ -111,6 +110,7 @@ public class GameAdminController implements Controller {
         var controller = new NewLoanReceiptController();
         baseController.showView("Create new Loan", controller, "/newLoanReceipts-view.fxml");
         controller.setBaseController(baseController);
+        controller.setListener(this);
         controller.setGame(game);
     }
 
@@ -124,7 +124,7 @@ public class GameAdminController implements Controller {
         activeLoan.setReturnDate(LocalDate.now().toString());
         GenericRepository.update(activeLoan);
 
-        loanButton.getScene().getWindow().hide();
+        closeWindow();
 
     }
 
@@ -159,7 +159,7 @@ public class GameAdminController implements Controller {
     }
 
     public void closeWindow(){
-        this.loanButton.getScene().getWindow().hide();
+        ((Stage) loanButton.getScene().getWindow()).close();
     }
 
     @Override

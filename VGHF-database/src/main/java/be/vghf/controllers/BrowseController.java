@@ -276,9 +276,9 @@ public class BrowseController implements Controller{
                 }
                 if (ActiveUser.user.getUserType() == UserType.VOLUNTEER){
                     GameAdminController gaController = new GameAdminController();
+                    baseController.showView("Game details", gaController, "/gameAdmin-view.fxml");
                     gaController.setGame(game);
                     gaController.setListener(listener);
-                    baseController.showView("Game details", gaController, "/gameAdmin-view.fxml");
                 }
             }
         });

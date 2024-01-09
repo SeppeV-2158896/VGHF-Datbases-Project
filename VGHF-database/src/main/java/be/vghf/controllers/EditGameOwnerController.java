@@ -101,8 +101,10 @@ public class EditGameOwnerController implements Controller{
         if (selectedOwner != null && listener != null) {
             if(listener instanceof GameAdminController){
                 ((GameAdminController) listener).selectedUserConfirmed(selectedOwner);
-            }
-            else if(listener instanceof CreateLocationController){
+            } else if (listener instanceof NewLoanReceiptController) {
+                ((NewLoanReceiptController) listener).userEdited(selectedOwner);
+
+            } else if(listener instanceof CreateLocationController){
                 ((CreateLocationController) listener).selectedOwnerConfirmed(selectedOwner);
             }
 
