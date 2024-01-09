@@ -43,9 +43,9 @@ public class BrowseController implements Controller{
     @FXML private TextField consoleQueryField;
     @FXML private Button addGameButton;
     @FXML private Button addConsoleButton;
-    @FXML private Button deleteConsoleButton;
     @FXML private Button editConsoleButton;
-
+    @FXML private Button addCompanyButton;
+    @FXML private Button editCompanyButton;
     @FXML private Tab gamesTab;
     private Console selectedConsole = null;
 
@@ -105,6 +105,11 @@ public class BrowseController implements Controller{
         companiesFilterComboBox.getItems().add("Title");
         companiesFilterComboBox.getItems().add("Location");
 
+        addCompanyButton.setVisible(false);
+        editCompanyButton.setVisible(false);
+
+        editCompanyButton.setDisable(true);
+
         TableColumn<Dev_company, String> nameCol = new TableColumn<Dev_company, String>("Company name");
         nameCol.setCellValueFactory(
                 new PropertyValueFactory<Dev_company, String>("companyName"));
@@ -126,8 +131,13 @@ public class BrowseController implements Controller{
         companiesTableView.getColumns().addAll(nameCol, websiteCol, emailCol, addressCol);
 
         companiesTableView.setOnMouseReleased(event -> {
-            showGamesInTileView(companiesTableView.getSelectionModel().getSelectedItem().getGames());
-            tabPane.getSelectionModel().select(gamesTab);
+            if(event.getClickCount() == 1){
+                editCompanyButton.setDisable(false);
+            }
+            if(event.getClickCount() == 2){
+                showGamesInTileView(companiesTableView.getSelectionModel().getSelectedItem().getGames());
+                tabPane.getSelectionModel().select(gamesTab);
+            }
         });
     }
 
@@ -372,14 +382,35 @@ public class BrowseController implements Controller{
         baseController.showView("Create new console", createConsoleController, "/createConsole-view.fxml");
     }
 
-    @FXML protected void handleDeleteConsole(ActionEvent event){
-
-    }
-
     @FXML protected void handleEditConsole(ActionEvent event){
         CreateConsoleController createConsoleController = new CreateConsoleController();
         createConsoleController.setListener(this);
         createConsoleController.setConsole(selectedConsole);
         baseController.showView("Create new console", createConsoleController, "/createConsole-view.fxml");
+    }
+
+    @FXML protected void handleAddCompany(ActionEvent event){
+        CreateCompanyController createCompanyController = new CreateCompanyController();
+        createCompanyController.setListener(this);
+        baseController.showView("Create new company", createCompanyController, "/createCompany-view.fxml");
+    }
+
+    @FXML protected void handleEditCompany(ActionEvent event){
+        Dev_company company = companiesTableView.getSelectionModel().getSelectedItem();
+
+        CreateCompanyController createCompanyController = new CreateCompanyController();
+        createCompanyController.setListener(this);
+        createCompanyController.setCompany(company);
+        baseController.showView("Create new console", createCompanyController, "/createCompany-view.fxml");
+    }
+
+    public void newCompanyCreated(Dev_company company){
+        GenericRepository.save(company);
+        companiesTableView.refresh();
+    }
+
+    public void companyEdited(Dev_company company){
+        GenericRepository.update(company);
+        companiesTableView.refresh();
     }
 }

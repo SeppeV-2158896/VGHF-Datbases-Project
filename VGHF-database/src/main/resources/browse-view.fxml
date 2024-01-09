@@ -45,8 +45,10 @@
                <children>
                    <VBox AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
                        <HBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10.0" spacing="10">
-                           <TextField fx:id="companySearchText" promptText="Zoeken..." prefWidth="1110"/>
+                           <TextField fx:id="companySearchText" promptText="Zoeken..." prefWidth="950"/>
                            <ComboBox fx:id="companiesFilterComboBox" prefWidth="150"/>
+                           <Button fx:id="addCompanyButton" text="Add" onAction="#handleAddCompany" prefWidth="70"/>
+                           <Button fx:id="editCompanyButton" text="Edit" onAction="#handleEditCompany" prefWidth="70"/>
                        </HBox>
                        <TableView fx:id="companiesTableView" layoutX="6.0" layoutY="7.0"/>
                    </VBox>

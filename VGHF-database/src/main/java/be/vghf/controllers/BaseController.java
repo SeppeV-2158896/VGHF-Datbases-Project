@@ -136,6 +136,11 @@ public class BaseController implements Controller{
             addConsoleButton.setVisible(true);
             Button editConsoleButton = (Button) subScene.lookup("#editConsoleButton");
             editConsoleButton.setVisible(true);
+
+            Button addCompanyButton = (Button) subScene.lookup("#addCompanyButton");
+            addCompanyButton.setVisible(true);
+            Button editCompanyButton = (Button) subScene.lookup("#editCompanyButton");
+            editCompanyButton.setVisible(true);
         }
     }
     @Override

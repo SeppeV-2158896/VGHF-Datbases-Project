@@ -3,6 +3,7 @@ package be.vghf.controllers;
 import be.vghf.domain.Dev_company;
 import be.vghf.domain.User;
 import be.vghf.repository.Dev_companyRepository;
+import be.vghf.repository.GenericRepository;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -80,7 +81,9 @@ public class SelectCompanyController implements Controller{
     }
 
     @FXML protected void addCompany(ActionEvent event){
-
+        CreateCompanyController createCompanyController = new CreateCompanyController();
+        createCompanyController.setListener(this);
+        baseController.showView("Create new company", createCompanyController, "/createCompany-view.fxml");
     }
 
     @FXML protected void confirmSelectedCompany(ActionEvent event){
@@ -95,6 +98,12 @@ public class SelectCompanyController implements Controller{
             stage.close();
         }
     }
+
+    public void newCompanyCreated(Dev_company newCompany){
+        GenericRepository.save(newCompany);
+        table.getItems().add(newCompany);
+    }
+
     @Override
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
