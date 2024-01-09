@@ -1,6 +1,5 @@
 package be.vghf.controllers;
 
-import be.vghf.domain.Game;
 import be.vghf.domain.User;
 import be.vghf.repository.GenericRepository;
 import be.vghf.repository.UserRepository;
@@ -22,7 +21,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EditOwnerLocationController implements Controller{
+public class EditGameOwnerController implements Controller{
     private BaseController baseController;
     @FXML
     private TextField ownerField;
@@ -40,7 +39,7 @@ public class EditOwnerLocationController implements Controller{
     private GameAdminController listener;
 
     @FXML public void initialize(){
-        EditOwnerLocationController controller = new EditOwnerLocationController();
+        EditGameOwnerController controller = new EditGameOwnerController();
 
         TableColumn<User, String> firstNameColumn = new TableColumn<>("First name");
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));

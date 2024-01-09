@@ -9,8 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class GameAdminController implements Controller {
     private BaseController baseController;
 
@@ -76,7 +74,7 @@ public class GameAdminController implements Controller {
     }
 
     @FXML protected void editOwner(ActionEvent event){
-        EditOwnerLocationController eolController = new EditOwnerLocationController();
+        EditGameOwnerController eolController = new EditGameOwnerController();
         baseController.showView("Edit owner", eolController, "/editOwnerLocations-view.fxml");
         eolController.setListener(this);
     }
