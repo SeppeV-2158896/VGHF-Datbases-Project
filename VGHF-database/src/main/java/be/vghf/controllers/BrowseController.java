@@ -96,14 +96,8 @@ public class BrowseController implements Controller{
         companySearchText.setOnKeyReleased(this::handleCompanySearch);
     }
 
-    public void initializeGamesWithLocation(String Location){
-        String currentFilter = gamesFilterComboBox.getValue();
-
-        this.gameSearchText.setText(Location);
-        String[] gameSearch = Location.split("\\s+");
-        Set<Game> gameResults = null;
-        gameResults = queryGameWithTitleFilter(gameSearch);
-        showGamesInTileView(gameResults);
+    public void initializeGamesWithLocation(Location location){
+        showGamesInTileView(new GameRepository().getAllByLocation(location));
     }
 
     private void initializeCompanyBrowser(){

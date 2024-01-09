@@ -45,7 +45,6 @@ public class BaseController implements Controller{
     //Events en Locations
 
     //TODO: Gitte: Toevoegen van een couch db server die als key de naam van een expo bevat met dan een korte bio en link naar de website
-    //TODO: Gitte: Gasten moeten lijst kunnen krijgen van de aanwezige spellen
     //TODO: Gitte: Toevoegen van filter (ComboBox voor type locatie) en queryfield voor locatie
     //TODO: Gitte: Volunteers moeten op een locatie kunnen klikken naar een treeview van alle spellen per home base
 
