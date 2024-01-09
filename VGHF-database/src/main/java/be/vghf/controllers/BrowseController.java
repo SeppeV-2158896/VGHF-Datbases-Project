@@ -46,13 +46,13 @@ public class BrowseController implements Controller{
 
     //Consoles:
 
-    //TODO: Toevoegen van de filters
-    //TODO: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
+    //TODO: Seppe: Toevoegen van de filters
+    //TODO: Seppe: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
     //TODO: Pex: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
 
     //Companies:
 
-    //TODO: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
+    //TODO: Seppe: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
     //TODO: Pex: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
 
     @Override
@@ -143,7 +143,6 @@ public class BrowseController implements Controller{
         AnchorPane.setRightAnchor(treeView, 0.0);
         AnchorPane.setTopAnchor(treeView, 0.0);
     }
-
     @FXML protected void handleGameSearch(KeyEvent event) {
         if(event.getCode() != KeyCode.ENTER){
             return;
@@ -167,7 +166,6 @@ public class BrowseController implements Controller{
 
         showGamesInTileView(gameResults);
     }
-
     @FXML private void handleCompanySearch(KeyEvent event) {
         if(event.getCode() != KeyCode.ENTER){
             return;
@@ -190,7 +188,6 @@ public class BrowseController implements Controller{
 
         companiesTableView.setItems(FXCollections.observableArrayList(companyResults));
     }
-
     private Set<Game> queryGameWithoutOrAllFilter(String[] wordsArray){
         var results = queryGameWithConsoleFilter(wordsArray);
         results.stream().filter((queryGameWithTitleFilter(wordsArray))::contains);
@@ -210,7 +207,6 @@ public class BrowseController implements Controller{
         }
         return games;
     }
-
     private Set<Dev_company> queryCompaniesWithoutOrAllFilter(String[] wordsArray){
 
         var results = queryCompaniesWithTitleFilter(wordsArray);
@@ -221,20 +217,16 @@ public class BrowseController implements Controller{
     private Set<Dev_company> queryCompaniesWithTitleFilter(String[] wordsArray){
         return new Dev_companyRepository().getCompaniesByName(wordsArray);
     }
-
     private Set<Dev_company> queryCompaniesWithLocationFilter(String[] wordsArray) {
         return new Dev_companyRepository().getCompanyByLocation(wordsArray);
     }
-
-
-
     private void showGamesInTileView(Set<Game> games) {
 
         try {
             gamesTableView.getChildren().clear();
             gamesTableView.setVgap(10);
             gamesTableView.setHgap(10);
-            gamesTableView.setPrefColumns( gamesTableView.getParent().getBoundsInParent().getWidth() == 0 ? 4 : ((int) gamesTableView.getParent().getBoundsInParent().getWidth()/200) - 1);
+            gamesTableView.setPrefColumns( gamesTableView.getParent().getBoundsInParent().getWidth() == 0 ? 4 : (int) gamesTableView.getParent().getBoundsInParent().getWidth()/200);
 
             // Populating TilePane with AnchorPanes
             for (var game : games) {
@@ -244,7 +236,6 @@ public class BrowseController implements Controller{
             e.printStackTrace();
         }
     }
-
     private AnchorPane createTileView(Game game){
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setPrefSize(200, 100);
@@ -284,7 +275,6 @@ public class BrowseController implements Controller{
 
         return anchorPane;
     }
-
     public void updateGameDetails(Game newGame){
         Set<Game> games = Set.copyOf(gameRepository.getAll());
         showGamesInTileView(games);

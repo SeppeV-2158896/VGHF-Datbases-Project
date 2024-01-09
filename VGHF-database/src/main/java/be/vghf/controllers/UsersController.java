@@ -37,10 +37,13 @@ public class UsersController implements Controller {
     @FXML private Button editButton;
     @FXML private Button addButton;
     @FXML private Button deleteButton;
+    @FXML private Button loansButton;
     @FXML private TableView<User> userTableView;
 
     @FXML
     public void initialize(){
+
+
         TableColumn<User, String> usernameCol = new TableColumn<User, String>("Username");
         usernameCol.setCellValueFactory(
                 new PropertyValueFactory<User, String>("userName"));
@@ -79,9 +82,6 @@ public class UsersController implements Controller {
         activeLoansCol.setCellValueFactory(
                 new PropertyValueFactory<User, Integer>("amountOfActiveLoans"));
 
-
-
-
         userTableView.setItems(FXCollections.observableList(new UserRepository().getAll()));
         userTableView.setEditable(false);
         userTableView.getColumns().addAll(usernameCol, firstNameCol, lastNameCol, addressCol, telCol, emailCol, typeCol, totalFineCol, outStandingFineCol, activeLoansCol);
@@ -95,10 +95,18 @@ public class UsersController implements Controller {
 
         addButton.setText("Add");
         addButton.setOnAction(event -> handleAdd(event));
+        addButton.setVisible(false);
 
         deleteButton.setText("Delete");
         deleteButton.setOnAction(event -> handleDelete(event));
+        deleteButton.setDisable(true);
+
+        loansButton.setText("Loaned Items");
+        loansButton.setOnAction(event -> handleLoans(event));
+        loansButton.setDisable(true);
     }
+
+
 
     @Override
     public void setBaseController(BaseController baseController) {
@@ -169,14 +177,19 @@ public class UsersController implements Controller {
         editButton.setDisable(true);
     }
 
+    private void handleLoans(ActionEvent event) {
+        User selectedUser = userTableView.getSelectionModel().getSelectedItem();
+        var loanedItemsController = new UsersLoanedItemsController();
+        baseController.showView("Edit user", loanedItemsController, "/userLoanedItems-view.fxml");
+        loanedItemsController.setUser(selectedUser);
+        loanedItemsController.setListener(this);
+    }
+
     @FXML protected void handleItemSelected(MouseEvent event){
         User selectedUser = userTableView.getSelectionModel().getSelectedItem();
-        if(selectedUser != null){
-            editButton.setDisable(false);
-        }
-        else{
-            editButton.setDisable(true);
-        }
+        editButton.setDisable(selectedUser == null);
+        loansButton.setDisable(selectedUser == null);
+        deleteButton.setDisable(selectedUser == null);
     }
 
     public void newUserCreated(User user){

@@ -4,7 +4,6 @@ import be.vghf.domain.Dev_company;
 import be.vghf.domain.Game;
 import be.vghf.domain.Loan_Receipts;
 import be.vghf.domain.User;
-import be.vghf.enums.State;
 
 import javax.persistence.criteria.Predicate;
 import java.security.MessageDigest;
@@ -12,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static java.lang.Math.round;
 
 public class UserRepository implements Repository{
     public UserRepository(){}
@@ -97,12 +98,12 @@ public class UserRepository implements Repository{
     public static Double getTotalFine(User user){
         var entityManager = EntityManagerSingleton.getInstance();
         var query = entityManager.createQuery(
-                "SELECT SUM(lr.fine) FROM Loan_Receipts lr WHERE lr.customer = :user AND lr.fine IS NOT NULL",
+                "SELECT SUM(CAST(lr.fine AS float )) FROM Loan_Receipts lr WHERE lr.customer = :user AND lr.fine IS NOT NULL",
                 Double.class
         );
         query.setParameter("user", user);
 
-        return (Double) (query.getSingleResult() == null ? 0 : query.getSingleResult());
+        return (double) round(query.getSingleResult() == null ? 0 : query.getSingleResult());
     }
 
     public static Double getOutstandingFine(User user) {
@@ -118,7 +119,7 @@ public class UserRepository implements Repository{
         );
         query.setParameter("user", user);
 
-        return (Double) (query.getSingleResult() == null ? 0 : query.getSingleResult()*0.25);
+        return (double) round((query.getSingleResult() == null ? 0 : query.getSingleResult()*0.25));
     }
 
     public static Integer getCurrentAmountOfLoanedItems(User user){

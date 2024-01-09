@@ -12,7 +12,8 @@
                 <Text fx:id="nameText" text="Name: " AnchorPane.topAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.leftAnchor="120"/>
                 <Text fx:id="locationText" text="Location: " AnchorPane.topAnchor="50.0" AnchorPane.rightAnchor="10.0" AnchorPane.leftAnchor="120"/>
                 <Button fx:id="submitButton" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10" prefWidth="100"/>
-                <Button fx:id="editButton" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="10" prefWidth="100"/>
+                <Button fx:id="editButton" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="650" prefWidth="150"/>
+                <Button fx:id="loansButton" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="490" prefWidth="150"/>
                 <Button fx:id="addButton" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="650" prefWidth="150"/>
                 <Button fx:id="deleteButton" AnchorPane.topAnchor="50" AnchorPane.rightAnchor="650" prefWidth="150"/>
             </AnchorPane>

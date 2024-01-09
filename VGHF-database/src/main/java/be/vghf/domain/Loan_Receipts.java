@@ -15,15 +15,16 @@ public class Loan_Receipts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int referenceID;
 
-    @ManyToMany
-    Set<Game> games = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "gameID", nullable = false)
+    private Game game;
 
     @ManyToOne
     @JoinColumn(name = "customerID", nullable = false)
     private User customer;
 
     @Column(name = "loanedDate")
-    private Date loanedDate;
+    private String loanedDate;
 
     @Column (name = "loanTermInDays")
     private int loanTerm;
@@ -32,20 +33,18 @@ public class Loan_Receipts {
     private String returnDate;
 
     @Column (name = "fine")
-    private double fine;
-
-    private State state;
+    private String fine;
 
     public int getReferenceID() {
         return referenceID;
     }
 
-    public Set<Game> getGames() {
-        return games;
+    public Game getGame() {
+        return game;
     }
 
-    public void setGames(Set<Game> games) {
-        this.games = games;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public User getCustomer() {
@@ -56,11 +55,11 @@ public class Loan_Receipts {
         this.customer = customer;
     }
 
-    public Date getLoanedDate() {
+    public String getLoanedDate() {
         return loanedDate;
     }
 
-    public void setLoanedDate(Date loanedDate) {
+    public void setLoanedDate(String loanedDate) {
         this.loanedDate = loanedDate;
     }
 
@@ -72,20 +71,12 @@ public class Loan_Receipts {
         this.loanTerm = loanTerm;
     }
 
-    public double getFine() {
+    public String getFine() {
         return fine;
     }
 
-    public void setFine(double fine) {
+    public void setFine(String fine) {
         this.fine = fine;
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
     }
 
     public String getReturnDate() {

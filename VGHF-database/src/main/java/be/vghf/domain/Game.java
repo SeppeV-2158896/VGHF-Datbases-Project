@@ -39,8 +39,8 @@ public class Game {
     @ManyToMany(mappedBy = "games")
     private Set<Dev_company> devCompanies = new HashSet<>();
 
-    @ManyToMany(mappedBy = "games")
-    private Set<Loan_Receipts> loanReceipts = new HashSet<>();
+    @OneToMany(mappedBy = "customer")
+    private Set<Loan_Receipts> loaned_items = new HashSet<>();
 
     public int getGameID() {
         return gameID;

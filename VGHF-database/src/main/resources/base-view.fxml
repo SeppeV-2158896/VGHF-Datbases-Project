@@ -13,7 +13,7 @@
                <children>
                   <Button fx:id="loanedItemsButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Loaned Items" AnchorPane.leftAnchor="330.0" AnchorPane.topAnchor="10.0" />
                   <Button fx:id="browseButton" layoutY="25.0" mnemonicParsing="false" onAction="#handleBrowseButtonPressed" prefWidth="150.0" text="Browse" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                  <Button fx:id="eventsButton" layoutY="50.0" mnemonicParsing="false" prefWidth="150.0" text="Events and Locations" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="10.0" />
+                  <Button fx:id="eventsButton" layoutY="50.0" mnemonicParsing="false" onAction="#handleEventsButtonPressed" prefWidth="150.0" text="Events and Locations" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="10.0" />
                   <Button fx:id="usersButton" layoutY="75.0" mnemonicParsing="false" onAction="#handleUsersButtonPressed" prefWidth="150.0" text="Users" AnchorPane.leftAnchor="490.0" AnchorPane.topAnchor="10.0" />
                    <Button fx:id="accountButton" layoutY="100.0" mnemonicParsing="false" onAction="#handleAccountButtonPressed" prefWidth="150.0" text="Account" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                </children>
