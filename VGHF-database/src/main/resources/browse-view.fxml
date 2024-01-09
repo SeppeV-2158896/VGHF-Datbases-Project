@@ -30,7 +30,12 @@
     <Tab text="Consoles">
       <content>
           <VBox>
-              <TextField fx:id="consoleQueryField" promptText="Search..." AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="100"/>
+              <HBox spacing="10">
+                  <TextField fx:id="consoleQueryField" promptText="Search..." prefWidth="1050"/>
+                  <Button fx:id="addConsoleButton" text="Add" onAction="#handleAddConsole"/>
+                  <Button fx:id="deleteConsoleButton" text="Delete" onAction="#handleDeleteConsole"/>
+                  <Button fx:id="editConsoleButton" text="Edit" onAction="#handleEditConsole"/>
+              </HBox>
               <AnchorPane fx:id="consoleTab"></AnchorPane>
           </VBox>
       </content>

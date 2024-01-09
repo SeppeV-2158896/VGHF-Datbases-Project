@@ -41,6 +41,9 @@ public class BrowseController implements Controller{
     @FXML private ComboBox<String> companiesFilterComboBox;
     @FXML private TextField consoleQueryField;
     @FXML private Button addGameButton;
+    @FXML private Button addConsoleButton;
+    @FXML private Button deleteConsoleButton;
+    @FXML private Button editConsoleButton;
 
     //Games:
 
@@ -129,6 +132,10 @@ public class BrowseController implements Controller{
         ConsoleRepository cr = new ConsoleRepository();
         var consoles = cr.getAll();
         setConsolesInConsolePane(consoles);
+
+        addConsoleButton.setVisible(false);
+        deleteConsoleButton.setVisible(false);
+        editConsoleButton.setVisible(false);
 
         consoleQueryField.setOnKeyReleased(this::handleConsoleSearch);
     }
@@ -230,6 +237,7 @@ public class BrowseController implements Controller{
         String[] consoleSearch = consoleSearchText.split("\\s+");
         setConsolesInConsolePane(new ConsoleRepository().getConsoleByName(consoleSearch));
     }
+
     private void showGamesInTileView(Set<Game> games) {
 
         try {
@@ -290,6 +298,11 @@ public class BrowseController implements Controller{
         showGamesInTileView(games);
     }
 
+    public void handleConsoleCreated(Console console){
+        GenericRepository.save(console);
+        setConsolesInConsolePane(new ConsoleRepository().getAll());
+    }
+
     private void setConsolesInConsolePane(List<Console> consoles) {
         consoleTab.getChildren().clear();
 
@@ -316,5 +329,19 @@ public class BrowseController implements Controller{
         AnchorPane.setLeftAnchor(treeView, 0.0);
         AnchorPane.setRightAnchor(treeView, 0.0);
         AnchorPane.setTopAnchor(treeView, 0.0);
+    }
+
+    @FXML protected void handleAddConsole(ActionEvent event){
+        CreateConsoleController createConsoleController = new CreateConsoleController();
+        createConsoleController.setListener(this);
+        baseController.showView("Create new console", createConsoleController, "/createConsole-view.fxml");
+    }
+
+    @FXML protected void handleDeleteConsole(ActionEvent event){
+
+    }
+
+    @FXML protected void handleEditConsole(ActionEvent event){
+
     }
 }

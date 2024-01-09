@@ -33,7 +33,7 @@
     <Label text="Country"/>
     <TextField fx:id="countryField"/>
 
-    <Label text="Type"/>
+    <Label text="Location type"/>
     <ComboBox fx:id="typeComboBox"/>
 
     <HBox spacing="10" style="-fx-padding: 10 0 0 0;">

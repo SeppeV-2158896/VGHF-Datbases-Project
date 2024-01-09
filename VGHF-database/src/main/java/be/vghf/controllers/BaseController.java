@@ -140,6 +140,13 @@ public class BaseController implements Controller{
 
             TextField searchBar = (TextField) subScene.lookup("#gameSearchText");
             AnchorPane.setLeftAnchor(searchBar, 60.0);
+
+            Button addConsoleButton = (Button) subScene.lookup("#addConsoleButton");
+            addConsoleButton.setVisible(true);
+            Button deleteConsoleButton = (Button) subScene.lookup("#deleteConsoleButton");
+            deleteConsoleButton.setVisible(true);
+            Button editConsoleButton = (Button) subScene.lookup("#editConsoleButton");
+            editConsoleButton.setVisible(true);
         }
     }
     @Override

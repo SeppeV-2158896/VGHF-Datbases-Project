@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            style="-fx-padding: 0 10 10 10;"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <Label fx:id="title" text="Create new console" styleClass="title" style="-fx-font-size: 24pt; -fx-font-weight: bold;"/>
+
+    <Label text="Console name"/>
+    <TextField fx:id="consoleNameField"/>
+
+    <Label text="Console type"/>
+    <ComboBox fx:id="typeComboBox"/>
+
+    <Label text="Company"/>
+    <Button fx:id="companyButton" text="Pick company" onAction="#handleChangeCompany"/>
+
+    <Label text="Release year"/>
+    <TextField fx:id="releaseYearField"/>
+
+    <Label text="Discontinued year"/>
+    <TextField fx:id="discontinuedYearField"/>
+
+    <Label text="Units sold (in million)"/>
+    <TextField fx:id="unitsSoldField"/>
+
+    <Label text="Remarks"/>
+    <TextField fx:id="remarksField"/>
+
+    <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+        <Button fx:id="saveButton" text="Save" onAction="#saveConsole" prefWidth="100"/>
+    </HBox>
+</VBox>
