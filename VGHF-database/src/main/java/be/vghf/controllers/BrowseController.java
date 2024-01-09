@@ -313,10 +313,12 @@ public class BrowseController implements Controller{
         consoleTab.getChildren().clear();
 
         VBox treeView = new VBox();
+        treeView.setSpacing(10);
+        VBox.setVgrow(treeView, Priority.ALWAYS);
 
         for (var console : consoles){
             AnchorPane pane = new AnchorPane();
-            pane.setPrefSize(1920, 60);
+            pane.setPrefWidth(1920);
 
             TreeItem<String> consoleRoot = new TreeItem<>("Console: " + console.getConsoleName());
             consoleRoot.getChildren().addAll(
@@ -329,6 +331,7 @@ public class BrowseController implements Controller{
 
             TreeView<String> consoleRootView = new TreeView<>(consoleRoot);
             consoleRootView.setPrefHeight(60);
+            consoleRootView.setPrefWidth(1920);
 
             consoleRootView.setOnMouseReleased(event -> {
                 if (event.getClickCount() == 2) {
