@@ -38,6 +38,7 @@ public class BrowseController implements Controller{
     @FXML private AnchorPane consoleTab;
     @FXML private TextField companySearchText;
     @FXML private ComboBox<String> companiesFilterComboBox;
+    @FXML private TextField consoleQueryField;
 
     //Games:
 
@@ -115,32 +116,13 @@ public class BrowseController implements Controller{
         ConsoleRepository cr = new ConsoleRepository();
         var consoles = cr.getAll();
         setConsolesInConsolePane(consoles);
+
+        consoleQueryField.setOnKeyReleased(this::handleConsoleSearch);
     }
-    private void setConsolesInConsolePane(List<Console> consoles) {
-        consoleTab.getChildren().clear();
-        TreeItem<String> root = new TreeItem<>("Consoles");
 
-        for (var console : consoles){
-            TreeItem<String> consoleRoot = new TreeItem<>("Console: " + console.getConsoleName());
-            consoleRoot.getChildren().addAll(
-                new TreeItem<>("Type: " + console.getConsoleType()),
-                new TreeItem<>("Company: " + console.getCompany().getCompanyName()),
-                new TreeItem<>("Production: " + console.getReleaseYear() + " - " + ((console.getDiscontinuationYear() == "") ? "N.A" : console.getDiscontinuationYear())),
-                new TreeItem<>("Units sold (mill): " + console.getUnitsSoldInMillions()),
-                new TreeItem<>("Remarks: " + console.getRemarks())
-            );
 
-            root.getChildren().add(consoleRoot);
-        }
-        TreeView<String> treeView = new TreeView<>(root);
 
-        consoleTab.resize(tabPane.getWidth(), tabPane.getHeight());
-        consoleTab.getChildren().add(treeView);
-        AnchorPane.setBottomAnchor(treeView, 0.0);
-        AnchorPane.setLeftAnchor(treeView, 0.0);
-        AnchorPane.setRightAnchor(treeView, 0.0);
-        AnchorPane.setTopAnchor(treeView, 0.0);
-    }
+
     @FXML protected void handleGameSearch(KeyEvent event) {
         if(event.getCode() != KeyCode.ENTER){
             return;
@@ -218,6 +200,15 @@ public class BrowseController implements Controller{
     private Set<Dev_company> queryCompaniesWithLocationFilter(String[] wordsArray) {
         return new Dev_companyRepository().getCompanyByLocation(wordsArray);
     }
+    private void handleConsoleSearch(KeyEvent keyEvent) {
+        if(keyEvent.getCode() != KeyCode.ENTER){
+            return;
+        }
+
+        String consoleSearchText = this.consoleQueryField.getText();
+        String[] consoleSearch = consoleSearchText.split("\\s+");
+        setConsolesInConsolePane(new ConsoleRepository().getConsoleByName(consoleSearch));
+    }
     private void showGamesInTileView(Set<Game> games) {
 
         try {
@@ -276,5 +267,32 @@ public class BrowseController implements Controller{
     public void updateGameDetails(Game newGame){
         Set<Game> games = Set.copyOf(gameRepository.getAll());
         showGamesInTileView(games);
+    }
+    private void setConsolesInConsolePane(List<Console> consoles) {
+        consoleTab.getChildren().clear();
+
+        TreeItem<String> root = new TreeItem<>("Consoles");
+
+        for (var console : consoles){
+            TreeItem<String> consoleRoot = new TreeItem<>("Console: " + console.getConsoleName());
+            consoleRoot.getChildren().addAll(
+                    new TreeItem<>("Type: " + console.getConsoleType()),
+                    new TreeItem<>("Company: " + console.getCompany().getCompanyName()),
+                    new TreeItem<>("Production: " + console.getReleaseYear() + " - " + ((console.getDiscontinuationYear() == "") ? "N.A" : console.getDiscontinuationYear())),
+                    new TreeItem<>("Units sold (mill): " + console.getUnitsSoldInMillions()),
+                    new TreeItem<>("Remarks: " + console.getRemarks())
+            );
+
+            root.getChildren().add(consoleRoot);
+        }
+        root.setExpanded(true);
+        TreeView<String> treeView = new TreeView<>(root);
+
+        consoleTab.resize(tabPane.getWidth(), tabPane.getHeight());
+        consoleTab.getChildren().add(treeView);
+        AnchorPane.setBottomAnchor(treeView, 0.0);
+        AnchorPane.setLeftAnchor(treeView, 0.0);
+        AnchorPane.setRightAnchor(treeView, 0.0);
+        AnchorPane.setTopAnchor(treeView, 0.0);
     }
 }

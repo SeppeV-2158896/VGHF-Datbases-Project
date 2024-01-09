@@ -4,7 +4,10 @@ import be.vghf.domain.Console;
 import be.vghf.domain.Game;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ConsoleRepository implements Repository{
     public ConsoleRepository(){}
@@ -19,7 +22,7 @@ public class ConsoleRepository implements Repository{
     }
 
     public List<Console> getConsoleByName(String[] name){
-        ArrayList<Console> consoles = new ArrayList<>();
+        Set<Console> consoles = new HashSet<>();
         for(String str : name){
             var criteriaBuilder = EntityManagerSingleton.getInstance().getCriteriaBuilder();
             var query = criteriaBuilder.createQuery(Console.class);
@@ -29,12 +32,8 @@ public class ConsoleRepository implements Repository{
 
             List<Console> queryResults = GenericRepository.query(query);
 
-            for(Console console : queryResults){
-                if(!consoles.contains(console)){
-                    consoles.add(console);
-                }
-            }
+            consoles.addAll(queryResults);
         }
-        return consoles;
+        return new ArrayList<>(consoles);
     }
 }
