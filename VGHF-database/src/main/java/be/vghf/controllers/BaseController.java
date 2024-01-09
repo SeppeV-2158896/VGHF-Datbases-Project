@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -132,6 +133,12 @@ public class BaseController implements Controller{
 
         if (ActiveUser.user.getUserType().equals(UserType.VOLUNTEER)) {
             usersButton.setVisible(true);
+
+            Button addGameButton = (Button) subScene.lookup("#addGameButton");
+            addGameButton.setVisible(true);
+
+            TextField searchBar = (TextField) subScene.lookup("#gameSearchText");
+            AnchorPane.setLeftAnchor(searchBar, 60.0);
         }
     }
     @Override

@@ -7,6 +7,7 @@ import be.vghf.repository.Loan_ReceiptsRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -38,6 +39,8 @@ public class GameAdminController implements Controller {
 
     @FXML
     private Button deleteButton;
+    @FXML
+    private Label windowTitle;
 
     @FXML private Button loanButton;
 
@@ -47,18 +50,37 @@ public class GameAdminController implements Controller {
 
     // Inject your Game instance here
     private Game game;
+    private boolean newGame = false;
+
+    @FXML protected void initialize(){
+        if(!newGame){
+            populateFields();
+            windowTitle.setText("Game details");
+        }
+        else{
+            game = new Game();
+        }
+    }
 
     // Set the Game instance from your main application
     public void setGame(Game game) {
         this.game = game;
-        populateFields();
+    }
+
+    public void setNewGame(boolean isNewGame){
+        this.newGame = isNewGame;
     }
     public void saveGame(ActionEvent event) {
         game.setTitle(titleField.getText());
         game.setReleaseDate(releaseDateField.getText());
         game.setGenre(genreField.getText());
 
-        GenericRepository.update(game);
+        if(!newGame){
+            GenericRepository.update(game);
+        }
+        else{
+            GenericRepository.save(game);
+        }
 
         ((BrowseController) listener).updateGameDetails(game);
 
