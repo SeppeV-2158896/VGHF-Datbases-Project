@@ -95,7 +95,7 @@ public class EventsController implements Controller {
             if (ActiveUser.user == null){
                 BrowseController bController = new BrowseController();
                 baseController.changeSubscene("/browse-view.fxml", bController);
-                bController.initializeGamesWithLocation("Mario");
+                bController.initializeGamesWithLocation(location);
             }
             if (ActiveUser.user.getUserType() == UserType.VOLUNTEER){
                 return;
