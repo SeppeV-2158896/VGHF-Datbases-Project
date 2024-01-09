@@ -92,13 +92,14 @@ public class EventsController implements Controller {
         // This functionality might involve creating a new controller/view to display games
         // and linking it to this button action
 
-            if (ActiveUser.user == null){
+            if (ActiveUser.user == null || ActiveUser.user.getUserType() == UserType.CUSTOMER){
                 BrowseController bController = new BrowseController();
                 baseController.changeSubscene("/browse-view.fxml", bController);
                 bController.initializeGamesWithLocation(location);
-            }
-            if (ActiveUser.user.getUserType() == UserType.VOLUNTEER){
-                return;
+            }else if (ActiveUser.user.getUserType() == UserType.VOLUNTEER){
+                var controller = new GamesAtLocationController();
+                baseController.changeSubscene("/location-games-tree-view.fxml", controller);
+                controller.initialize(location);
             }
     }
 
