@@ -47,7 +47,6 @@ public class BrowseController implements Controller{
 
     //Consoles:
 
-    //TODO: Seppe: Toevoegen van de filters
     //TODO: Seppe: Als je op een console rechter klikt ofzo dan opent de game tab zich terug met alle spellen van die console}
     //TODO: Pex: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
 
@@ -119,10 +118,6 @@ public class BrowseController implements Controller{
 
         consoleQueryField.setOnKeyReleased(this::handleConsoleSearch);
     }
-
-
-
-
     @FXML protected void handleGameSearch(KeyEvent event) {
         if(event.getCode() != KeyCode.ENTER){
             return;

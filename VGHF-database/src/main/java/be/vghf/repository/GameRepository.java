@@ -1,12 +1,14 @@
 package be.vghf.repository;
 
 import be.vghf.domain.Game;
+import be.vghf.domain.Location;
 import be.vghf.domain.User;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GameRepository implements Repository{
     public GameRepository(){}
@@ -35,5 +37,10 @@ public class GameRepository implements Repository{
             games.addAll(queryResults);
         }
         return games;
+    }
+
+    public Set<Game> getAllByLocation(Location location) {
+        var allGames = getAll();
+        return allGames.stream().filter(game -> game.getCurrentLocation() == location).collect(Collectors.toSet());
     }
 }
