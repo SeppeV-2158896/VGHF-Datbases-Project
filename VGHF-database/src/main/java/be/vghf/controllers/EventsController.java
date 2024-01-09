@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
@@ -19,11 +20,10 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class EventsController implements Controller {
-
+    private BaseController baseController;
     @FXML
     private TilePane locationsTilePane;
 
-    private BaseController baseController;
 
     @FXML public void initialize(){
         setLocations(new LocationRepository().getAll());
@@ -88,12 +88,24 @@ public class EventsController implements Controller {
     }
 
     private void handleGames(Location location) {
+        // Code to open a screen with games available at the location
+        // This functionality might involve creating a new controller/view to display games
+        // and linking it to this button action
 
+            if (ActiveUser.user == null){
+                BrowseController bController = new BrowseController();
+                baseController.changeSubscene("/browse-view.fxml", bController);
+                bController.initializeGamesWithLocation("Mario");
+            }
+            if (ActiveUser.user.getUserType() == UserType.VOLUNTEER){
+                return;
+            }
     }
 
     @Override
     public void setBaseController(BaseController baseController) {
         this.baseController = baseController;
+        baseController.setListener(this);
     }
 
     @Override
