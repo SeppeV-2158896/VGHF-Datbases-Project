@@ -24,7 +24,6 @@ public class SelectCompanyController implements Controller{
     @FXML private TextField companyField;
     @FXML private TableView<Dev_company> table;
     @FXML private Button addButton;
-    @FXML private Button deleteButton;
     @FXML private Button confirmButton;
     private BaseController baseController;
     private Controller listener;
@@ -81,10 +80,6 @@ public class SelectCompanyController implements Controller{
     }
 
     @FXML protected void addCompany(ActionEvent event){
-
-    }
-
-    @FXML protected void deleteCompany(ActionEvent event){
 
     }
 

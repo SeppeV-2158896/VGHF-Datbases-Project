@@ -28,8 +28,6 @@ public class SelectLocationController implements Controller{
     @FXML
     private Button addButton;
     @FXML
-    private Button deleteButton;
-    @FXML
     private Button confirmButton;
     private BaseController baseController;
     private Controller listener;
@@ -111,18 +109,6 @@ public class SelectLocationController implements Controller{
 
         table.getItems().add(location);
     }
-
-    @FXML protected void deleteLocation(ActionEvent event){
-        Location location = table.getSelectionModel().getSelectedItem();
-        GenericRepository.delete(location);
-
-        confirmButton.setDisable(true);
-
-        var items = table.getItems();
-        items.remove(location);
-        table.setItems(items);
-    }
-
     @FXML protected void confirmSelectedLocation(ActionEvent event){
         Location selectedLocation = table.getSelectionModel().getSelectedItem();
         if (selectedLocation != null && listener != null) {
