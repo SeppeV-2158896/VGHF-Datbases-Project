@@ -42,6 +42,8 @@ public class Dev_company implements Serializable {
     @Column (name = "country")
     private String country;
 
+
+
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "bridge_games_devcompanies",
@@ -132,6 +134,14 @@ public class Dev_company implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Set<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(Set<Game> games) {
+        this.games = games;
     }
 
     public String getAddress(){

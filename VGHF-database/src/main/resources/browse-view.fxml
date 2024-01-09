@@ -13,9 +13,9 @@
 <?import javafx.scene.control.Button?>
 <TabPane tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:id="tabPane">
   <tabs>
-    <Tab text="Games">
+    <Tab text="Games" fx:id="gamesTab">
          <content>
-                <AnchorPane fx:id="gamesTab" >
+                <AnchorPane fx:id="gamesTabPane" >
                    <children>
                        <HBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" spacing="10">
                            <Button fx:id="addGameButton" text="Add" onAction="#handleAddGame"/>

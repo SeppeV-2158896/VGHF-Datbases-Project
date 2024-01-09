@@ -33,8 +33,10 @@
     <Button fx:id="currentLocationButton" onAction="#editLocation" text="Pick current location"/>
 
     <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
-        <Button text="Save" onAction="#saveGame"/>
-        <Button text="Delete" onAction="#deleteGame"/>
+        <Button fx:id="saveButton" text="Save" onAction="#saveGame"/>
+        <Button fx:id="deleteButton" text="Delete" onAction="#deleteGame"/>
+        <Button fx:id="loanButton" text="Loan" onAction="#loanGame"/>
+        <Button fx:id="returnButton" text="Return" onAction="#returnGame"/>
     </HBox>
 
 </VBox>

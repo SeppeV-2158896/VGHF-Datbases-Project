@@ -3,6 +3,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+.db
 
 *.db
 
@@ -42,3 +43,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+.db

@@ -86,7 +86,9 @@ public class EditUserController implements Controller{
             user.setEmail(emailField.getText());
             user.setPassword(passwordField.getText());
 
-            ((UsersController) listener).userEdited(user);
+            if (listener.getClass() == UsersController.class) {
+                ((UsersController) listener).userEdited(user);
+            }
 
             Button sourceButton = (Button) event.getSource();
             Stage stage = (Stage) sourceButton.getScene().getWindow();

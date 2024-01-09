@@ -15,7 +15,6 @@
                 <Button fx:id="editButton" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="650" prefWidth="150"/>
                 <Button fx:id="loansButton" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="490" prefWidth="150"/>
                 <Button fx:id="addButton" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="650" prefWidth="150"/>
-                <Button fx:id="deleteButton" AnchorPane.topAnchor="50" AnchorPane.rightAnchor="650" prefWidth="150"/>
             </AnchorPane>
             <AnchorPane>
                 <TableView fx:id="userTableView" onMouseClicked="#handleItemSelected" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="650.0"/>

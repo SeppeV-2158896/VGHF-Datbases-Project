@@ -10,8 +10,10 @@ import be.vghf.repository.ConsoleRepository;
 import be.vghf.repository.GameRepository;
 import be.vghf.repository.GenericRepository;
 import be.vghf.repository.Loan_ReceiptsRepository;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -30,6 +32,7 @@ public class ControlPannelController implements Controller{
 
     @FXML private TextField gameSearchText;
     @FXML private TilePane gamesTableView;
+    @FXML private Button refreshButton;
 
     private Location location;
     private BaseController baseController;
@@ -50,12 +53,17 @@ public class ControlPannelController implements Controller{
         showGamesInTileView(new HashSet<>(games));
 
         gameSearchText.setOnKeyReleased(this::handleGameSearch);
+        refreshButton.setOnAction(this::refreshView);
     }
 
     public void setLocation(Location location){
         this.location = location;
-        showGamesInTileView(new GameRepository().getAllByLocation(location));
+        refreshView(null);
 
+    }
+
+    private void refreshView(ActionEvent event){
+        showGamesInTileView(new GameRepository().getAllByLocation(location));
     }
 
     private void handleGameSearch(KeyEvent keyEvent) {
@@ -65,7 +73,10 @@ public class ControlPannelController implements Controller{
 
         String gameSearchText = this.gameSearchText.getText();
         String[] gameSearch = gameSearchText.split("\\s+");
-        Set<Game> gameResults = null;
+        Set<Game> gameResults = GameRepository.getGameByName(gameSearch);
+        gameResults.stream()
+                        .filter(game -> game.getCurrentLocation() == this.location)
+                                .collect(Collectors.toSet());
 
         showGamesInTileView(gameResults);
     }
