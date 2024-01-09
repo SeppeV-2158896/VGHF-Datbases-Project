@@ -16,7 +16,7 @@
          <content>
                 <AnchorPane fx:id="gamesTab" >
                    <children>
-                       <TextField fx:id="gameSearchText" promptText="Zoeken..." AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="100"/>
+                       <TextField fx:id="gameSearchText" promptText="Search..." AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="100"/>
                        <ComboBox fx:id="gamesFilterComboBox" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10"/>
                        <TilePane fx:id="gamesTableView" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="50"/>
                    </children>
@@ -25,8 +25,10 @@
     </Tab>
     <Tab text="Consoles">
       <content>
-        <AnchorPane fx:id="consoleTab">
-        </AnchorPane>
+          <VBox>
+              <TextField fx:id="consoleQueryField" promptText="Search..." AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="100"/>
+              <AnchorPane fx:id="consoleTab"></AnchorPane>
+          </VBox>
       </content>
     </Tab>
       <Tab text="Companies">
