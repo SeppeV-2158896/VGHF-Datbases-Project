@@ -57,24 +57,8 @@ public class EventsController implements Controller {
         List<Location> locationResults = null;
 
         if(this.locationSearchText.getText() != ""){
-            String locationSearchText = this.locationSearchText.getText();
-            String[] locationSearch = locationSearchText.split("\\s+");
-            if(locationType == "Private"){
-                locationResults = queryPrivateLocations(locationSearch);
-            }else if(locationType == "Expo"){
-                locationResults = queryExpoLocations(locationSearch);
-            }else if(locationType == "Library"){
-                locationResults = queryLibraryLocations(locationSearch);
-            }else if(locationType == "Storage"){
-                locationResults = queryStorageLocations(locationSearch);
-            }else if(locationType == "museum"){
-                locationResults = queryMuseumLocations(locationSearch);
-
-            }else{
-                locationResults = queryLocationsWithoutType(locationSearch);
-            }
-            setLocations(locationResults);
-            return;
+           queryLocationsWithAddress();
+           return;
         }
 
         if(locationType == "Private"){
@@ -97,22 +81,27 @@ public class EventsController implements Controller {
         if(event.getCode() != KeyCode.ENTER){
             return;
         }
+        queryLocationsWithAddress();
+    }
 
+    private void queryLocationsWithAddress(){
         String locationType = locationTypeComboBox.getValue();
 
         String locationSearchText = this.locationSearchText.getText();
         String[] locationSearch = locationSearchText.split("\\s+");
+
         List<Location> locationResults = null;
+
         if(locationType == "Private"){
-            locationResults = queryPrivateLocations(locationSearch);
+            locationResults = queryLocationsWithType(locationSearch, LocationType.PRIVATE);
         }else if(locationType == "Expo"){
-            locationResults = queryExpoLocations(locationSearch);
+            locationResults = queryLocationsWithType(locationSearch, LocationType.EXPO);
         }else if(locationType == "Library"){
-            locationResults = queryLibraryLocations(locationSearch);
+            locationResults = queryLocationsWithType(locationSearch, LocationType.LIBRARY);
         }else if(locationType == "Storage"){
-            locationResults = queryStorageLocations(locationSearch);
+            locationResults = queryLocationsWithType(locationSearch, LocationType.STORAGE);
         }else if(locationType == "Museum"){
-            locationResults = queryMuseumLocations(locationSearch);
+            locationResults = queryLocationsWithType(locationSearch, LocationType.MUSEUM);
         }else{
             locationResults = queryLocationsWithoutType(locationSearch);
         }
@@ -123,34 +112,13 @@ public class EventsController implements Controller {
         var results = locationRepository.getLocationByAddress(locationSearch);
         return results;
     }
-    private List<Location> queryMuseumLocations(String[] locationSearch) {
+
+    private List<Location> queryLocationsWithType(String[] locationSearch, LocationType type) {
         var addressResults = locationRepository.getLocationByAddress(locationSearch);
-        var results = locationRepository.getLocationByType(LocationType.MUSEUM, addressResults);
+        var results = locationRepository.getLocationByType(type, addressResults);
+
         return results;
     }
-
-    private List<Location> queryStorageLocations(String[] locationSearch) {
-        var addressResults = locationRepository.getLocationByAddress(locationSearch);
-        var results = locationRepository.getLocationByType(LocationType.STORAGE, addressResults);
-        return results;
-    }
-
-    private List<Location> queryLibraryLocations(String[] locationSearch) {
-        var addressResults = locationRepository.getLocationByAddress(locationSearch);
-        var results = locationRepository.getLocationByType(LocationType.LIBRARY, addressResults);
-        return results;
-    }
-
-    private List<Location> queryExpoLocations(String[] locationSearch) {
-        var addressResults = locationRepository.getLocationByAddress(locationSearch);
-        var results = locationRepository.getLocationByType(LocationType.EXPO, addressResults);
-        return results;
-    }
-
-    private List<Location> queryPrivateLocations(String[] locationSearch) {
-        var addressResults = locationRepository.getLocationByAddress(locationSearch);
-        var results = locationRepository.getLocationByType(LocationType.PRIVATE, addressResults);
-        return results;    }
 
     public void setLocations(List<Location> locations) {
         locationsTilePane.getChildren().clear();

@@ -36,8 +36,6 @@ public class BaseController implements Controller{
 
     //Events en Locations
     //TODO: Gitte: Toevoegen van een couch db server die als key de naam van een expo bevat met dan een korte bio en link naar de website
-    //TODO: Gitte: Toevoegen van filter (ComboBox voor type locatie) en queryfield voor locatie
-
 
     @FXML
     public void initialize() {
