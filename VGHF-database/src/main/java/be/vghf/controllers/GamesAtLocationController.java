@@ -5,6 +5,8 @@ import be.vghf.domain.Location;
 import be.vghf.enums.UserType;
 import be.vghf.models.ActiveUser;
 import be.vghf.repository.GameRepository;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -13,6 +15,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 
 import java.util.*;
 
@@ -39,6 +42,17 @@ public class GamesAtLocationController implements Controller {
             for(var game: games) {
                 TreeItem<String>  gameItem = new TreeItem<>("Game: " + game.getTitle());
                 locationRoot.getChildren().add(gameItem);
+                var listener = this;
+                gameItem.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>(){
+                    @Override
+                    public void handle(MouseEvent event) {
+                        System.out.println("Game clicked: " + game.getTitle());
+                        GameAdminController gaController = new GameAdminController();
+                        baseController.showView("Game details", gaController, "/gameAdmin-view.fxml");
+                        gaController.setGame(game);
+                        gaController.setListener(listener);
+                    }
+                });
             }
             root.getChildren().add(locationRoot);
         }
@@ -52,6 +66,8 @@ public class GamesAtLocationController implements Controller {
         AnchorPane.setRightAnchor(treeView, 0.0);
         AnchorPane.setTopAnchor(treeView, 0.0);
     }
+
+
 
     private Map<Location, List<Game>> makeHomebaseMap(Location location){
         Map<Location, List<Game>> homebaseMap = new HashMap<>();

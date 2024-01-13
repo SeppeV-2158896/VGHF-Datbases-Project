@@ -13,7 +13,7 @@
             -fx-padding: 20;
         </style>
 
-        <Label text="You're not yet logged in.">
+        <Label fx:id="loginText">
             <style>
                 -fx-font-size: 16px;
                 -fx-font-weight: bold;

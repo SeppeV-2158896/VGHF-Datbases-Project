@@ -49,15 +49,6 @@ public class BrowseController implements Controller{
     @FXML private Tab gamesTab;
     private Console selectedConsole = null;
 
-    //Games:
-    //TODO: Pex: Als je als VOLUNTEER op een game klikt moet je de locatie, owner en homebase kunnen aanpassen door te kiezen uit een lijst waarin je kan filteren
-    //TODO: Pex: VOLUNTEER moet game kunnen toevoegen
-
-    //Consoles:
-    //TODO: Pex: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
-
-    //Companies:
-    //TODO: Pex: VOLUNTEER moet consoles kunnen aanpassen, toevoegen en verwijderen
 
     @Override
     public void setBaseController(BaseController baseController) {
@@ -71,7 +62,7 @@ public class BrowseController implements Controller{
     }
 
     @FXML public void initialize(){
-        tabPane.resize(1920,1080);
+        tabPane.resize(1850,1080);
         initializeGamesBrowser();
         initializeCompanyBrowser();
         initializeConsoleBrowser();
@@ -281,7 +272,7 @@ public class BrowseController implements Controller{
     private AnchorPane createTileView(Game game){
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setPrefSize(200, 100);
-        anchorPane.setStyle("-fx-background-color: #81fa84");
+        anchorPane.setStyle("-fx-background-color: #D1ABD9");
 
         VBox layout = new VBox();
 

@@ -13,31 +13,13 @@
             -fx-padding: 20;
         </style>
 
-        <Label fx:id="loginText">
+        <Label fx:id="logoutText">
             <style>
                 -fx-font-size: 16px;
                 -fx-font-weight: bold;
                 -fx-text-fill: #333333;
             </style>
         </Label>
-
-        <Button text="Register" onAction="#handleRegisterButton" fx:id="registerButton">
-            <style>
-                -fx-background-color: #4CAF50;
-                -fx-text-fill: white;
-                -fx-font-size: 14px;
-                -fx-padding: 10 20;
-            </style>
-        </Button>
-
-        <Button text="Login" onAction="#handleLoginButton" fx:id="loginButton">
-            <style>
-                -fx-background-color: #4CAF50;
-                -fx-text-fill: white;
-                -fx-font-size: 14px;
-                -fx-padding: 10 20;
-            </style>
-        </Button>
 
     <Button text="Logout" onAction="#handleLogoutButton" fx:id="logoutButton">
         <style>
