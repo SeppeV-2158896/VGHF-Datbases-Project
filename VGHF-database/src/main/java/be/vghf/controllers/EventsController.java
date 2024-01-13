@@ -1,15 +1,19 @@
 package be.vghf.controllers;
 
+import be.vghf.domain.Game;
 import be.vghf.domain.Location;
 import be.vghf.enums.LocationType;
 import be.vghf.enums.UserType;
 import be.vghf.models.ActiveUser;
+import be.vghf.repository.GameRepository;
 import be.vghf.repository.LocationRepository;
+import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
@@ -17,19 +21,139 @@ import javafx.scene.layout.TilePane;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class EventsController implements Controller {
     private BaseController baseController;
+    private LocationRepository locationRepository;
     @FXML
     private TilePane locationsTilePane;
 
+    @FXML private TextField locationSearchText;
+    @FXML private ComboBox<String> locationTypeComboBox;
 
     @FXML public void initialize(){
-        setLocations(new LocationRepository().getAll());
+        locationRepository = new LocationRepository();
+        setLocations(locationRepository.getAll());
+
+        locationTypeComboBox.setPromptText("Location type");
+        locationTypeComboBox.getItems().add("All");
+        locationTypeComboBox.getItems().add("Expo");
+        locationTypeComboBox.getItems().add("Library");
+        locationTypeComboBox.getItems().add("Museum");
+        if (ActiveUser.user != null && ActiveUser.user.getUserType() == UserType.VOLUNTEER) {
+            locationTypeComboBox.getItems().add("Private");
+            locationTypeComboBox.getItems().add("Storage");
+        }
+
+        locationTypeComboBox.setOnAction(this::handleLocationTypeChanged);
+        locationSearchText.setOnKeyReleased(this::handleLocationSearch);
+
     }
 
+    @FXML protected void handleLocationTypeChanged(ActionEvent actionEvent) {
+        String locationType = locationTypeComboBox.getValue();
+        List<Location> locationResults = null;
+
+        if(this.locationSearchText.getText() != ""){
+            String locationSearchText = this.locationSearchText.getText();
+            String[] locationSearch = locationSearchText.split("\\s+");
+            if(locationType == "Private"){
+                locationResults = queryPrivateLocations(locationSearch);
+            }else if(locationType == "Expo"){
+                locationResults = queryExpoLocations(locationSearch);
+            }else if(locationType == "Library"){
+                locationResults = queryLibraryLocations(locationSearch);
+            }else if(locationType == "Storage"){
+                locationResults = queryStorageLocations(locationSearch);
+            }else if(locationType == "museum"){
+                locationResults = queryMuseumLocations(locationSearch);
+
+            }else{
+                locationResults = queryLocationsWithoutType(locationSearch);
+            }
+            setLocations(locationResults);
+            return;
+        }
+
+        if(locationType == "Private"){
+            locationResults = locationRepository.getLocationByType(LocationType.PRIVATE, locationRepository.getAll());
+        }else if(locationType == "Expo"){
+            locationResults = locationRepository.getLocationByType(LocationType.EXPO, locationRepository.getAll());
+        }else if(locationType == "Library"){
+            locationResults = locationRepository.getLocationByType(LocationType.LIBRARY, locationRepository.getAll());
+        }else if(locationType == "Storage") {
+            locationResults = locationRepository.getLocationByType(LocationType.STORAGE, locationRepository.getAll());
+        }else if(locationType == "Museum") {
+            locationResults = locationRepository.getLocationByType(LocationType.MUSEUM, locationRepository.getAll());
+        }else{
+            locationResults = locationRepository.getAll();
+        }
+        setLocations(locationResults);
+    }
+
+    @FXML protected void handleLocationSearch(KeyEvent event) {
+        if(event.getCode() != KeyCode.ENTER){
+            return;
+        }
+
+        String locationType = locationTypeComboBox.getValue();
+
+        String locationSearchText = this.locationSearchText.getText();
+        String[] locationSearch = locationSearchText.split("\\s+");
+        List<Location> locationResults = null;
+        if(locationType == "Private"){
+            locationResults = queryPrivateLocations(locationSearch);
+        }else if(locationType == "Expo"){
+            locationResults = queryExpoLocations(locationSearch);
+        }else if(locationType == "Library"){
+            locationResults = queryLibraryLocations(locationSearch);
+        }else if(locationType == "Storage"){
+            locationResults = queryStorageLocations(locationSearch);
+        }else if(locationType == "Museum"){
+            locationResults = queryMuseumLocations(locationSearch);
+        }else{
+            locationResults = queryLocationsWithoutType(locationSearch);
+        }
+        setLocations(locationResults);
+    }
+
+    private List<Location> queryLocationsWithoutType(String[] locationSearch) {
+        var results = locationRepository.getLocationByAddress(locationSearch);
+        return results;
+    }
+    private List<Location> queryMuseumLocations(String[] locationSearch) {
+        var addressResults = locationRepository.getLocationByAddress(locationSearch);
+        var results = locationRepository.getLocationByType(LocationType.MUSEUM, addressResults);
+        return results;
+    }
+
+    private List<Location> queryStorageLocations(String[] locationSearch) {
+        var addressResults = locationRepository.getLocationByAddress(locationSearch);
+        var results = locationRepository.getLocationByType(LocationType.STORAGE, addressResults);
+        return results;
+    }
+
+    private List<Location> queryLibraryLocations(String[] locationSearch) {
+        var addressResults = locationRepository.getLocationByAddress(locationSearch);
+        var results = locationRepository.getLocationByType(LocationType.LIBRARY, addressResults);
+        return results;
+    }
+
+    private List<Location> queryExpoLocations(String[] locationSearch) {
+        var addressResults = locationRepository.getLocationByAddress(locationSearch);
+        var results = locationRepository.getLocationByType(LocationType.EXPO, addressResults);
+        return results;
+    }
+
+    private List<Location> queryPrivateLocations(String[] locationSearch) {
+        var addressResults = locationRepository.getLocationByAddress(locationSearch);
+        var results = locationRepository.getLocationByType(LocationType.PRIVATE, addressResults);
+        return results;    }
+
     public void setLocations(List<Location> locations) {
+        locationsTilePane.getChildren().clear();
         locationsTilePane.getChildren().addAll(
                 locations.stream()
                         .filter(location -> {
@@ -88,10 +212,6 @@ public class EventsController implements Controller {
     }
 
     private void handleGames(Location location) {
-        // Code to open a screen with games available at the location
-        // This functionality might involve creating a new controller/view to display games
-        // and linking it to this button action
-
             if (ActiveUser.user == null || ActiveUser.user.getUserType() == UserType.CUSTOMER){
                 BrowseController bController = new BrowseController();
                 baseController.changeSubscene("/browse-view.fxml", bController);

@@ -66,7 +66,6 @@ public class BrowseController implements Controller{
         initializeGamesBrowser();
         initializeCompanyBrowser();
         initializeConsoleBrowser();
-
     }
 
     private void initializeGamesBrowser(){
@@ -86,6 +85,25 @@ public class BrowseController implements Controller{
         companySearchText.setOnKeyReleased(this::handleCompanySearch);
     }
 
+    public void update(){
+        if (ActiveUser.user == null) {
+            addGameButton.setVisible(false);
+            AnchorPane.setLeftAnchor(gameSearchText, 0.0);
+            addConsoleButton.setVisible(false);
+            editConsoleButton.setVisible(false);
+            addCompanyButton.setVisible(false);
+            editCompanyButton.setVisible(false);
+            return;
+        }
+        if (ActiveUser.user.getUserType().equals(UserType.VOLUNTEER)) {
+            addGameButton.setVisible(true);
+            AnchorPane.setLeftAnchor(gameSearchText, 60.0);
+            addConsoleButton.setVisible(true);
+            editConsoleButton.setVisible(true);
+            addCompanyButton.setVisible(true);
+            editCompanyButton.setVisible(true);
+        }
+    }
     public void initializeGamesWithLocation(Location location){
         showGamesInTileView(new GameRepository().getAllByLocation(location));
     }

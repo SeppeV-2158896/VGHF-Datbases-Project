@@ -37,8 +37,6 @@ public class BaseController implements Controller{
     //Events en Locations
     //TODO: Gitte: Toevoegen van een couch db server die als key de naam van een expo bevat met dan een korte bio en link naar de website
     //TODO: Gitte: Toevoegen van filter (ComboBox voor type locatie) en queryfield voor locatie
-    //TODO: Gitte: als volunteer klikt op game in treeview, open gameAdminView
-
 
 
     @FXML
@@ -57,7 +55,9 @@ public class BaseController implements Controller{
         }
     }
     @FXML protected void handleBrowseButtonPressed(ActionEvent event) throws IOException {
-        changeSubscene("/browse-view.fxml", new BrowseController());
+        BrowseController controller = new BrowseController();
+        changeSubscene("/browse-view.fxml", controller);
+        controller.update();
 
     }
     @FXML protected void handleEventsButtonPressed(ActionEvent event) throws IOException{
@@ -126,7 +126,18 @@ public class BaseController implements Controller{
 
         if (ActiveUser.user == null) {
             usersButton.setVisible(false);
+            Button addGameButton = (Button) subScene.lookup("#addGameButton");
+            if(addGameButton != null){ addGameButton.setVisible(false);}
 
+            Button addConsoleButton = (Button) subScene.lookup("#addConsoleButton");
+            if(addConsoleButton != null){addConsoleButton.setVisible(false);}
+            Button editConsoleButton = (Button) subScene.lookup("#editConsoleButton");
+            if(editConsoleButton != null){editConsoleButton.setVisible(false);}
+
+            Button addCompanyButton = (Button) subScene.lookup("#addCompanyButton");
+            if(addCompanyButton != null){addCompanyButton.setVisible(false);}
+            Button editCompanyButton = (Button) subScene.lookup("#editCompanyButton");
+            if(editCompanyButton != null){editCompanyButton.setVisible(false);}
             return;
         }
 
@@ -140,17 +151,17 @@ public class BaseController implements Controller{
 
 
             TextField searchBar = (TextField) subScene.lookup("#gameSearchText");
-            AnchorPane.setLeftAnchor(searchBar, 60.0);
+            if(searchBar != null){AnchorPane.setLeftAnchor(searchBar, 60.0);}
 
             Button addConsoleButton = (Button) subScene.lookup("#addConsoleButton");
-            addConsoleButton.setVisible(true);
+            if(addConsoleButton != null){addConsoleButton.setVisible(true);}
             Button editConsoleButton = (Button) subScene.lookup("#editConsoleButton");
-            editConsoleButton.setVisible(true);
+            if(editConsoleButton != null){editConsoleButton.setVisible(true);}
 
             Button addCompanyButton = (Button) subScene.lookup("#addCompanyButton");
-            addCompanyButton.setVisible(true);
+            if(addCompanyButton != null){addCompanyButton.setVisible(true);}
             Button editCompanyButton = (Button) subScene.lookup("#editCompanyButton");
-            editCompanyButton.setVisible(true);
+            if(editCompanyButton != null){editCompanyButton.setVisible(true);}
         }
     }
     @Override

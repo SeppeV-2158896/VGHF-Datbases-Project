@@ -23,6 +23,19 @@ public class LocationRepository implements Repository{
         return GenericRepository.query(query);
     }
 
+    public List<Location> getLocationByType(LocationType type, List<Location> locations){
+        ArrayList<Location> results = new ArrayList<>();
+
+        for(Location location: locations){
+            if(location.getLocationType() == type){
+                if(!results.contains(location)){
+                    results.add(location);
+                }
+            }
+        }
+        return results;
+    }
+
     public List<Location> getLocationByStreet(String[] street){
         ArrayList<Location> locations = new ArrayList<>();
         for(String str : street){

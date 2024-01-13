@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <VBox>
+        <HBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" spacing="10">
+            <TextField fx:id="locationSearchText" promptText="Search..." prefWidth="1050"/>
+            <ComboBox fx:id="locationTypeComboBox" prefWidth="150"/>
+        </HBox>
         <Label text="Available Locations" />
         <TilePane fx:id="locationsTilePane" prefColumns="3" />
     </VBox>
-</ScrollPane>
+</AnchorPane>

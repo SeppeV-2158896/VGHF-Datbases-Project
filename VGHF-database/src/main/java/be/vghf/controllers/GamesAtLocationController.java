@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
@@ -34,6 +35,7 @@ public class GamesAtLocationController implements Controller {
         Map<Location, List<Game>> homebaseMap = makeHomebaseMap(location);
         gamesAtLocationPane.getChildren().clear();
         TreeItem<String> root = new TreeItem<>("Games");
+        root.setExpanded(true);
         var locations = homebaseMap.keySet();
 
         for (var loc : locations){
@@ -42,8 +44,7 @@ public class GamesAtLocationController implements Controller {
             for(var game: games) {
                 TreeItem<String>  gameItem = new TreeItem<>("Game: " + game.getTitle());
                 locationRoot.getChildren().add(gameItem);
-                var listener = this;
-                gameItem.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>(){
+                /*gameItem.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>(){
                     @Override
                     public void handle(MouseEvent event) {
                         System.out.println("Game clicked: " + game.getTitle());
@@ -52,7 +53,7 @@ public class GamesAtLocationController implements Controller {
                         gaController.setGame(game);
                         gaController.setListener(listener);
                     }
-                });
+                });*/
             }
             root.getChildren().add(locationRoot);
         }
