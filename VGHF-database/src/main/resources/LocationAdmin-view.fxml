@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.ComboBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      style="-fx-padding: 0 10 10 10;"
+      prefWidth="400" prefHeight="400">
+ <!-- style="-fx-padding: boven rechts onder links;" -->
+
+    <Label fx:id="windowTitle" text="Create new location" styleClass="title" style="-fx-font-size: 24pt; -fx-font-weight: bold;"/>
+
+    <Label text="Streetname*"/>
+    <TextField fx:id="streetField"/>
+
+    <Label text="House number*"/>
+    <TextField fx:id="numberField"/>
+
+    <Label text="Bus"/>
+    <TextField fx:id="busField"/>
+
+    <Label text="Postalcode*"/>
+    <TextField fx:id="postalcodeField"/>
+
+    <Label text="City*"/>
+    <TextField fx:id="cityField"/>
+
+    <Label text="Country*"/>
+    <TextField fx:id="countryField"/>
+
+   <Label text="Location Type"/>
+   <ComboBox fx:id="locationTypeComboBox" prefWidth="150"/>
+
+    <Label text="Owner"/>
+    <Button fx:id="ownerButton" onAction="#editOwner" text="Pick owner"/>
+
+
+    <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+        <Button fx:id="saveButton" text="Save" onAction="#saveLocation"/>
+    </HBox>
+
+</VBox>

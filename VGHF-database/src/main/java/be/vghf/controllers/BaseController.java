@@ -59,7 +59,9 @@ public class BaseController implements Controller{
 
     }
     @FXML protected void handleEventsButtonPressed(ActionEvent event) throws IOException{
-        changeSubscene("/events-locations-view.fxml", new EventsController());
+        EventsController controller = new EventsController();
+        changeSubscene("/events-locations-view.fxml", controller);
+        controller.update();
     }
     @FXML protected void handleUsersButtonPressed(ActionEvent actionEvent) {
         changeSubscene("/users-view.fxml", new UsersController());
@@ -136,12 +138,12 @@ public class BaseController implements Controller{
             if(addCompanyButton != null){addCompanyButton.setVisible(false);}
             Button editCompanyButton = (Button) subScene.lookup("#editCompanyButton");
             if(editCompanyButton != null){editCompanyButton.setVisible(false);}
+
+            Button addLocationButton = (Button) subScene.lookup("#addLocationButton");
+            if(addLocationButton != null){addLocationButton.setVisible(false);}
             return;
-        }
 
-        loanedItemsButton.setVisible(true);
-
-        if (ActiveUser.user.getUserType().equals(UserType.VOLUNTEER)) {
+        }else if (ActiveUser.user.getUserType().equals(UserType.VOLUNTEER)) {
             usersButton.setVisible(true);
 
             Button addGameButton = (Button) subScene.lookup("#addGameButton");
@@ -160,6 +162,9 @@ public class BaseController implements Controller{
             if(addCompanyButton != null){addCompanyButton.setVisible(true);}
             Button editCompanyButton = (Button) subScene.lookup("#editCompanyButton");
             if(editCompanyButton != null){editCompanyButton.setVisible(true);}
+
+            Button addLocationButton = (Button) subScene.lookup("#addLocationButton");
+            if(addLocationButton != null){addLocationButton.setVisible(false);}
         }
     }
     @Override

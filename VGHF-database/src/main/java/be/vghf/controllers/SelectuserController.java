@@ -106,6 +106,8 @@ public class SelectuserController implements Controller{
 
             } else if(listener instanceof CreateLocationController){
                 ((CreateLocationController) listener).selectedOwnerConfirmed(selectedOwner);
+            } else if(listener instanceof  LocationAdminController){
+                ((LocationAdminController) listener).selectedUserConfirmed(selectedOwner);
             }
 
             Button sourceButton = (Button) event.getSource();

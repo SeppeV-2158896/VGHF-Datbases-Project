@@ -8,6 +8,7 @@ import be.vghf.models.ActiveUser;
 import be.vghf.repository.GameRepository;
 import be.vghf.repository.LocationRepository;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,9 +28,8 @@ import java.util.stream.Collectors;
 public class EventsController implements Controller {
     private BaseController baseController;
     private LocationRepository locationRepository;
-    @FXML
-    private TilePane locationsTilePane;
-
+    @FXML private TilePane locationsTilePane;
+    @FXML private Button addLocationButton;
     @FXML private TextField locationSearchText;
     @FXML private ComboBox<String> locationTypeComboBox;
 
@@ -49,9 +49,22 @@ public class EventsController implements Controller {
 
         locationTypeComboBox.setOnAction(this::handleLocationTypeChanged);
         locationSearchText.setOnKeyReleased(this::handleLocationSearch);
-
     }
 
+    public void update(){
+        if (ActiveUser.user == null) {
+            addLocationButton.setVisible(false);
+             return;
+        }
+        if (ActiveUser.user.getUserType().equals(UserType.VOLUNTEER)) {
+            addLocationButton.setVisible(true);
+        }
+    }
+
+    public void updateLocationDetails(Location newLocation){
+        List<Location> locations = locationRepository.getAll();
+        setLocations(locations);
+    }
     @FXML protected void handleLocationTypeChanged(ActionEvent actionEvent) {
         String locationType = locationTypeComboBox.getValue();
         List<Location> locationResults = null;
@@ -122,6 +135,8 @@ public class EventsController implements Controller {
 
     public void setLocations(List<Location> locations) {
         locationsTilePane.getChildren().clear();
+        locationsTilePane.setVgap(10);
+        locationsTilePane.setHgap(10);
         locationsTilePane.getChildren().addAll(
                 locations.stream()
                         .filter(location -> {
@@ -139,6 +154,8 @@ public class EventsController implements Controller {
 
     private AnchorPane createLocationTile(Location location) {
         AnchorPane anchorPane = new AnchorPane();
+        anchorPane.setPrefSize(200, 100);
+        anchorPane.setStyle("-fx-background-color: #DFA5B9");
 
         Label ownerLabel = new Label("Owner: " + location.getOwner().getFirstName() + " " + location.getOwner().getLastName());
         ownerLabel.setWrapText(true);
@@ -169,6 +186,21 @@ public class EventsController implements Controller {
         AnchorPane.setTopAnchor(controlPanelLink, 90.0);
         AnchorPane.setLeftAnchor(controlPanelLink, 10.0);
 
+        var listener = this;
+        anchorPane.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (ActiveUser.user == null){
+                    return;
+                }
+                if (ActiveUser.user.getUserType() == UserType.VOLUNTEER){
+                    LocationAdminController laController = new LocationAdminController();
+                    baseController.showView("Location details", laController, "/locationAdmin-view.fxml");
+                    laController.setLocation(location);
+                    laController.setListener(listener);
+                }
+            }
+        });
 
         return anchorPane;
     }
@@ -190,6 +222,13 @@ public class EventsController implements Controller {
                 controller.initialize(location);
                 controller.setBaseController(baseController);
             }
+    }
+
+    @FXML protected void handleAddLocation(ActionEvent event){
+        LocationAdminController adminController = new LocationAdminController();
+        adminController.setNewLocation(true);
+        adminController.setListener(this);
+        baseController.showView("Create new location", adminController, "/LocationAdmin-view.fxml");
     }
 
     @Override
