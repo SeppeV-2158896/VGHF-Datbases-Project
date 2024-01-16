@@ -34,6 +34,7 @@ public class EventsController implements Controller {
     @FXML private ComboBox<String> locationTypeComboBox;
 
     @FXML public void initialize(){
+        addLocationButton.setVisible(false);
         locationRepository = new LocationRepository();
         setLocations(locationRepository.getAll());
 

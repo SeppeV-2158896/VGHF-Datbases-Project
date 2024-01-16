@@ -34,12 +34,10 @@ public class BaseController implements Controller{
     private BaseController baseController = this;
 
 
-    //Events en Locations
-    //TODO: Gitte: Toevoegen van een couch db server die als key de naam van een expo bevat met dan een korte bio en link naar de website
-
     @FXML
     public void initialize() {
         usersButton.setVisible(false);
+        loanedItemsButton.setVisible(false);
 
         changeSubscene("/browse-view.fxml", new BrowseController());
 
@@ -126,6 +124,7 @@ public class BaseController implements Controller{
 
         if (ActiveUser.user == null) {
             usersButton.setVisible(false);
+            loanedItemsButton.setVisible(false);
             Button addGameButton = (Button) subScene.lookup("#addGameButton");
             if(addGameButton != null){ addGameButton.setVisible(false);}
 
@@ -145,7 +144,6 @@ public class BaseController implements Controller{
 
         }else if (ActiveUser.user.getUserType().equals(UserType.VOLUNTEER)) {
             usersButton.setVisible(true);
-
             Button addGameButton = (Button) subScene.lookup("#addGameButton");
             if(addGameButton != null){ addGameButton.setVisible(true);}
 
@@ -165,6 +163,9 @@ public class BaseController implements Controller{
 
             Button addLocationButton = (Button) subScene.lookup("#addLocationButton");
             if(addLocationButton != null){addLocationButton.setVisible(false);}
+        }
+        if(ActiveUser.user != null){
+            loanedItemsButton.setVisible(true);
         }
     }
     @Override
